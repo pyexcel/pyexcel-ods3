@@ -1,7 +1,7 @@
 from base import PyexcelMultipleSheetBase
 import pyexcel
 import os
-from pyexcel.ext import ods
+from pyexcel.ext import ods3
 from base import create_sample_file1
 
 
