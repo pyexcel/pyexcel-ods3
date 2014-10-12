@@ -10,6 +10,25 @@ pyexcel-ods3
 
 **pyexcel-ods** is a plugin to `pyexcel <https://github.com/chfw/pyexcel>`_ and provides the capbility to read, manipulate and write data in ods fromat using python 2.7, python 3.3 and python 3.4
 
+
+Installation
+============
+
+You can install it via pip::
+
+    $ pip install pyexcel-ods3
+
+
+or clone it and install it::
+
+    $ git clone http://github.com/chfw/pyexcel-ods3.git
+    $ cd pyexcel
+    $ python setup.py install
+
+
+The installation of `lxml` will be tricky on Widnows platform. It recommended that you download a lxml's own windows installer instead of using pip.
+
+
 Usage
 =====
 
