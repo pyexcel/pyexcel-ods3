@@ -1,22 +1,15 @@
-# Copyright 2011 Marco Conti
+"""
+    pyexcel_ods.cookbook
+    ~~~~~~~~~~~~~~~~~~~
 
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
+    ODS format plugin for pyexcel
 
-#   http://www.apache.org/licenses/LICENSE-2.0
-
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-# Thanks to grt for the fixes
+    :copyright: (c) 2014 by C. W.
+    :license: GPL v3
+"""
 import datetime
 import ezodf2 as ezodf
-from pyexcel.sheets import (STRING_FORMAT,
-                            FLOAT_FORMAT, EMPTY,
+from pyexcel.sheets import (FLOAT_FORMAT,
                             DATE_FORMAT, BOOLEAN_FORMAT)
 
 
