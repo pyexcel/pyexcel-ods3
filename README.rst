@@ -8,17 +8,17 @@ pyexcel-ods3
 .. image:: https://codecov.io/github/chfw/pyexcel-ods3/coverage.png
     :target: https://codecov.io/github/chfw/pyexcel-ods3
 
-.. image:: https://pypip.in/d/pyexcel/badge.png
-    :target: https://pypi.python.org/pypi/pyexcel
+.. image:: https://pypip.in/d/pyexcel-ods3/badge.png
+    :target: https://pypi.python.org/pypi/pyexcel-ods3
 
-.. image:: https://pypip.in/py_versions/pyexcel/badge.png
-    :target: https://pypi.python.org/pypi/pyexcel
+.. image:: https://pypip.in/py_versions/pyexcel-ods3/badge.png
+    :target: https://pypi.python.org/pypi/pyexcel-ods3
 
-.. image:: https://pypip.in/implementation/pyexcel/badge.png
-    :target: https://pypi.python.org/pypi/pyexcel
+.. image:: https://pypip.in/implementation/pyexcel-ods3/badge.png
+    :target: https://pypi.python.org/pypi/pyexcel-ods3
 
 
-**pyexcel-ods** is a plugin to `pyexcel <https://github.com/chfw/pyexcel>`_ and provides the capbility to read, manipulate and write data in ods fromat using python 2.7, python 3.3 and python 3.4. You are likely to use pyexcel instead of this plugin.
+**pyexcel-ods3** is a tiny wrapper library to read, manipulate and write data in ods fromat using python 2.7, python 3.3 and python 3.4. You are likely to use pyexcel instead of this plugin. `pyexcel-ods <https://github.com/chfw/pyexcel-ods>`_ is a sister library that does the same thing but supports python 2.6 and has no dependency on lxml.
 
 
 Installation
@@ -42,12 +42,47 @@ The installation of `lxml` will be tricky on Widnows platform. It recommended th
 Usage
 =====
 
+As a standalone library
+------------------------
+
+Read from an ods file
+**********************
+
+Here's the sample code::
+
+    from pyexcel_ods3 import ODSBook
+    import json
+
+    book = ODSBook("your_file.ods")
+    # book.sheets() returns a dictionary of all sheet content
+    #   the keys represents sheet names
+    #   the values are two dimensional array
+    print(book.sheets())
+
+Write to an ods file
+*********************
+
+Here's the sample code to write a dictionary to an ods file::
+
+    from pyexcel_ods3 import ODSWriter
+
+    data = {
+        "Sheet 1": [[1, 2, 3], [4, 5, 6]],
+        "Sheet 2": [["row 1", "row 2", "row 3"]]
+    }
+    writer = ODSWriter("your_file.ods")
+    writer.write(data)
+    writer.close()
+
+As a pyexcel plugin
+--------------------
+
 Import it in your file to enable this plugin::
 
     from pyexcel.ext import ods3
 
 Reading from an ods file
-------------------------
+************************
 
 Here is the sample code::
 
@@ -62,7 +97,7 @@ Here is the sample code::
     print json.dumps(data)
 
 Writing to an ods file
-----------------------
+**********************
 
 Here is the sample code::
 
@@ -78,6 +113,5 @@ Here is the sample code::
 Dependencies
 ============
 
-1. pyexcel >= 0.0.4
-2. lxml
-3. ezodf2
+1. lxml
+2. ezodf2

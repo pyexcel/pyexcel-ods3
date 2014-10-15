@@ -7,6 +7,7 @@
     :copyright: (c) 2014 by C. W.
     :license: GPL v3
 """
+import sys
 import datetime
 import ezodf2 as ezodf
 from pyexcel.sheets import (FLOAT_FORMAT,
@@ -68,6 +69,19 @@ VALUE_TOKEN = {
     "currency": "value"
 }
 
+ODS_WRITE_FORMAT_COVERSION = {
+    float: "float",
+    int: "float",
+    str: "string",
+    datetime.date: "date",
+    datetime.time: "time",
+    bool: "boolean"
+}
+
+
+if sys.version_info[0] < 3:
+    ODS_WRITE_FORMAT_COVERSION[unicode] = "string"
+
 
 class ODSBook:
 
@@ -127,7 +141,6 @@ class ODSSheetWriter:
         self.current_row = 0
 
     def set_size(self, size):
-        print(size)
         self.sheet.reset(size=size)
 
     def write_row(self, array):
@@ -136,9 +149,24 @@ class ODSSheetWriter:
         """
         count = 0
         for cell in array:
-            self.sheet[self.current_row, count].set_value(cell)
+            value_type = ODS_WRITE_FORMAT_COVERSION[type(cell)]
+            if value_type == "time":
+                cell = cell.strftime("PT%HH%MM%SS")
+            self.sheet[self.current_row, count].set_value(
+                cell,
+                value_type=value_type)
             count += 1
         self.current_row += 1
+
+    def write_array(self, table):
+        rows = len(table)
+        if rows > 0:
+            columns = max(map(len, table))
+        if columns == 0:
+            return
+        self.set_size((rows, columns))
+        for row in table:
+            self.write_row(row)
 
     def close(self):
         """
@@ -161,6 +189,18 @@ class ODSWriter:
         write a row into the file
         """
         return ODSSheetWriter(self.doc, name)
+
+    def write(self, sheet_dicts):
+        """Write a dictionary to a multi-sheet file
+
+        Requirements for the dictionary is: key is the sheet name,
+        its value must be two dimensional array
+        """
+        keys = sheet_dicts.keys()
+        for name in keys:
+            sheet = self.create_sheet(name)
+            sheet.write_array(sheet_dicts[name])
+            sheet.close()
 
     def close(self):
         """
