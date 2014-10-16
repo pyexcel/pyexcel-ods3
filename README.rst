@@ -15,7 +15,7 @@ pyexcel-ods3
     :target: https://pypi.python.org/pypi/pyexcel-ods3
 
 
-**pyexcel-ods3** is a tiny wrapper library to read, manipulate and write data in ods fromat using python 2.7, python 3.3 and python 3.4. You are likely to use pyexcel instead of this plugin. `pyexcel-ods <https://github.com/chfw/pyexcel-ods>`_ is a sister library that does the same thing but supports python 2.6 and has no dependency on lxml.
+**pyexcel-ods3** is a tiny wrapper library to read, manipulate and write data in ods fromat using python 2.7, python 3.3 and python 3.4. You are likely to use `pyexcel <https://github.com/chfw/pyexcel>`_ together with this library. `pyexcel-ods <https://github.com/chfw/pyexcel-ods>`_ is a sister library that does the same thing but supports python 2.6 and has no dependency on lxml.
 
 
 Installation
