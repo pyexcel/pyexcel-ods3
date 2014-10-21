@@ -10,8 +10,7 @@
 import sys
 import datetime
 import ezodf2 as ezodf
-from pyexcel.sheets import (FLOAT_FORMAT,
-                            DATE_FORMAT, BOOLEAN_FORMAT)
+from collections import OrderedDict
 
 
 def float_value(value):
@@ -41,12 +40,12 @@ def boolean_value(value):
 
 
 ODS_FORMAT_CONVERSION = {
-    "float": FLOAT_FORMAT,
-    "date": DATE_FORMAT,
-    "time": DATE_FORMAT,
-    "boolean": BOOLEAN_FORMAT,
-    "percentage": FLOAT_FORMAT,
-    "currency": FLOAT_FORMAT
+    "float": float,
+    "date": datetime.date,
+    "time": datetime.time,
+    "boolean": bool,
+    "percentage": float,
+    "currency": float
 }
 
 
@@ -88,7 +87,7 @@ class ODSBook:
     def __init__(self, file):
         """Load the file"""
         self.doc = ezodf.opendoc(file)
-        self.SHEETS = {}
+        self.SHEETS = OrderedDict()
         self.sheet_names = []
         for sheet in self.doc.sheets:
             self.readSheet(sheet)
