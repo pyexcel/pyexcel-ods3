@@ -12,7 +12,7 @@ import datetime
 import ezodf2 as ezodf
 from collections import OrderedDict
 if sys.version_info[0] < 3:
-    from io import StringIO
+    from StringIO import StringIO
 else:
     from io import BytesIO as StringIO
 

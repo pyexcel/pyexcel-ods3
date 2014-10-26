@@ -2,7 +2,7 @@ import os
 import pyexcel
 from pyexcel.ext import ods3
 import sys
-if sys.version_info[0]< 2:
+if sys.version_info[0]< 3:
     from StringIO import StringIO
 else:
     from io import BytesIO as StringIO
