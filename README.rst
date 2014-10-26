@@ -116,8 +116,7 @@ Here is the sample code::
 Dependencies
 ============
 
-1. lxml
-2. ezodf2
+1. ezodf2
 
 
 Test coverage
