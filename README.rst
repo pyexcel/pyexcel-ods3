@@ -38,7 +38,7 @@ The installation of `lxml` will be tricky on Widnows platform. It recommended th
 Constaint
 ==========
 
-**pyexcel-ods3** does not support memory file.
+**pyexcel-ods3** does not support memory file .
 
 Usage
 =====
