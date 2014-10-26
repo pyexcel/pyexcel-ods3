@@ -38,7 +38,7 @@ The installation of `lxml` will be tricky on Widnows platform. It recommended th
 Constaint
 ==========
 
-**pyexcel-ods3** does not support memory file.
+**pyexcel-ods3** does not support memory file .
 
 Usage
 =====
@@ -116,8 +116,7 @@ Here is the sample code::
 Dependencies
 ============
 
-1. lxml
-2. ezodf2
+1. ezodf2
 
 
 Test coverage
