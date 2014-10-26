@@ -33,7 +33,7 @@ or clone it and install it::
     $ python setup.py install
 
 
-The installation of `lxml` will be tricky on Widnows platform. It recommended that you download a lxml's own windows installer instead of using pip.
+The installation of `lxml` will be tricky on Widnows platform. It is recommended that you download a lxml's own windows installer instead of using pip.
 
 Constaint
 ==========
