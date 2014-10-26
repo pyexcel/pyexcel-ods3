@@ -35,6 +35,10 @@ or clone it and install it::
 
 The installation of `lxml` will be tricky on Widnows platform. It recommended that you download a lxml's own windows installer instead of using pip.
 
+Constaint
+==========
+
+**pyexcel-ods3** does not support memory file.
 
 Usage
 =====
@@ -77,6 +81,8 @@ As a pyexcel plugin
 Import it in your file to enable this plugin::
 
     from pyexcel.ext import ods3
+
+Please note only pyexcel version 0.0.4+ support this.
 
 Reading from an ods file
 ************************

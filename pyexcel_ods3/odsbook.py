@@ -1,5 +1,5 @@
 """
-    pyexcel_ods.cookbook
+    pyexcel_ods.odsbook
     ~~~~~~~~~~~~~~~~~~~
 
     ODS format plugin for pyexcel
@@ -11,6 +11,10 @@ import sys
 import datetime
 import ezodf2 as ezodf
 from collections import OrderedDict
+if sys.version_info[0] < 3:
+    from io import StringIO
+else:
+    from io import BytesIO as StringIO
 
 
 def float_value(value):
@@ -84,9 +88,13 @@ if sys.version_info[0] < 3:
 
 class ODSBook:
 
-    def __init__(self, file):
+    def __init__(self, filename, file_content=None, **keywords):
         """Load the file"""
-        self.doc = ezodf.opendoc(file)
+        if filename:
+            self.doc = ezodf.opendoc(filename)
+        else:
+            raise NotImplementedError("memory file is not supported")
+            #self.doc = ezodf.opendoc(file_content)
         self.SHEETS = OrderedDict()
         self.sheet_names = []
         for sheet in self.doc.sheets:
@@ -180,8 +188,10 @@ class ODSWriter:
     open document spreadsheet writer
 
     """
-    def __init__(self, file):
-        self.doc = ezodf.newdoc(doctype="ods", filename=file)
+    def __init__(self, filename):
+        if isinstance(filename, StringIO):
+            raise NotImplementedError("memory file is not supported")
+        self.doc = ezodf.newdoc(doctype="ods", filename=filename)
 
     def create_sheet(self, name):
         """
