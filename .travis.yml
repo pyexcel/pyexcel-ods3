@@ -4,9 +4,12 @@ notifications:
 env:
   global:
 python:
+  - 2.6
   - 2.7
+  - 3.2
   - 3.3
   - 3.4
+  - pypy
 install:
   - pip install -r requirements.txt --use-mirrors
   - pip install -r tests/requirements.txt --use-mirrors
