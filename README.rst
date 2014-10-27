@@ -28,8 +28,9 @@ You can install it via pip::
 
 or clone it and install it::
 
-    $ git clone http://github.com/chfw/pyexcel-ods3.git
-    $ cd pyexcel
+    $ pip install git+https://github.com/chfw/ezodf.git
+    $ pip install git+http://github.com/chfw/pyexcel-ods3.git
+    $ cd pyexcel-ods3
     $ python setup.py install
 
 
