@@ -11,7 +11,7 @@ with open("README.rst", 'r') as readme:
 setup(
     name='pyexcel-ods3',
     author="C. W.",
-    version='0.0.1',
+    version='0.0.2',
     author_email="wangc_2011@hotmail.com",
     url="https://github.com/chfw/pyexcel-ods3",
     description='A wrapper library to read, manipulate and write data in ods format',
@@ -34,6 +34,5 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4'
-        
     ]
 )

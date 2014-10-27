@@ -23,8 +23,8 @@ Installation
 
 You can install it via pip::
 
+    $ pip install git+https://github.com/chfw/ezodf.git
     $ pip install pyexcel-ods3
-
 
 or clone it and install it::
 
@@ -38,7 +38,7 @@ The installation of `lxml` will be tricky on Widnows platform. It is recommended
 Constaint
 ==========
 
-**pyexcel-ods3 v0.0.1** does not support memory file. But latest code supports meomory file if you install [my version of ezodf](https://github.com/chfw/ezodf.git)
+**pyexcel-ods3 v0.0.1** does not support memory file. But new versions(0.0.2+) supports meomory file unless `my version of ezodf <https://github.com/chfw/ezodf>`_ is installed
 
 Usage
 =====
