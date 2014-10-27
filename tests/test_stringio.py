@@ -16,11 +16,10 @@ class TestStringIO:
         create_sample_file1(odsfile)
         with open(odsfile, "rb") as f:
             content = f.read()
-            try:
-                r = pyexcel.Reader(("ods", content))
-                assert 1==2
-            except NotImplementedError:
-                assert 1==1
+            r = pyexcel.Reader(("ods", content))
+            result=['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 1.1, 1]
+            actual = pyexcel.utils.to_array(r.enumerate())
+            assert result == actual
         if os.path.exists(odsfile):
             os.unlink(odsfile)
 
@@ -31,8 +30,10 @@ class TestStringIO:
             [4, 5, 6]
         ]
         io = StringIO()
-        try:
-            w = pyexcel.Writer(("ods",io))
-            assert 1==2
-        except NotImplementedError:
-            assert 1==1
+        w = pyexcel.Writer(("ods",io))
+        w.write_rows(data)
+        w.close()
+        r = pyexcel.Reader(("ods", io.getvalue()))
+        result=[1, 2, 3, 4, 5, 6]
+        actual = pyexcel.utils.to_array(r.enumerate())
+        assert result == actual

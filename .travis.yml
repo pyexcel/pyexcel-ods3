@@ -8,6 +8,7 @@ python:
   - 3.3
   - 3.4
 install:
+  - pip install git+https://github.com/chfw/ezodf.git
   - pip install -r requirements.txt --use-mirrors
   - pip install -r tests/requirements.txt --use-mirrors
 script:

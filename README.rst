@@ -38,7 +38,7 @@ The installation of `lxml` will be tricky on Widnows platform. It is recommended
 Constaint
 ==========
 
-**pyexcel-ods3** does not support memory file .
+**pyexcel-ods3 v0.0.1** does not support memory file. But latest code supports meomory file if you install [my version of ezodf](https://github.com/chfw/ezodf.git)
 
 Usage
 =====
@@ -74,6 +74,43 @@ Here's the sample code to write a dictionary to an ods file::
     writer = ODSWriter("your_file.ods")
     writer.write(data)
     writer.close()
+
+Read from an ods from memory
+*****************************
+
+Here's the sample code::
+
+    from pyexcel_ods3 import ODSBook
+
+    # This is just an illustration
+    # In reality, you might deal with ods file upload
+    # where you will read from requests.FILES['YOUR_ODS_FILE']
+    odsfile = "example.ods"
+    with open(odsfile, "rb") as f:
+        content = f.read()
+        book = ODSBook(None, content)
+        print(book.sheets())
+
+
+Write an ods to memory
+**********************
+
+Here's the sample code to write a dictionary to an ods file::
+
+    from pyexcel_ods3 import ODSWriter
+    from StringIO import StringIO
+
+    data = {
+        "Sheet 1": [[1, 2, 3], [4, 5, 6]],
+        "Sheet 2": [["row 1", "row 2", "row 3"]]
+    }
+    io = StringIO()
+    writer = ODSWriter(io)
+    writer.write(data)
+    writer.close()
+    # do something witht the io
+    # In reality, you might give it to your http response
+    # object for downloading
 
 As a pyexcel plugin
 --------------------
@@ -112,11 +149,52 @@ Here is the sample code::
     writer.write_array(array)
     writer.close()
 
+Reading from a StringIO instance
+================================
+
+You got to wrap the binary content with StringIO to get odf working::
+
+
+    import pyexcel
+    from pyexcel.ext import ods3
+    from StringIO import StringIO # for py3, from io import BytesIO as StringIO
+
+    # This is just an illustration
+    # In reality, you might deal with ods file upload
+    # where you will read from requests.FILES['YOUR_ODS_FILE']
+    odsfile = "example.ods"
+    with open(odsfile, "rb") as f:
+        content = f.read()
+        r = pyexcel.Reader(("ods", StringIO(content)))
+
+
+Writing to a StringIO instance
+================================
+
+You need to pass a StringIO instance to Writer::
+
+    import pyexcel
+    from pyexcel.ext import ods3
+    from StringIO import StringIO # for py3, from io import BytesIO as StringIO
+
+
+    data = [
+        [1, 2, 3],
+        [4, 5, 6]
+    ]
+    io = StringIO()
+    w = pyexcel.Writer(("ods",io))
+    w.write_rows(data)
+    w.close()
+    # then do something with io
+    # In reality, you might give it to your http response
+    # object for downloading
+
 
 Dependencies
 ============
 
-1. ezodf2
+1. ezodf
 
 
 Test coverage

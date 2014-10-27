@@ -9,7 +9,7 @@
 """
 import sys
 import datetime
-import ezodf2 as ezodf
+import ezodf
 from collections import OrderedDict
 if sys.version_info[0] < 3:
     from StringIO import StringIO
@@ -90,11 +90,7 @@ class ODSBook:
 
     def __init__(self, filename, file_content=None, **keywords):
         """Load the file"""
-        if filename:
-            self.doc = ezodf.opendoc(filename)
-        else:
-            raise NotImplementedError("memory file is not supported")
-            #self.doc = ezodf.opendoc(file_content)
+        self.doc = ezodf.opendoc(filename, file_content)
         self.SHEETS = OrderedDict()
         self.sheet_names = []
         for sheet in self.doc.sheets:
@@ -189,8 +185,6 @@ class ODSWriter:
 
     """
     def __init__(self, filename):
-        if isinstance(filename, StringIO):
-            raise NotImplementedError("memory file is not supported")
         self.doc = ezodf.newdoc(doctype="ods", filename=filename)
 
     def create_sheet(self, name):

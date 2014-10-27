@@ -16,7 +16,7 @@ setup(
     url="https://github.com/chfw/pyexcel-ods3",
     description='A wrapper library to read, manipulate and write data in ods format',
     install_requires=[
-        "ezodf2"
+        "ezodf"
     ],
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
     include_package_data=True,
