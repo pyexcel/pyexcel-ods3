@@ -90,7 +90,7 @@ class ODSBook:
 
     def __init__(self, filename, file_content=None, **keywords):
         """Load the file"""
-        self.doc = ezodf.opendoc(filename, file_content)
+        self.doc = ezodf.opendoc(filename)
         self.SHEETS = OrderedDict()
         self.sheet_names = []
         for sheet in self.doc.sheets:
