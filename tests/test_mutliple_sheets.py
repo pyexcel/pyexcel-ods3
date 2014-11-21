@@ -2,6 +2,7 @@ from base import PyexcelMultipleSheetBase
 import pyexcel
 import os
 from pyexcel.ext import ods3
+from pyexcel.ext import xl
 from base import create_sample_file1
 
 
@@ -62,7 +63,7 @@ class TestAddBooks:
         self._write_test_file(self.testfile2)
 
     def test_delete_sheets(self):
-        b1 = pyexcel.readers.Book(self.testfile)
+        b1 = pyexcel.load_book(self.testfile)
         assert len(b1.sheet_names()) == 3
         del b1["Sheet1"]
         assert len(b1.sheet_names()) == 2
@@ -81,7 +82,7 @@ class TestAddBooks:
             
     def test_delete_sheets2(self):
         """repetitively delete first sheet"""
-        b1 = pyexcel.readers.Book(self.testfile)
+        b1 = pyexcel.load_book(self.testfile)
         del b1[0]
         assert len(b1.sheet_names()) == 2
         del b1[0]
