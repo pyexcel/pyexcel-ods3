@@ -47,71 +47,73 @@ Usage
 As a standalone library
 ------------------------
 
-Read from an ods file
-**********************
+.. testcode::
+   :hide:
 
-Here's the sample code::
-
-    from pyexcel_ods3 import ODSBook
-    import json
-
-    book = ODSBook("your_file.ods")
-    # book.sheets() returns a dictionary of all sheet content
-    #   the keys represents sheet names
-    #   the values are two dimensional array
-    print(book.sheets())
+    >>> import sys
+    >>> if sys.version_info[0] < 3:
+    ...     from StringIO import StringIO
+    ... else:
+    ...     from io import BytesIO as StringIO
+    >>> from pyexcel_xl.xlbook import OrderedDict
 
 Write to an ods file
 *********************
 
 Here's the sample code to write a dictionary to an ods file::
 
-    from pyexcel_ods3 import ODSWriter
+    >>> from pyexcel_ods3 import ODSWriter
+    >>> data = OrderedDict()
+    >>> data.update({"Sheet 1": [[1, 2, 3], [4, 5, 6]]})
+    >>> data.update({"Sheet 2": [["row 1", "row 2", "row 3"]]})
+    >>> writer = ODSWriter("your_file.ods")
+    >>> writer.write(data)
+    >>> writer.close()
 
-    data = {
-        "Sheet 1": [[1, 2, 3], [4, 5, 6]],
-        "Sheet 2": [["row 1", "row 2", "row 3"]]
-    }
-    writer = ODSWriter("your_file.ods")
-    writer.write(data)
-    writer.close()
+Read from an ods file
+**********************
+
+Here's the sample code::
+
+    >>> from pyexcel_ods3 import ODSBook
+    >>> book = ODSBook("your_file.ods")
+    >>> # book.sheets() returns a dictionary of all sheet content
+    >>> #   the keys represents sheet names
+    >>> #   the values are two dimensional array
+    >>> import json
+    >>> print(json.dumps(book.sheets()))
+    {"Sheet 1": [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]], "Sheet 2": [["row 1", "row 2", "row 3"]]}
+
+Write an ods file to memory
+**********************
+
+Here's the sample code to write a dictionary to an ods file::
+
+    >>> from pyexcel_ods3 import ODSWriter
+    >>> data = OrderedDict()
+    >>> data.update({"Sheet 1": [[1, 2, 3], [4, 5, 6]]})
+    >>> data.update({"Sheet 2": [[7, 8, 9], [10, 11, 12]]})
+    >>> io = StringIO()
+    >>> writer = ODSWriter(io)
+    >>> writer.write(data)
+    >>> writer.close()
+    >>> # do something witht the io
+    >>> # In reality, you might give it to your http response
+    >>> # object for downloading
+
 
 Read from an ods from memory
 *****************************
 
 Here's the sample code::
 
-    from pyexcel_ods3 import ODSBook
+    >>> # This is just an illustration
+    >>> # In reality, you might deal with xl file upload
+    >>> # where you will read from requests.FILES['YOUR_XL_FILE']
+    >>> book = ODSBook(None, io.getvalue())
+    >>> print(json.dumps(book.sheets()))
+    {"Sheet 1": [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]], "Sheet 2": [[7.0, 8.0, 9.0], [10.0, 11.0, 12.0]]}
 
-    # This is just an illustration
-    # In reality, you might deal with ods file upload
-    # where you will read from requests.FILES['YOUR_ODS_FILE']
-    odsfile = "example.ods"
-    with open(odsfile, "rb") as f:
-        content = f.read()
-        book = ODSBook(None, content)
-        print(book.sheets())
-
-
-Write an ods to memory
-**********************
-
-Here's the sample code to write a dictionary to an ods file::
-
-    from pyexcel_ods3 import ODSWriter
-    from StringIO import StringIO
-
-    data = {
-        "Sheet 1": [[1, 2, 3], [4, 5, 6]],
-        "Sheet 2": [["row 1", "row 2", "row 3"]]
-    }
-    io = StringIO()
-    writer = ODSWriter(io)
-    writer.write(data)
-    writer.close()
-    # do something witht the io
-    # In reality, you might give it to your http response
-    # object for downloading
 
 As a pyexcel plugin
 --------------------
@@ -127,28 +129,27 @@ Reading from an ods file
 
 Here is the sample code::
 
-    from pyexcel import Reader
-    from pyexcel.ext import ods3
-    from pyexcel.utils import to_array
-    import json
-    
-    # "example.ods"
-    reader = Reader("example.ods")
-    data = to_array(reader)
-    print json.dumps(data)
+    >>> import pyexcel as pe
+    >>> from pyexcel.ext import ods3
+    >>> sheet = pe.load_book("your_file.ods")
+    >>> sheet
+    Sheet Name: Sheet 1
+    +---+---+---+
+    | 1 | 2 | 3 |
+    +---+---+---+
+    | 4 | 5 | 6 |
+    +---+---+---+
+    Sheet Name: Sheet 2
+    +-------+-------+-------+
+    | row 1 | row 2 | row 3 |
+    +-------+-------+-------+
 
 Writing to an ods file
 **********************
 
 Here is the sample code::
 
-    from pyexcel import Writer
-    from pyexcel.ext import ods3
-    
-    array = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-    writer = Writer("output.ods")
-    writer.write_array(array)
-    writer.close()
+    >>> sheet.save_as("another_file.ods")
 
 Reading from a StringIO instance
 ================================
@@ -156,17 +157,25 @@ Reading from a StringIO instance
 You got to wrap the binary content with StringIO to get odf working::
 
 
-    import pyexcel
-    from pyexcel.ext import ods3
-    from StringIO import StringIO # for py3, from io import BytesIO as StringIO
-
-    # This is just an illustration
-    # In reality, you might deal with ods file upload
-    # where you will read from requests.FILES['YOUR_ODS_FILE']
-    odsfile = "example.ods"
-    with open(odsfile, "rb") as f:
-        content = f.read()
-        r = pyexcel.Reader(("ods", StringIO(content)))
+    >>> # This is just an illustration
+    >>> # In reality, you might deal with xl file upload
+    >>> # where you will read from requests.FILES['YOUR_XL_FILE']
+    >>> xlfile = "another_file.ods"
+    >>> with open(xlfile, "rb") as f:
+    ...     content = f.read()
+    ...     r = pe.load_book_from_memory("ods", content)
+    ...     print(r)
+    ...
+    Sheet Name: Sheet 1
+    +---+---+---+
+    | 1 | 2 | 3 |
+    +---+---+---+
+    | 4 | 5 | 6 |
+    +---+---+---+
+    Sheet Name: Sheet 2
+    +-------+-------+-------+
+    | row 1 | row 2 | row 3 |
+    +-------+-------+-------+
 
 
 Writing to a StringIO instance
@@ -174,22 +183,16 @@ Writing to a StringIO instance
 
 You need to pass a StringIO instance to Writer::
 
-    import pyexcel
-    from pyexcel.ext import ods3
-    from StringIO import StringIO # for py3, from io import BytesIO as StringIO
-
-
-    data = [
-        [1, 2, 3],
-        [4, 5, 6]
-    ]
-    io = StringIO()
-    w = pyexcel.Writer(("ods",io))
-    w.write_rows(data)
-    w.close()
-    # then do something with io
-    # In reality, you might give it to your http response
-    # object for downloading
+    >>> data = [
+    ...     [1, 2, 3],
+    ...     [4, 5, 6]
+    ... ]
+    >>> io = StringIO()
+    >>> sheet = pe.Sheet(data)
+    >>> sheet.save_to_memory("ods", io)
+    >>> # then do something with io
+    >>> # In reality, you might give it to your http response
+    >>> # object for downloading
 
 
 Dependencies

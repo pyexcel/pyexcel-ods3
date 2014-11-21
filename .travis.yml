@@ -12,6 +12,6 @@ install:
   - pip install -r requirements.txt --use-mirrors
   - pip install -r tests/requirements.txt --use-mirrors
 script:
-  nosetests --rednose --with-cov
+  make test
 after_success:
   codecov
