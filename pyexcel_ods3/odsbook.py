@@ -90,7 +90,13 @@ class ODSBook:
 
     def __init__(self, filename, file_content=None, **keywords):
         """Load the file"""
-        self.doc = ezodf.opendoc(filename, file_content)
+        import pkg_resources
+        if pkg_resources.require("ezodf")[0].version == "0.2.5-chfw":
+            self.doc = ezodf.opendoc(filename, file_content)
+        else:
+            if file_content:
+                raise NotImplementedError("Please use custom version of ezodf")
+            self.doc = ezodf.opendoc(filename)
         self.SHEETS = OrderedDict()
         self.sheet_names = []
         for sheet in self.doc.sheets:
