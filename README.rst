@@ -205,3 +205,10 @@ Test coverage
 ==============
 
 `code coverage <https://codecov.io/github/chfw/pyexcel-ods3>`_
+
+.. testcode::
+   :hide:
+
+   >>> import os
+   >>> os.unlink("your_file.ods")
+   >>> os.unlink("another_file.ods")

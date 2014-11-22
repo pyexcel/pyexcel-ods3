@@ -70,6 +70,7 @@ class PyexcelWriterBase:
         w2.write_reader(r)
         w2.close()
         r2 = pyexcel.Reader(self.testfile2)
+        r2.format(int)
         actual = pyexcel.utils.to_array(r2.rows())
         assert actual == self.content
 
@@ -106,7 +107,7 @@ class PyexcelMultipleSheetBase:
         expected = [[u'X', u'Y', u'Z'], [1, 4, 7], [2, 5, 8], [3, 6, 9]]
         assert data == expected
         sheet3 = b["Sheet3"]
-        sheet3.become_series()
+        sheet3.name_columns_by_row(0)
         data = pyexcel.utils.to_array(b["Sheet3"].rows())
         expected = [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
         assert data == expected
@@ -137,14 +138,12 @@ class PyexcelMultipleSheetBase:
 
     def test_random_access_operator(self):
         r = pyexcel.BookReader(self.testfile)
-        value = r["Sheet1"][0][1]
+        value = r["Sheet1"][0,1]
         assert value == 1
-        value = r["Sheet3"][0][1]
+        value = r["Sheet3"][0,1]
         assert value == 'Y'
-        value = r["Sheet3"].become_series()[0][1]
-        assert value == 4
-        value = r["Sheet3"].become_sheet()[0][1]
-        assert value == 'Y'
+        r["Sheet3"].name_columns_by_row(0)
+        assert r["Sheet3"][0,1] == 4
 
 
 class ODSCellTypes:
