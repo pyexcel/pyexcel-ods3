@@ -15,7 +15,7 @@ pyexcel-ods3
     :target: https://pypi.python.org/pypi/pyexcel-ods3
 
 
-**pyexcel-ods3** is a tiny wrapper library to read, manipulate and write data in ods fromat using python 2.7, python 3.3 and python 3.4. You are likely to use `pyexcel <https://github.com/chfw/pyexcel>`_ together with this library. `pyexcel-ods <https://github.com/chfw/pyexcel-ods>`_ is a sister library that does the same thing but supports python 2.6 and has no dependency on lxml.
+**pyexcel-ods3** is a tiny wrapper library to read, manipulate and write data in ods fromat using python 2.7, python 3.3 and python 3.4. You are likely to use `pyexcel <https://github.com/chfw/pyexcel>`__ together with this library. `pyexcel-ods <https://github.com/chfw/pyexcel-ods>`__ is a sister library that does the same thing but supports python 2.6 and has no dependency on lxml.
 
 
 Installation
@@ -39,7 +39,7 @@ The installation of `lxml` will be tricky on Widnows platform. It is recommended
 Constaint
 ==========
 
-**pyexcel-ods3 v0.0.1** does not support memory file. But new versions(0.0.2+) supports meomory file unless `my version of ezodf <https://github.com/chfw/ezodf>`_ is installed
+**pyexcel-ods3 v0.0.1** does not support memory file. But new versions(0.0.2+) supports meomory file unless `my version of ezodf <https://github.com/chfw/ezodf>`__ is installed
 
 Usage
 =====
@@ -56,6 +56,7 @@ As a standalone library
     ... else:
     ...     from io import BytesIO as StringIO
     >>> from pyexcel_xl.xlbook import OrderedDict
+
 
 Write to an ods file
 *********************
@@ -85,7 +86,7 @@ Here's the sample code::
     {"Sheet 1": [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]], "Sheet 2": [["row 1", "row 2", "row 3"]]}
 
 Write an ods file to memory
-**********************
+*****************************
 
 Here's the sample code to write a dictionary to an ods file::
 
@@ -204,7 +205,7 @@ Dependencies
 Test coverage
 ==============
 
-`code coverage <https://codecov.io/github/chfw/pyexcel-ods3>`_
+`code coverage <https://codecov.io/github/chfw/pyexcel-ods3>`__
 
 .. testcode::
    :hide:
