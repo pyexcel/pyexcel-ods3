@@ -11,6 +11,8 @@ import sys
 import datetime
 import ezodf
 from collections import OrderedDict
+import pkg_resources
+from pyexcel.ioext import SheetReaderBase, BookReader, SheetWriter, BookWriter
 if sys.version_info[0] < 3:
     from StringIO import StringIO
 else:
@@ -86,36 +88,24 @@ if sys.version_info[0] < 3:
     ODS_WRITE_FORMAT_COVERSION[unicode] = "string"
 
 
-class ODSBook:
-
-    def __init__(self, filename, file_content=None, **keywords):
-        """Load the file"""
-        import pkg_resources
-        if pkg_resources.require("ezodf")[0].version == "0.2.5-chfw":
-            self.doc = ezodf.opendoc(filename, file_content)
-        else:
-            if file_content:
-                raise NotImplementedError("Please use custom version of ezodf")
-            self.doc = ezodf.opendoc(filename)
-        self.SHEETS = OrderedDict()
-        self.sheet_names = []
-        for sheet in self.doc.sheets:
-            self.readSheet(sheet)
-
-    def readSheet(self, sheet):
+class ODSSheet(SheetReaderBase):
+    def __init__(self, sheet):
+        SheetReaderBase.__init__(self, sheet)
+        self.name = sheet.name
+        
+    def to_array(self):
         """reads a sheet in the sheet dictionary, storing each sheet
         as an array (rows) of arrays (columns)"""
         table = []
-        for row in range(sheet.nrows()):
+        for row in range(self.native_sheet.nrows()):
             rows = []
-            for column, cell in enumerate(sheet.row(row)):
+            for column, cell in enumerate(self.native_sheet.row(row)):
                 ret = self._read_cell(cell)
                 rows.append(ret)
             # if row contained something
             table.append(rows)
 
-        self.SHEETS[sheet.name] = table
-        self.sheet_names.append(sheet.name)
+        return table
 
     def _read_cell(self, cell):
         cell_type = cell.value_type
@@ -131,26 +121,35 @@ class ODSBook:
                 ret = cell.value
         return ret
 
-    def sheets(self):
-        return self.SHEETS
+class ODSBook(BookReader):
+
+    def getSheet(self, native_sheet):
+        return ODSSheet(native_sheet)
+
+    def load_from_file(self, filename):
+        return ezodf.opendoc(filename)
+
+    def load_from_memory(self, file_content):
+        if pkg_resources.require("ezodf")[0].version == "0.2.5-chfw":
+            return ezodf.opendoc(None, file_content)
+        else:
+            if file_content:
+                raise NotImplementedError("Please use custom version of ezodf")
+
+    def sheetIterator(self):
+        return self.native_book.sheets
 
 
-class ODSSheetWriter:
+class ODSSheetWriter(SheetWriter):
     """
     ODS sheet writer
     """
-
-    def __init__(self, book, name):
-        self.doc = book
-        if name:
-            sheet_name = name
-        else:
-            sheet_name = "pyexcel_sheet1"
-        self.sheet = ezodf.Sheet(sheet_name)
+    def set_sheet_name(self, name):
+        self.native_sheet = ezodf.Sheet(name)
         self.current_row = 0
 
     def set_size(self, size):
-        self.sheet.reset(size=size)
+        self.native_sheet.reset(size=size)
 
     def write_row(self, array):
         """
@@ -161,7 +160,7 @@ class ODSSheetWriter:
             value_type = ODS_WRITE_FORMAT_COVERSION[type(cell)]
             if value_type == "time":
                 cell = cell.strftime("PT%HH%MM%SS")
-            self.sheet[self.current_row, count].set_value(
+            self.native_sheet[self.current_row, count].set_value(
                 cell,
                 value_type=value_type)
             count += 1
@@ -182,38 +181,27 @@ class ODSSheetWriter:
         This call writes file
 
         """
-        self.doc.sheets += self.sheet
+        self.native_book.sheets += self.native_sheet
 
 
-class ODSWriter:
+class ODSWriter(BookWriter):
     """
     open document spreadsheet writer
 
     """
     def __init__(self, filename):
-        self.doc = ezodf.newdoc(doctype="ods", filename=filename)
+        BookWriter.__init__(self, filename) # in case something will be done
+        self.native_book = ezodf.newdoc(doctype="ods", filename=filename)
 
     def create_sheet(self, name):
         """
         write a row into the file
         """
-        return ODSSheetWriter(self.doc, name)
-
-    def write(self, sheet_dicts):
-        """Write a dictionary to a multi-sheet file
-
-        Requirements for the dictionary is: key is the sheet name,
-        its value must be two dimensional array
-        """
-        keys = sheet_dicts.keys()
-        for name in keys:
-            sheet = self.create_sheet(name)
-            sheet.write_array(sheet_dicts[name])
-            sheet.close()
+        return ODSSheetWriter(self.native_book, None, name)
 
     def close(self):
         """
         This call writes file
 
         """
-        self.doc.save()
+        self.native_book.save()
