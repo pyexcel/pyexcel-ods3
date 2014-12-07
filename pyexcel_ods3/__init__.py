@@ -91,7 +91,10 @@ if sys.version_info[0] < 3:
 class ODSSheet(SheetReaderBase):
     def __init__(self, sheet):
         SheetReaderBase.__init__(self, sheet)
-        self.name = sheet.name
+
+    @property
+    def name(self):
+        return self.native_sheet.name
         
     def to_array(self):
         """reads a sheet in the sheet dictionary, storing each sheet

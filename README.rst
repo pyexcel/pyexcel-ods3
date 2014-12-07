@@ -55,7 +55,7 @@ As a standalone library
     ...     from StringIO import StringIO
     ... else:
     ...     from io import BytesIO as StringIO
-    >>> from pyexcel_xl.xlbook import OrderedDict
+    >>> from pyexcel_xls import OrderedDict
 
 
 Write to an ods file
