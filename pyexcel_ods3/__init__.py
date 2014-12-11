@@ -89,9 +89,6 @@ if sys.version_info[0] < 3:
 
 
 class ODSSheet(SheetReaderBase):
-    def __init__(self, sheet):
-        SheetReaderBase.__init__(self, sheet)
-
     @property
     def name(self):
         return self.native_sheet.name
@@ -192,7 +189,7 @@ class ODSWriter(BookWriter):
     open document spreadsheet writer
 
     """
-    def __init__(self, filename):
+    def __init__(self, filename, **keywords):
         BookWriter.__init__(self, filename) # in case something will be done
         self.native_book = ezodf.newdoc(doctype="ods", filename=filename)
 
