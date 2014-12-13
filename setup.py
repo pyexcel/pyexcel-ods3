@@ -11,13 +11,13 @@ with open("README.rst", 'r') as readme:
 setup(
     name='pyexcel-ods3',
     author="C. W.",
-    version='0.0.4',
+    version='0.0.5',
     author_email="wangc_2011@hotmail.com",
     url="https://github.com/chfw/pyexcel-ods3",
     description='A wrapper library to read, manipulate and write data in ods format',
     install_requires=[
         "ezodf",
-        "pyexcel-io"
+        "pyexcel-io>=0.0.2"
     ],
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
     include_package_data=True,
