@@ -92,7 +92,7 @@ class ODSSheet(SheetReaderBase):
     @property
     def name(self):
         return self.native_sheet.name
-        
+
     def to_array(self):
         """reads a sheet in the sheet dictionary, storing each sheet
         as an array (rows) of arrays (columns)"""
@@ -120,6 +120,7 @@ class ODSSheet(SheetReaderBase):
             else:
                 ret = cell.value
         return ret
+
 
 class ODSBook(BookReader):
 
@@ -190,7 +191,7 @@ class ODSWriter(BookWriter):
 
     """
     def __init__(self, filename, **keywords):
-        BookWriter.__init__(self, filename) # in case something will be done
+        BookWriter.__init__(self, filename)  # in case something will be done
         self.native_book = ezodf.newdoc(doctype="ods", filename=filename)
 
     def create_sheet(self, name):
@@ -216,5 +217,4 @@ except:
     # to allow this module to function independently
     pass
 
-__VERSION__ = "0.0.4"
-    
+__VERSION__ = "0.0.5"
