@@ -1,6 +1,6 @@
-============
-pyexcel-ods3
-============
+===================================================================
+pyexcel-ods3 - Let you focus on data, instead of ods format
+===================================================================
 
 .. image:: https://api.travis-ci.org/chfw/pyexcel-ods3.png
     :target: http://travis-ci.org/chfw/pyexcel-ods3
@@ -22,6 +22,10 @@ pyexcel-ods3
 
 **pyexcel-ods3** is a tiny wrapper library to read, manipulate and write data in ods fromat using python 2.7, python 3.3 and python 3.4. You are likely to use `pyexcel <https://github.com/chfw/pyexcel>`__ together with this library. `pyexcel-ods <https://github.com/chfw/pyexcel-ods>`__ is a sister library that does the same thing but supports python 2.6 and has no dependency on lxml.
 
+Known constraints
+==================
+
+Fonts, colors and charts are not supported. 
 
 Installation
 ============
