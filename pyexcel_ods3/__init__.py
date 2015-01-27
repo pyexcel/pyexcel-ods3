@@ -131,7 +131,7 @@ class ODSBook(BookReader):
         return ezodf.opendoc(filename)
 
     def load_from_memory(self, file_content):
-        if pkg_resources.require("ezodf")[0].version == "0.2.5-chfw":
+        if pkg_resources.require("ezodf")[0].version == "0.3.0.1":
             return ezodf.opendoc(None, file_content)
         else:
             if file_content:
