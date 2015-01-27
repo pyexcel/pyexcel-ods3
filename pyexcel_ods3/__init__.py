@@ -131,11 +131,10 @@ class ODSBook(BookReader):
         return ezodf.opendoc(filename)
 
     def load_from_memory(self, file_content):
-        if pkg_resources.require("ezodf")[0].version == "0.3.0.1":
+        try:
             return ezodf.opendoc(None, file_content)
-        else:
-            if file_content:
-                raise NotImplementedError("Please use custom version of ezodf")
+        except:
+            raise NotImplementedError("Please use custom version of ezodf")
 
     def sheetIterator(self):
         return self.native_book.sheets
