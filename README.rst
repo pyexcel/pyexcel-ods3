@@ -8,6 +8,9 @@ pyexcel-ods3 - Let you focus on data, instead of ods format
 .. image:: https://codecov.io/github/chfw/pyexcel-ods3/coverage.png
     :target: https://codecov.io/github/chfw/pyexcel-ods3
 
+.. image:: https://pypip.in/version/pyexcel-ods3/badge.png
+    :target: https://pypi.python.org/pypi/pyexcel-ods3
+
 .. image:: https://pypip.in/d/pyexcel-ods3/badge.png
     :target: https://pypi.python.org/pypi/pyexcel-ods3
 
@@ -24,6 +27,8 @@ pyexcel-ods3 - Let you focus on data, instead of ods format
 
 Known constraints
 ==================
+
+Only when `the custom version of ezodf <https://github.com/chfw/ezodf>`__ is installed, this library would (0.0.2+) support files in memory. **pyexcel-ods3 v0.0.1** does not support memory file. 
 
 Fonts, colors and charts are not supported. 
 
@@ -48,7 +53,6 @@ The installation of `lxml` will be tricky on Widnows platform. It is recommended
 Constaint
 ==========
 
-**pyexcel-ods3 v0.0.1** does not support memory file. But new versions(0.0.2+) supports meomory file unless `my version of ezodf <https://github.com/chfw/ezodf>`__ is installed
 
 Usage
 =====
