@@ -50,10 +50,6 @@ or clone it and install it::
 
 The installation of `lxml` will be tricky on Widnows platform. It is recommended that you download a lxml's own windows installer instead of using pip.
 
-Constaint
-==========
-
-
 Usage
 =====
 
@@ -212,4 +208,13 @@ You need to pass a StringIO instance to Writer::
 Dependencies
 ============
 
-1. ezodf
+1. ezodf or [my version of ezodf](https://github.com/chfw/ezodf)
+
+
+
+.. testcode::
+   :hide:
+
+   >>> import os
+   >>> os.unlink("your_file.ods")
+   >>> os.unlink("another_file.ods")
