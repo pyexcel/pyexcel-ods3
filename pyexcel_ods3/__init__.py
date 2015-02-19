@@ -145,10 +145,12 @@ class ODSBook(BookReader):
                 return rets
         elif self.sheet_index is not None:
             sheets = self.native_book.sheets
-            if self.sheet_index < len(sheets):
+            length = len(sheets)
+            if self.sheet_index < length:
                 return [sheets[self.sheet_index]]
             else:
-                raise ValueError("Index of out bound")
+                raise IndexError("Index %d of out bound %d." % (self.sheet_index,
+                                                                length))
         else:
             return self.native_book.sheets
 
