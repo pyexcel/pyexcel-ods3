@@ -127,17 +127,30 @@ class ODSBook(BookReader):
     def getSheet(self, native_sheet):
         return ODSSheet(native_sheet)
 
-    def load_from_file(self, filename):
+    def load_from_file(self, filename, **keywords):
         return ezodf.opendoc(filename)
 
-    def load_from_memory(self, file_content):
+    def load_from_memory(self, file_content, **keywords):
         try:
             return ezodf.opendoc(None, file_content)
         except:
             raise NotImplementedError("Please use custom version of ezodf")
 
     def sheetIterator(self):
-        return self.native_book.sheets
+        if self.sheet_name is not None:
+            rets = [sheet for sheet in self.native_book.sheets if sheet.name == self.sheet_name]
+            if len(rets) == 0:
+                raise ValueError("%s cannot be found" % self.sheet_name)
+            else:
+                return rets
+        elif self.sheet_index is not None:
+            sheets = self.native_book.sheets
+            if self.sheet_index < len(sheets):
+                return [sheets[self.sheet_index]]
+            else:
+                raise ValueError("Index of out bound")
+        else:
+            return self.native_book.sheets
 
 
 class ODSSheetWriter(SheetWriter):

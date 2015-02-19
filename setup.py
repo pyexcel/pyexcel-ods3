@@ -17,7 +17,7 @@ setup(
     description='A wrapper library to read, manipulate and write data in ods format',
     install_requires=[
         "ezodf",
-        "pyexcel-io>=0.0.2"
+        "pyexcel-io>=0.0.3"
     ],
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
     include_package_data=True,
