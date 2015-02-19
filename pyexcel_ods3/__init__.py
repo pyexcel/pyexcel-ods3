@@ -124,7 +124,7 @@ class ODSSheet(SheetReaderBase):
 
 class ODSBook(BookReader):
 
-    def getSheet(self, native_sheet):
+    def get_sheet(self, native_sheet):
         return ODSSheet(native_sheet)
 
     def load_from_file(self, filename, **keywords):
@@ -136,7 +136,7 @@ class ODSBook(BookReader):
         except:
             raise NotImplementedError("Please use custom version of ezodf")
 
-    def sheetIterator(self):
+    def sheet_iterator(self):
         if self.sheet_name is not None:
             rets = [sheet for sheet in self.native_book.sheets if sheet.name == self.sheet_name]
             if len(rets) == 0:
