@@ -204,6 +204,11 @@ You need to pass a StringIO instance to Writer::
     >>> # In reality, you might give it to your http response
     >>> # object for downloading
 
+License
+===========
+
+New BSD License
+
 
 Dependencies
 ============

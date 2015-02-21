@@ -4,8 +4,8 @@
 
     ODS format plugin for pyexcel
 
-    :copyright: (c) 2014 by C. W.
-    :license: GPL v3
+    :copyright: (c) 2015 by Onni Software Ltd
+    :license: New BSD License
 """
 import sys
 import datetime
