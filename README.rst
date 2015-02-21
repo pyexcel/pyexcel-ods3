@@ -214,7 +214,7 @@ Dependencies
 ============
 
 1. ezodf or [my version of ezodf](https://github.com/chfw/ezodf)
-
+2. pyexcel-io >= 0.0.3
 
 
 .. testcode::
