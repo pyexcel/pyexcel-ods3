@@ -43,7 +43,7 @@ You can install it via pip::
 or clone it and install it::
 
     $ pip install git+https://github.com/chfw/ezodf.git
-    $ pip install git+http://github.com/chfw/pyexcel-ods3.git
+    $ pip install git+https://github.com/chfw/pyexcel-ods3.git
     $ cd pyexcel-ods3
     $ python setup.py install
 
@@ -213,7 +213,7 @@ New BSD License
 Dependencies
 ============
 
-1. ezodf or [my version of ezodf](https://github.com/chfw/ezodf)
+1. ezodf or `my version of ezodf <https://github.com/chfw/ezodf>`__
 2. pyexcel-io >= 0.0.3
 
 
