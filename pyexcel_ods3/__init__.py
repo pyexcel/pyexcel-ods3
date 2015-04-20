@@ -131,10 +131,7 @@ class ODSBook(BookReader):
         return ezodf.opendoc(filename)
 
     def load_from_memory(self, file_content, **keywords):
-        try:
-            return ezodf.opendoc(None, file_content)
-        except:
-            raise NotImplementedError("Please use custom version of ezodf")
+        return ezodf.opendoc(StringIO(file_content))
 
     def sheet_iterator(self):
         if self.sheet_name is not None:

@@ -4,11 +4,12 @@ notifications:
 env:
   global:
 python:
+  - 2.6
   - 2.7
   - 3.3
   - 3.4
 install:
-  - pip install git+https://github.com/chfw/ezodf.git
+  - pip install git+https://github.com/T0ha/ezodf.git
   - pip install git+https://github.com/chfw/pyexcel-io.git
   - pip install git+https://github.com/chfw/pyexcel.git
   - pip install git+https://github.com/chfw/pyexcel-xls.git
