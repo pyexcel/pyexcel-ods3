@@ -10,8 +10,6 @@
 import sys
 import datetime
 import ezodf
-from collections import OrderedDict
-import pkg_resources
 from pyexcel_io import SheetReaderBase, BookReader, SheetWriter, BookWriter
 if sys.version_info[0] < 3:
     from StringIO import StringIO
