@@ -226,4 +226,4 @@ except:
     # to allow this module to function independently
     pass
 
-__VERSION__ = "0.0.7"
+__VERSION__ = "0.0.8"
