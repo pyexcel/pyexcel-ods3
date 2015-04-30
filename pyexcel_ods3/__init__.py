@@ -11,7 +11,7 @@ import sys
 import datetime
 import ezodf
 from pyexcel_io import (
-    SheetReader,
+    SheetReaderBase,
     BookReader,
     SheetWriter,
     BookWriter,
