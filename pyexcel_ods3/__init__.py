@@ -10,7 +10,14 @@
 import sys
 import datetime
 import ezodf
-from pyexcel_io import SheetReaderBase, BookReader, SheetWriter, BookWriter
+from pyexcel_io import (
+    SheetReader,
+    BookReader,
+    SheetWriter,
+    BookWriter,
+    READERS,
+    WRITERS
+)
 if sys.version_info[0] < 3:
     from StringIO import StringIO
 else:
@@ -216,14 +223,8 @@ class ODSWriter(BookWriter):
         """
         self.native_book.save()
 
-try:
-    from pyexcel.io import READERS
-    from pyexcel.io import WRITERS
+READERS["ods"] = ODSBook
+WRITERS["ods"] = ODSWriter
 
-    READERS["ods"] = ODSBook
-    WRITERS["ods"] = ODSWriter
-except:
-    # to allow this module to function independently
-    pass
 
 __VERSION__ = "0.0.8"
