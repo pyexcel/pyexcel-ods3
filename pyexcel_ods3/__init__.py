@@ -16,12 +16,13 @@ from pyexcel_io import (
     SheetWriter,
     BookWriter,
     READERS,
-    WRITERS
+    WRITERS,
+    isstream,
+    load_data as read_data,
+    store_data as write_data
 )
-if sys.version_info[0] < 3:
-    from StringIO import StringIO
-else:
-    from io import BytesIO as StringIO
+import sys
+PY2 = sys.version_info[0] == 2
 
 
 def float_value(value):
@@ -136,7 +137,7 @@ class ODSBook(BookReader):
         return ezodf.opendoc(filename)
 
     def load_from_memory(self, file_content, **keywords):
-        return ezodf.opendoc(StringIO(file_content))
+        return ezodf.opendoc(file_content)
 
     def sheet_iterator(self):
         if self.sheet_name is not None:
@@ -225,6 +226,31 @@ class ODSWriter(BookWriter):
 
 READERS["ods"] = ODSBook
 WRITERS["ods"] = ODSWriter
+
+
+
+def is_string(atype):
+    """find out if a type is str or not"""
+    if atype == str:
+            return True
+    elif PY2:
+        if atype == unicode:
+            return True
+        elif atype == str:
+            return True
+    return False
+
+
+def store_data(afile, data, file_type=None, **keywords):
+    if isstream(afile) and file_type is None:
+        file_type='ods'
+    write_data(afile, data, file_type=file_type, **keywords)
+
+
+def load_data(afile, file_type=None, **keywords):
+    if isstream(afile) and file_type is None:
+        file_type='ods'
+    return read_data(afile, file_type=file_type, **keywords)
 
 
 __VERSION__ = "0.0.8"
