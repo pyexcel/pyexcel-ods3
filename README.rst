@@ -108,12 +108,17 @@ Here's the sample code to write a dictionary to an ods file::
 Read from an ods from memory
 *****************************
 
+.. testcode::
+   :hide: 
+
+    >>> notneeded=io.seek(0)
+
+
 Here's the sample code::
 
     >>> # This is just an illustration
     >>> # In reality, you might deal with ods file upload
     >>> # where you will read from requests.FILES['YOUR_ODS_FILE']
-	>>> io.seek(0)
     >>> data = load_data(io)
     >>> print(json.dumps(data))
     {"Sheet 1": [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]], "Sheet 2": [[7.0, 8.0, 9.0], [10.0, 11.0, 12.0]]}
