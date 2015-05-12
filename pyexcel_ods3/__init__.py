@@ -228,26 +228,13 @@ READERS["ods"] = ODSBook
 WRITERS["ods"] = ODSWriter
 
 
-
-def is_string(atype):
-    """find out if a type is str or not"""
-    if atype == str:
-            return True
-    elif PY2:
-        if atype == unicode:
-            return True
-        elif atype == str:
-            return True
-    return False
-
-
-def store_data(afile, data, file_type=None, **keywords):
+def save_data(afile, data, file_type=None, **keywords):
     if isstream(afile) and file_type is None:
         file_type='ods'
     write_data(afile, data, file_type=file_type, **keywords)
 
 
-def load_data(afile, file_type=None, **keywords):
+def get_data(afile, file_type=None, **keywords):
     if isstream(afile) and file_type is None:
         file_type='ods'
     return read_data(afile, file_type=file_type, **keywords)
