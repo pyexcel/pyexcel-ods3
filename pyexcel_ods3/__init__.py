@@ -184,16 +184,6 @@ class ODSSheetWriter(SheetWriter):
             count += 1
         self.current_row += 1
 
-    def write_array(self, table):
-        rows = len(table)
-        if rows > 0:
-            columns = max(map(len, table))
-        if columns == 0:
-            return
-        self.set_size((rows, columns))
-        for row in table:
-            self.write_row(row)
-
     def close(self):
         """
         This call writes file
