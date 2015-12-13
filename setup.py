@@ -16,12 +16,13 @@ setup(
     url="https://github.com/chfw/pyexcel-ods3",
     description='A wrapper library to read, manipulate and write data in ods format',
     install_requires=[
-        "ezodf>=0.3.1",
+        "ezodf==0.3.1",
         "pyexcel-io>=0.0.4"
     ],
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
     include_package_data=True,
     long_description=README_txt,
+    dependency_links=['https://github.com/T0ha/ezodf/zipball/master#egg=ezodf-0.3.1'],
     zip_safe=False,
     tests_require=['nose'],
     license='General Publice License version 3',
