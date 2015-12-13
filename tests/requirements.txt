@@ -1,3 +1,4 @@
+pyexcel>=0.1.7
 pyexcel-io
 pyexcel-xls
 nose
