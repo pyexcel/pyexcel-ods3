@@ -8,20 +8,6 @@ pyexcel-ods3 - Let you focus on data, instead of ods format
 .. image:: https://codecov.io/github/chfw/pyexcel-ods3/coverage.png
     :target: https://codecov.io/github/chfw/pyexcel-ods3
 
-.. image:: https://pypip.in/version/pyexcel-ods3/badge.png
-    :target: https://pypi.python.org/pypi/pyexcel-ods3
-
-.. image:: https://pypip.in/d/pyexcel-ods3/badge.png
-    :target: https://pypi.python.org/pypi/pyexcel-ods3
-
-.. image:: https://pypip.in/py_versions/pyexcel-ods3/badge.png
-    :target: https://pypi.python.org/pypi/pyexcel-ods3
-
-.. image:: https://pypip.in/implementation/pyexcel-ods3/badge.png
-    :target: https://pypi.python.org/pypi/pyexcel-ods3
-
-.. image:: http://img.shields.io/gittip/chfw.svg
-    :target: https://gratipay.com/chfw/
 
 **pyexcel-ods3** is a tiny wrapper library to read, manipulate and write data in ods fromat using python version 2.6(since v0.0.8), 2.7, 3.3 and 3.4. You are likely to use `pyexcel <https://github.com/chfw/pyexcel>`__ together with this library. `pyexcel-ods <https://github.com/chfw/pyexcel-ods>`__ is a sister library, having no dependency on lxml. However it has no support for python 3.
 
@@ -70,7 +56,9 @@ As a standalone library
 Write to an ods file
 *********************
 
-Here's the sample code to write a dictionary to an ods file::
+Here's the sample code to write a dictionary to an ods file:
+
+.. code-block:: python
 
     >>> from pyexcel_ods3 import save_data
     >>> data = OrderedDict()
@@ -81,7 +69,9 @@ Here's the sample code to write a dictionary to an ods file::
 Read from an ods file
 **********************
 
-Here's the sample code::
+Here's the sample code:
+
+.. code-block:: python
 
     >>> from pyexcel_ods3 import get_data
     >>> data = get_data("your_file.ods")
@@ -92,7 +82,9 @@ Here's the sample code::
 Write an ods file to memory
 ******************************
 
-Here's the sample code to write a dictionary to an ods file::
+Here's the sample code to write a dictionary to an ods file:
+
+.. code-block:: python
 
     >>> from pyexcel_ods3 import save_data
     >>> data = OrderedDict()
@@ -114,7 +106,9 @@ Read from an ods from memory
     >>> notneeded=io.seek(0)
 
 
-Here's the sample code::
+Here's the sample code:
+
+.. code-block:: python
 
     >>> # This is just an illustration
     >>> # In reality, you might deal with ods file upload
@@ -127,7 +121,9 @@ Here's the sample code::
 As a pyexcel plugin
 --------------------
 
-Import it in your file to enable this plugin::
+Import it in your file to enable this plugin:
+
+.. code-block:: python
 
     from pyexcel.ext import ods3
 
@@ -136,7 +132,9 @@ Please note only pyexcel version 0.0.4+ support this.
 Reading from an ods file
 ************************
 
-Here is the sample code::
+Here is the sample code:
+
+.. code-block:: python
 
     >>> import pyexcel as pe
     >>> from pyexcel.ext import ods3
@@ -156,15 +154,18 @@ Here is the sample code::
 Writing to an ods file
 **********************
 
-Here is the sample code::
+Here is the sample code:
+
+.. code-block:: python
 
     >>> sheet.save_as("another_file.ods")
 
 Reading from a IO instance
 ================================
 
-You got to wrap the binary content with StringIO to get odf working::
+You got to wrap the binary content with StringIO to get odf working:
 
+.. code-block:: python
 
     >>> # This is just an illustration
     >>> # In reality, you might deal with xl file upload
@@ -190,7 +191,9 @@ You got to wrap the binary content with StringIO to get odf working::
 Writing to a StringIO instance
 ================================
 
-You need to pass a StringIO instance to Writer::
+You need to pass a StringIO instance to Writer:
+
+.. code-block:: python
 
     >>> data = [
     ...     [1, 2, 3],
