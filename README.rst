@@ -14,8 +14,6 @@ pyexcel-ods3 - Let you focus on data, instead of ods format
 Known constraints
 ==================
 
-Only when ezodf v0.3.1 or `the custom version of ezodf <https://github.com/chfw/ezodf>`__ is installed, this library would (0.0.2+) support files in memory. **pyexcel-ods3 v0.0.1** does not support memory file. 
-
 Fonts, colors and charts are not supported. 
 
 Installation
@@ -25,15 +23,13 @@ You can install it via pip:
 
 .. code-block:: bash
 
-    $ pip install --processing-dependency-links pyexcel-ods3
-    $ # because ezodf 0.3.1 is not released to pypi
+    $ pip install pyexcel-ods3
 
 or clone it and install it:
 
 .. code-block:: bash
 
-    $ pip install git+https://github.com/T0ha/ezodf.git
-    $ pip install git+https://github.com/chfw/pyexcel-ods3.git
+    $ git clone https://github.com/chfw/pyexcel-ods3.git
     $ cd pyexcel-ods3
     $ python setup.py install
 
@@ -214,13 +210,6 @@ License
 ===========
 
 New BSD License
-
-
-Dependencies
-============
-
-1. ezodf or `my version of ezodf <https://github.com/chfw/ezodf>`__
-2. pyexcel-io >= 0.0.4
 
 
 .. testcode::
