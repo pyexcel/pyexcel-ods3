@@ -1,2 +1,3 @@
 pyexcel-io>=0.0.9
+lxml
 ezodf>=0.3.2
