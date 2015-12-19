@@ -8,10 +8,11 @@ except ImportError:
 with open("README.rst", 'r') as readme:
     README_txt = readme.read()
 
-with open("requirements.txt", 'r') as dependencies:
-    lines = dependencies.readlines()
-    lines = map(lambda x: x.rstrip(), lines)
-    requirements_txt = lines
+dependencies = [
+    'pyexcel-io>=0.0.9',
+    'lxml',
+    'ezodf>=0.3.2'
+]
 
 with open("VERSION", "r") as version:
     version_txt = version.read().rstrip()
@@ -23,7 +24,7 @@ setup(
     author_email="wangc_2011@hotmail.com",
     url="https://github.com/chfw/pyexcel-ods3",
     description='A wrapper library to read, manipulate and write data in ods format',
-    install_requires=requirements_txt,
+    install_requires=dependencies,
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
     include_package_data=True,
     long_description=README_txt,

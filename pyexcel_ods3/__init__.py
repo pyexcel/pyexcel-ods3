@@ -21,7 +21,6 @@ from pyexcel_io import (
     load_data as read_data,
     store_data as write_data
 )
-import sys
 PY2 = sys.version_info[0] == 2
 
 
