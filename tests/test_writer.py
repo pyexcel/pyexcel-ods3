@@ -16,6 +16,8 @@ class TestNativeODSWriter:
         writer.close()
         reader = ods3.ODSBook(self.testfile)
         content = reader.sheets()
+        for key in content.keys():
+            content[key] = list(content[key])
         assert content == self.content
 
     def tearDown(self):
