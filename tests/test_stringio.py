@@ -29,10 +29,7 @@ class TestStringIO:
             [1, 2, 3],
             [4, 5, 6]
         ]
-        io = StringIO()
-        w = pyexcel.Writer(("ods",io))
-        w.write_rows(data)
-        w.close()
+        io = pyexcel.save_as(dest_file_type='ods', array=data)
         r = pyexcel.Reader(("ods", io.getvalue()))
         result=[1, 2, 3, 4, 5, 6]
         actual = pyexcel.utils.to_array(r.enumerate())

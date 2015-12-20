@@ -103,12 +103,16 @@ class ODSSheet(SheetReaderBase):
         as an array (rows) of arrays (columns)"""
         table = []
         for row in range(self.native_sheet.nrows()):
-            rows = []
+            row_data = []
+            tmp_row = []
             for column, cell in enumerate(self.native_sheet.row(row)):
-                ret = self._read_cell(cell)
-                rows.append(ret)
-            # if row contained something
-            table.append(rows)
+                cell_value = self._read_cell(cell)
+                tmp_row.append(cell_value)
+                if cell_value is not None and cell_value != '':
+                    row_data += tmp_row
+                    tmp_row = []
+            if len(row_data) > 0:
+                table.append(row_data)
 
         return table
 

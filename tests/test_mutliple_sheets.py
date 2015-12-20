@@ -53,9 +53,7 @@ class TestAddBooks:
         3,3,3,3
         """
         self.rows = 3
-        w = pyexcel.BookWriter(file)
-        w.write_book_from_dict(self.content)
-        w.close()
+        pyexcel.save_book_as(bookdict=self.content, dest_file_name=file)
 
     def setUp(self):
         self.testfile = "multiple1.ods"
@@ -118,8 +116,8 @@ class TestAddBooks:
         """
         test this scenario: book3 = book1 + book2
         """
-        b1 = pyexcel.BookReader(self.testfile)
-        b2 = pyexcel.BookReader(self.testfile2)
+        b1 = pyexcel.get_book(file_name=self.testfile)
+        b2 = pyexcel.get_book(file_name=self.testfile2)
         b3 = b1 + b2
         content = pyexcel.utils.to_dict(b3)
         sheet_names = content.keys()

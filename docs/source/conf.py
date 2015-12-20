@@ -52,7 +52,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'pyexcel-ods3'
-copyright = u'2015, C.W.'
+copyright = u'Onni Software Ltd. and its contributors'
 author = u'C.W.'
 
 # The version info for the project you're documenting, acts as replacement for
