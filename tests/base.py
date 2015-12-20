@@ -1,5 +1,6 @@
 import pyexcel
 import os
+from nose.tools import raises
 
 
 def create_sample_file1(file):
@@ -139,7 +140,6 @@ class ODSCellTypes:
         # int
         assert self.data["Sheet1"][0][6] == "Int"
         assert self.data["Sheet1"][1][6] == 3
-        assert self.data["Sheet1"][2][6] == ""
         assert self.data["Sheet1"][4][6] == 11
         # Scientifed not supported
         assert self.data["Sheet1"][1][7] == 100000
@@ -147,3 +147,7 @@ class ODSCellTypes:
         assert self.data["Sheet1"][1][8] == 1.25
         # Text
         assert self.data["Sheet1"][1][9] == "abc"
+
+        @raises(IndexError)
+        def test_no_excessive_trailing_columns(self):
+            assert self.data["Sheet1"][2][6] == ""
