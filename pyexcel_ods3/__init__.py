@@ -101,7 +101,6 @@ class ODSSheet(SheetReaderBase):
     def to_array(self):
         """reads a sheet in the sheet dictionary, storing each sheet
         as an array (rows) of arrays (columns)"""
-        table = []
         for row in range(self.native_sheet.nrows()):
             row_data = []
             tmp_row = []
@@ -112,9 +111,7 @@ class ODSSheet(SheetReaderBase):
                     row_data += tmp_row
                     tmp_row = []
             if len(row_data) > 0:
-                table.append(row_data)
-
-        return table
+                yield row_data
 
     def _read_cell(self, cell):
         cell_type = cell.value_type
