@@ -17,8 +17,11 @@ import os
 import shlex
 
 
-with open(os.path.join("..", "..", "VERSION"), "r") as version:
-    version_txt = version.read().rstrip()
+try:
+    with open(os.path.join("..", "..", "VERSION"), "r") as version:
+        version_txt = version.read().rstrip()
+except:
+    version_txt = "not_in_sphinx"
 
 
 # If extensions (or modules to document with autodoc) are in another directory,
