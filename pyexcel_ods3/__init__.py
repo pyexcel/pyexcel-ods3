@@ -183,9 +183,9 @@ class ODSSheetWriter(SheetWriter):
             if value_type == "time":
                 cell = cell.strftime("PT%HH%MM%SS")
             elif value_type == "timedelta":
-                hours = cell.total_seconds() // 3600
-                minutes = (cell.total_seconds() // 60) % 60
-                seconds = cell.total_seconds() % 60
+                hours = cell.days * 24 + cell.seconds // 3600
+                minutes = (cell.seconds // 60) % 60
+                seconds = cell.seconds % 60
                 cell = "PT%02dH%02dM%02dS" % (hours, minutes, seconds)
                 value_type = "time"
             self.native_sheet[self.current_row, count].set_value(
