@@ -42,7 +42,10 @@ def time_value(value):
     hour = int(value[2:4])
     minute = int(value[5:7])
     second = int(value[8:10])
-    ret = datetime.time(hour, minute, second)
+    if hour < 24:
+        ret = datetime.time(hour, minute, second)
+    else:
+        ret = datetime.timedelta(hours=hour, minutes=minute, seconds=second)
     return ret
 
 
@@ -85,6 +88,7 @@ ODS_WRITE_FORMAT_COVERSION = {
     str: "string",
     datetime.date: "date",
     datetime.time: "time",
+    datetime.timedelta: "timedelta",
     bool: "boolean"
 }
 
@@ -178,6 +182,12 @@ class ODSSheetWriter(SheetWriter):
             value_type = ODS_WRITE_FORMAT_COVERSION[type(cell)]
             if value_type == "time":
                 cell = cell.strftime("PT%HH%MM%SS")
+            elif value_type == "timedelta":
+                hours = cell.total_seconds() // 3600
+                minutes = (cell.total_seconds() // 60) % 60
+                seconds = cell.total_seconds() % 60
+                cell = "PT%02dH%02dM%02dS" % (hours, minutes, seconds)
+                value_type = "time"
             self.native_sheet[self.current_row, count].set_value(
                 cell,
                 value_type=value_type)
