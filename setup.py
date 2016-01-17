@@ -10,6 +10,7 @@ with open("README.rst", 'r') as readme:
 
 dependencies = [
     'pyexcel-io>=0.1.0',
+    'lxml',
     'ezodf>=0.3.2'
 ]
 

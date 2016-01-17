@@ -1,3 +1,4 @@
+lxml
 https://github.com/chfw/pyexcel/archive/master.zip
 pyexcel-io
 pyexcel-xls
