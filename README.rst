@@ -2,14 +2,14 @@
 pyexcel-ods3 - Let you focus on data, instead of ods format
 ===================================================================
 
-.. image:: https://api.travis-ci.org/chfw/pyexcel-ods3.png
-    :target: http://travis-ci.org/chfw/pyexcel-ods3
+.. image:: https://api.travis-ci.org/pyexcel/pyexcel-ods3.png
+    :target: http://travis-ci.org/pyexcel/pyexcel-ods3
 
 .. image:: https://codecov.io/github/chfw/pyexcel-ods3/coverage.png
     :target: https://codecov.io/github/chfw/pyexcel-ods3
 
 
-**pyexcel-ods3** is a tiny wrapper library to read, manipulate and write data in ods fromat using python version 2.6(since v0.0.8), 2.7, 3.3 and 3.4. You are likely to use `pyexcel <https://github.com/chfw/pyexcel>`__ together with this library. `pyexcel-ods <https://github.com/chfw/pyexcel-ods>`__ is a sister library, having no dependency on lxml. However it has no support for python 3.
+**pyexcel-ods3** is a tiny wrapper library to read, manipulate and write data in ods fromat using python version 2.6(since v0.0.8), 2.7, 3.3 and 3.4. You are likely to use `pyexcel <https://github.com/pyexcel/pyexcel>`__ together with this library. `pyexcel-ods <https://github.com/pyexcel/pyexcel-ods>`__ is a sister library, having no dependency on lxml. However it has no support for python 3.
 
 Known constraints
 ==================
@@ -29,7 +29,7 @@ or clone it and install it:
 
 .. code-block:: bash
 
-    $ git clone https://github.com/chfw/pyexcel-ods3.git
+    $ git clone https://github.com/pyexcel/pyexcel-ods3.git
     $ cd pyexcel-ods3
     $ python setup.py install
 
@@ -38,6 +38,12 @@ The installation of `lxml` will be tricky on Widnows platform. It is recommended
 
 Usage
 =====
+
+New feature
+-----------------
+
+1. Passing "streaming=True" to get_data, you will get the two dimensional array as a generator
+2. Passing "data=your_generator" to save_data is acceptable too.
 
 As a standalone library
 ------------------------
