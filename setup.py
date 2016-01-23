@@ -11,34 +11,41 @@ with open("README.rst", 'r') as readme:
 dependencies = [
     'pyexcel-io>=0.1.0',
     'lxml',
-    'ezodf>=0.3.2'
+    'ezodf>=0.3.2',
 ]
 
-with open("VERSION", "r") as version:
-    version_txt = version.read().rstrip()
+extra_dependencies = {}
+
 
 setup(
     name='pyexcel-ods3',
-    author="C. W.",
-    version=version_txt,
-    author_email="wangc_2011@hotmail.com",
-    url="https://github.com/chfw/pyexcel-ods3",
+    author='C. W.',
+    version='0.1.0',
+    author_email='wangc_2011 (at) hotmail.com',
+    url='https://github.com/pyexcel/pyexcel-ods3',
     description='A wrapper library to read, manipulate and write data in ods format',
     install_requires=dependencies,
+    extras_require=extras,
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
     include_package_data=True,
     long_description=README_txt,
     zip_safe=False,
     tests_require=['nose'],
+    keywords=[
+        'excel',
+        'python',
+        'pyexcel',
+        'ods'
+    ],
     license='New BSD',
     classifiers=[
-        'Development Status :: 3 - Alpha',
         'Topic :: Office/Business',
         'Topic :: Utilities',
         'Topic :: Software Development :: Libraries',
         'Programming Language :: Python',
         'License :: OSI Approved :: BSD License',
         'Intended Audience :: Developers',
+        'Development Status :: 3 - Alpha',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.3',

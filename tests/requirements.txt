@@ -1,10 +1,7 @@
-lxml
-https://github.com/chfw/pyexcel/archive/master.zip
-pyexcel-io
-pyexcel-xls
 nose
 rednose
 nose-cov
 codecov
 coverage
-
+pyexcel
+pyexcel-xls

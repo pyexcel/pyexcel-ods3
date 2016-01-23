@@ -1,0 +1,11 @@
+overrides: "pyexcel.yaml"
+name: "pyexcel-ods3"
+nick_name: ods3
+version: 0.1.0
+file_type: ods
+dependencies:
+  - pyexcel-io>=0.1.0
+  - lxml
+  - ezodf>=0.3.2
+description: |
+  A wrapper library to read, manipulate and write data in ods format
