@@ -4,7 +4,7 @@
 
     ODS format plugin for pyexcel
 
-    :copyright: (c)  2015-2016 -2016 by Onni Software Ltd. & its contributors
+    :copyright: (c)  2015-2016 by Onni Software Ltd. & its contributors
     :license: New BSD License
 """
 import sys
@@ -58,10 +58,10 @@ def time_value(value):
     minute = int(value[5:7])
     second = int(value[8:10])
     if hour < 24:
-        ret = datetime.time(hour, minute, second)
+        return datetime.time(hour, minute, second)
     else:
-        ret = datetime.timedelta(hours=hour, minutes=minute, seconds=second)
-    return ret
+        return datetime.timedelta(hours=hour, minutes=minute, seconds=second)
+
 
 
 def boolean_value(value):
@@ -113,6 +113,21 @@ if sys.version_info[0] < 3:
     ODS_WRITE_FORMAT_COVERSION[unicode] = "string"
 
 
+def _read_cell(cell):
+    cell_type = cell.value_type
+    ret = None
+    if cell_type in ODS_FORMAT_CONVERSION:
+        value = cell.value
+        n_value = VALUE_CONVERTERS[cell_type](value)
+        ret = n_value
+    else:
+        if cell.value is None:
+            ret = ""
+        else:
+            ret = cell.value
+    return ret
+
+
 class ODSSheet(SheetReaderBase):
     @property
     def name(self):
@@ -124,28 +139,14 @@ class ODSSheet(SheetReaderBase):
         for row in range(self.native_sheet.nrows()):
             row_data = []
             tmp_row = []
-            for column, cell in enumerate(self.native_sheet.row(row)):
-                cell_value = self._read_cell(cell)
+            for cell in self.native_sheet.row(row):
+                cell_value = _read_cell(cell)
                 tmp_row.append(cell_value)
                 if cell_value is not None and cell_value != '':
                     row_data += tmp_row
                     tmp_row = []
             if len(row_data) > 0:
                 yield row_data
-
-    def _read_cell(self, cell):
-        cell_type = cell.value_type
-        ret = None
-        if cell_type in ODS_FORMAT_CONVERSION:
-            value = cell.value
-            n_value = VALUE_CONVERTERS[cell_type](value)
-            ret = n_value
-        else:
-            if cell.value is None:
-                ret = ""
-            else:
-                ret = cell.value
-        return ret
 
 
 class ODSBook(BookReader):
@@ -246,13 +247,13 @@ WRITERS["ods"] = ODSWriter
 
 def save_data(afile, data, file_type=None, **keywords):
     if isstream(afile) and file_type is None:
-        file_type='ods'
+        file_type = 'ods'
     write_data(afile, data, file_type=file_type, **keywords)
 
 
 def get_data(afile, file_type=None, **keywords):
     if isstream(afile) and file_type is None:
-        file_type='ods'
+        file_type = 'ods'
     return read_data(afile, file_type=file_type, **keywords)
 
 
