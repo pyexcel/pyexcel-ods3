@@ -30,11 +30,26 @@ def float_value(value):
 
 
 def date_value(value):
-    tokens = value.split('-')
-    year = int(tokens[0])
-    month = int(tokens[1])
-    day = int(tokens[2])
-    ret = datetime.date(year, month, day)
+    ret = "invalid"
+    try:
+        # catch strptime exceptions only
+        if len(value) == 10:
+            ret = datetime.datetime.strptime(
+                value,
+                "%Y-%m-%d")
+            ret = ret.date()
+        elif len(value) == 19:
+            ret = datetime.datetime.strptime(
+                value,
+                "%Y-%m-%dT%H:%M:%S")
+        elif len(value) > 19:
+            ret = datetime.datetime.strptime(
+                value[0:26],
+                "%Y-%m-%dT%H:%M:%S.%f")
+    except:
+        pass
+    if ret == "invalid":
+        raise Exception("Bad date value %s" % value)
     return ret
 
 
@@ -63,6 +78,17 @@ ODS_FORMAT_CONVERSION = {
 }
 
 
+ODS_WRITE_FORMAT_COVERSION = {
+    float: "float",
+    int: "float",
+    str: "string",
+    datetime.date: "date",
+    datetime.time: "time",
+    datetime.timedelta: "timedelta",
+    bool: "boolean"
+}
+
+
 VALUE_CONVERTERS = {
     "float": float_value,
     "date": date_value,
@@ -80,16 +106,6 @@ VALUE_TOKEN = {
     "boolean": "boolean-value",
     "percentage": "value",
     "currency": "value"
-}
-
-ODS_WRITE_FORMAT_COVERSION = {
-    float: "float",
-    int: "float",
-    str: "string",
-    datetime.date: "date",
-    datetime.time: "time",
-    datetime.timedelta: "timedelta",
-    bool: "boolean"
 }
 
 
