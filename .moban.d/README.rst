@@ -14,5 +14,5 @@
 {%block extras %}
 Installation Note
 ================================================================================
-The installation of `lxml` will be tricky on Widnows platform. It is recommended that you download a lxml's own windows installer instead of using pip.
+The installation of `lxml` will be tricky on Windows platform. It is recommended that you download a lxml's own windows installer instead of using pip.
 {%endblock%}
