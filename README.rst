@@ -214,6 +214,7 @@ License
 ================================================================================
 
 New BSD License
+
 Installation Note
 ================================================================================
 The installation of `lxml` will be tricky on Widnows platform. It is recommended that you download a lxml's own windows installer instead of using pip.
