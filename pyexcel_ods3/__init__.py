@@ -15,8 +15,6 @@ from pyexcel_io import (
     BookReader,
     SheetWriter,
     BookWriter,
-    READERS,
-    WRITERS,
     isstream,
     get_data as read_data,
     store_data as write_data
@@ -241,8 +239,10 @@ class ODSWriter(BookWriter):
         """
         self.native_book.save()
 
-READERS["ods"] = ODSBook
-WRITERS["ods"] = ODSWriter
+
+def extend_pyexcel(ReaderFactory, WriterFactory):
+    ReaderFactory.add_factory("ods", ODSBook)
+    WriterFactory.add_factory("ods", ODSWriter)
 
 
 def save_data(afile, data, file_type=None, **keywords):
