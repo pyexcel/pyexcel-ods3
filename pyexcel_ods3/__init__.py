@@ -10,16 +10,17 @@
 import sys
 import datetime
 import ezodf
-from pyexcel_io import (
-    SheetReaderBase,
-    BookReader,
-    SheetWriter,
-    BookWriter,
-    isstream,
-    get_data as read_data,
-    store_data as write_data
-)
+
+from pyexcel_io.io import get_data as read_data, isstream, store_data as write_data
+from pyexcel_io.book import BookReader, BookWriter
+from pyexcel_io.sheet import SheetReader, SheetWriter
+from pyexcel_io.manager import RWManager
+
 PY2 = sys.version_info[0] == 2
+if PY2 and sys.version_info[1] < 7:
+    from ordereddict import OrderedDict
+else:
+    from collections import OrderedDict    
 
 
 def float_value(value):
@@ -126,7 +127,7 @@ def _read_cell(cell):
     return ret
 
 
-class ODSSheet(SheetReaderBase):
+class ODSSheet(SheetReader):
     @property
     def name(self):
         return self.native_sheet.name
@@ -149,32 +150,55 @@ class ODSSheet(SheetReaderBase):
 
 class ODSBook(BookReader):
 
-    def get_sheet(self, native_sheet):
-        return ODSSheet(native_sheet)
+    def __init__(self):
+        BookReader.__init__(self, 'ods')
+        self.native_book = None
 
-    def load_from_file(self, filename, **keywords):
-        return ezodf.opendoc(filename)
+    def open(self, file_name, **keywords):
+        BookReader.open(self, file_name, **keywords)
+        self._load_from_file()
 
-    def load_from_memory(self, file_content, **keywords):
-        return ezodf.opendoc(file_content)
+    def open_stream(self, file_stream, **keywords):
+        BookReader.open_stream(self, file_stream, **keywords)
+        self._load_from_memory()
 
-    def sheet_iterator(self):
-        if self.sheet_name is not None:
-            rets = [sheet for sheet in self.native_book.sheets if sheet.name == self.sheet_name]
-            if len(rets) == 0:
-                raise ValueError("%s cannot be found" % self.sheet_name)
-            else:
-                return rets
-        elif self.sheet_index is not None:
-            sheets = self.native_book.sheets
-            length = len(sheets)
-            if self.sheet_index < length:
-                return [sheets[self.sheet_index]]
-            else:
-                raise IndexError("Index %d of out bound %d." % (self.sheet_index,
-                                                                length))
+    def read_sheet_by_name(self, sheet_name):
+        rets = [sheet for sheet in self.native_book.sheets if sheet.name == sheet_name]
+        if len(rets) == 0:
+            raise ValueError("%s cannot be found" % sheet_name)
+        elif len(rets) == 1:
+            return self._read_sheet(rets[0])
         else:
-            return self.native_book.sheets
+            raise ValueError(
+                "More than 1 sheet named as %s are found" % sheet_name)            
+        pass
+
+    def read_sheet_by_index(self, sheet_index):
+        sheets = self.native_book.sheets
+        length = len(sheets)
+        if sheet_index < length:
+            return self._read_sheet(sheets[sheet_index])
+        else:
+            raise IndexError("Index %d of out bound %d." % (sheet_index,
+                                                            length))
+
+    def read_all(self):
+        result = OrderedDict()
+        for sheet in self.native_book.sheets:
+            ods_sheet = ODSSheet(sheet)
+            result[ods_sheet.name] = ods_sheet.to_array()
+        return result
+        
+    def _read_sheet(self, native_sheet):
+        sheet = ODSSheet(native_sheet)
+        return {native_sheet.name: sheet.to_array()}
+
+
+    def _load_from_file(self):
+        self.native_book = ezodf.opendoc(self.file_name)
+
+    def _load_from_memory(self):
+        self.native_book = ezodf.opendoc(self.file_stream)
 
 
 class ODSSheetWriter(SheetWriter):
@@ -222,9 +246,13 @@ class ODSWriter(BookWriter):
     open document spreadsheet writer
 
     """
-    def __init__(self, filename, **keywords):
-        BookWriter.__init__(self, filename)  # in case something will be done
-        self.native_book = ezodf.newdoc(doctype="ods", filename=filename)
+    def __init__(self):
+        BookWriter.__init__(self, 'ods')  # in case something will be done
+        self.native_book = None
+
+    def open(self, file_name, **keywords):
+        BookWriter.open(self, file_name, **keywords)
+        self.native_book = ezodf.newdoc(doctype="ods", filename=self.file_alike_object)
 
     def create_sheet(self, name):
         """
@@ -240,11 +268,6 @@ class ODSWriter(BookWriter):
         self.native_book.save()
 
 
-def extend_pyexcel(ReaderFactory, WriterFactory):
-    ReaderFactory.add_factory("ods", ODSBook)
-    WriterFactory.add_factory("ods", ODSWriter)
-
-
 def save_data(afile, data, file_type=None, **keywords):
     if isstream(afile) and file_type is None:
         file_type = 'ods'
@@ -257,4 +280,6 @@ def get_data(afile, file_type=None, **keywords):
     return read_data(afile, file_type=file_type, **keywords)
 
 
-__VERSION__ = "0.0.8"
+RWManager.register_a_reader('ods', ODSBook)
+RWManager.register_a_writer('ods', ODSWriter)
+RWManager.register_file_type_as_binary_stream('ods')

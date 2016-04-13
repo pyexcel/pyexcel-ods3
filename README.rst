@@ -58,7 +58,11 @@ Write to an ods file
     ...     from StringIO import StringIO
     ... else:
     ...     from io import BytesIO as StringIO
-    >>> from pyexcel_io import OrderedDict
+    >>> PY2 = sys.version_info[0] == 2
+    >>> if PY2 and sys.version_info[1] < 7:
+    ...      from ordereddict import OrderedDict
+    ... else:
+    ...     from collections import OrderedDict
 
 
 Here's the sample code to write a dictionary to an ods file:

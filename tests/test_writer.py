@@ -11,11 +11,13 @@ class TestNativeODSWriter:
             "Sheet3": [[u'X', u'Y', u'Z'], [1, 4, 7], [2, 5, 8], [3, 6, 9]]
         }
         self.testfile = "odswriter.ods"
-        writer = ods3.ODSWriter(self.testfile)
+        writer = ods3.ODSWriter()
+        writer.open(self.testfile)
         writer.write(self.content)
         writer.close()
-        reader = ods3.ODSBook(self.testfile)
-        content = reader.sheets()
+        reader = ods3.ODSBook()
+        reader.open(self.testfile)
+        content = reader.read_all()
         for key in content.keys():
             content[key] = list(content[key])
         assert content == self.content

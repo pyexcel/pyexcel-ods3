@@ -67,7 +67,7 @@ class TestAddBooks:
         self._write_test_file(self.testfile2)
 
     def test_load_a_single_sheet(self):
-        b1 = pyexcel.load_book(self.testfile, sheet_name="Sheet1")
+        b1 = pyexcel.get_book(file_name=self.testfile, sheet_name="Sheet1")
         assert len(b1.sheet_names()) == 1
         assert b1['Sheet1'].to_array() == self.content['Sheet1']
 
