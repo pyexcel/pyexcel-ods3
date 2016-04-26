@@ -151,7 +151,7 @@ Here is the sample code:
 .. code-block:: python
 
     >>> import pyexcel as pe
-    >>> from pyexcel.ext import ods3
+    >>> # from pyexcel.ext import ods3
     >>> sheet = pe.get_book(file_name="your_file.ods")
     >>> sheet
     Sheet Name: Sheet 1
