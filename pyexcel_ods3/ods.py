@@ -19,7 +19,14 @@ PY2 = sys.version_info[0] == 2
 if PY2 and sys.version_info[1] < 7:
     from ordereddict import OrderedDict
 else:
-    from collections import OrderedDict    
+    from collections import OrderedDict
+
+
+def is_integer_ok_for_xl_float(value):
+    if value == math.floor(value):
+        return True
+    else:
+        return False
 
 
 def float_value(value):
@@ -107,26 +114,15 @@ VALUE_TOKEN = {
 }
 
 
-def _read_cell(cell):
-    cell_type = cell.value_type
-    ret = None
-    if cell_type in ODS_FORMAT_CONVERSION:
-        value = cell.value
-        n_value = VALUE_CONVERTERS[cell_type](value)
-        ret = n_value
-    else:
-        if cell.value is None:
-            ret = ""
-        else:
-            ret = cell.value
-    return ret
-
-
 if sys.version_info[0] < 3:
     ODS_WRITE_FORMAT_COVERSION[unicode] = "string"
 
 
 class ODSSheet(SheetReader):
+    def __init__(self, sheet, auto_detect_int=True, **keywords):
+        SheetReader.__init__(self, sheet, **keywords)
+        self.auto_detect_int = auto_detect_int
+
     @property
     def name(self):
         return self.native_sheet.name
@@ -138,13 +134,31 @@ class ODSSheet(SheetReader):
             row_data = []
             tmp_row = []
             for cell in self.native_sheet.row(row):
-                cell_value = _read_cell(cell)
+                cell_value = self._read_cell(cell)
                 tmp_row.append(cell_value)
                 if cell_value is not None and cell_value != '':
                     row_data += tmp_row
                     tmp_row = []
             if len(row_data) > 0:
                 yield row_data
+
+    def _read_cell(self, cell):
+        cell_type = cell.value_type
+        ret = None
+        if cell_type in ODS_FORMAT_CONVERSION:
+            value = cell.value
+            n_value = VALUE_CONVERTERS[cell_type](value)
+            if cell_type == 'float' and self.auto_detect_int:
+                if is_integer_ok_for_xl_float(n_value):
+                    n_value = int(n_value)
+            ret = n_value
+        else:
+            if cell.value is None:
+                ret = ""
+            else:
+                ret = cell.value
+        return ret
+
 
 
 class ODSBook(BookReader):
@@ -169,7 +183,7 @@ class ODSBook(BookReader):
             return self._read_sheet(rets[0])
         else:
             raise ValueError(
-                "More than 1 sheet named as %s are found" % sheet_name)            
+                "More than 1 sheet named as %s are found" % sheet_name)
         pass
 
     def read_sheet_by_index(self, sheet_index):
@@ -187,7 +201,7 @@ class ODSBook(BookReader):
             ods_sheet = ODSSheet(sheet)
             result[ods_sheet.name] = ods_sheet.to_array()
         return result
-        
+
     def _read_sheet(self, native_sheet):
         sheet = ODSSheet(native_sheet)
         return {native_sheet.name: sheet.to_array()}
