@@ -86,7 +86,7 @@ Here's the sample code:
     >>> data = get_data("your_file.ods")
     >>> import json
     >>> print(json.dumps(data))
-    {"Sheet 1": [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]], "Sheet 2": [["row 1", "row 2", "row 3"]]}
+    {"Sheet 1": [[1, 2, 3], [4, 5, 6]], "Sheet 2": [["row 1", "row 2", "row 3"]]}
 
 Write an ods to memory
 ********************************************************************************
@@ -123,7 +123,7 @@ Continue from previous example:
     >>> # where you will read from requests.FILES['YOUR_ODS_FILE']
     >>> data = get_data(io)
     >>> print(json.dumps(data))
-    {"Sheet 1": [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]], "Sheet 2": [[7.0, 8.0, 9.0], [10.0, 11.0, 12.0]]}
+    {"Sheet 1": [[1, 2, 3], [4, 5, 6]], "Sheet 2": [[7, 8, 9], [10, 11, 12]]}
 
 
 As a pyexcel plugin

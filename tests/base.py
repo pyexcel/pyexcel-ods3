@@ -2,6 +2,7 @@ import pyexcel
 import datetime
 import os
 from nose.tools import raises
+from unittest import TestCase
 
 
 def create_sample_file1(file):
@@ -132,7 +133,7 @@ class ODSCellTypes:
         assert self.data["Sheet1"][2][2] is False
         # Float
         assert self.data["Sheet1"][0][3] == "Float"
-        assert self.data["Sheet1"][1][3] == 11.11
+        assert self.data["Sheet1"][1][3], 11.11
         # Currency
         assert self.data["Sheet1"][0][4] == "Currency"
         assert self.data["Sheet1"][1][4] == 1
