@@ -198,12 +198,12 @@ class ODSBook(BookReader):
     def read_all(self):
         result = OrderedDict()
         for sheet in self.native_book.sheets:
-            ods_sheet = ODSSheet(sheet)
+            ods_sheet = ODSSheet(sheet, **self.keywords)
             result[ods_sheet.name] = ods_sheet.to_array()
         return result
 
     def _read_sheet(self, native_sheet):
-        sheet = ODSSheet(native_sheet)
+        sheet = ODSSheet(native_sheet, **self.keywords)
         return {native_sheet.name: sheet.to_array()}
 
 
