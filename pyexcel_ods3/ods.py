@@ -211,7 +211,7 @@ class ODSBook(BookReader):
         skip_backup_flag = self.keywords.get('skip_backup', True)
         self.native_book = ezodf.opendoc(self.file_name)
         if skip_backup_flag:
-            self.native_book = False
+            self.native_book.backup = False
 
     def _load_from_memory(self):
         self.native_book = ezodf.opendoc(self.file_stream)
