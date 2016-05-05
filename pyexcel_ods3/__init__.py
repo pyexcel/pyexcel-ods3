@@ -1,7 +1,15 @@
-from pyexcel_io.io import get_data as read_data, isstream, store_data as write_data
+"""
+    pyexcel_ods3
+    ~~~~~~~~~~~~~~~~~~~
 
+    The lower level ods file format handler using ezodf
 
+    :copyright: (c) 2015-2016 by Onni Software Ltd & its contributors
+    :license: New BSD License
+"""
 __pyexcel_io_plugins__ = ['ods']
+
+from pyexcel_io.io import get_data as read_data, isstream, store_data as write_data
 
 
 def save_data(afile, data, file_type=None, **keywords):

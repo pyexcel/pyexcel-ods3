@@ -1,5 +1,5 @@
 """
-    pyexcel.ext.ods3
+    pyexcel_ods3.ods
     ~~~~~~~~~~~~~~~~~~~
 
     ODS format plugin for pyexcel
@@ -208,10 +208,7 @@ class ODSBook(BookReader):
 
 
     def _load_from_file(self):
-        skip_backup_flag = self.keywords.get('skip_backup', True)
         self.native_book = ezodf.opendoc(self.file_name)
-        if skip_backup_flag:
-            self.native_book.backup = False
 
     def _load_from_memory(self):
         self.native_book = ezodf.opendoc(self.file_stream)
@@ -269,6 +266,9 @@ class ODSWriter(BookWriter):
     def open(self, file_name, **keywords):
         BookWriter.open(self, file_name, **keywords)
         self.native_book = ezodf.newdoc(doctype="ods", filename=self.file_alike_object)
+        skip_backup_flag = self.keywords.get('skip_backup', True)
+        if skip_backup_flag:
+            self.native_book.backup = False
 
     def create_sheet(self, name):
         """
@@ -288,7 +288,8 @@ _ods_registry = {
     "file_type": "ods",
     "reader": ODSBook,
     "writer": ODSWriter,
-    "stream_type": "binary"
+    "stream_type": "binary",
+    "mime_type": "application/vnd.oasis.opendocument.spreadsheet"
 }
 
 exports = (_ods_registry, )
