@@ -1,5 +1,5 @@
 import os
-from pyexcel_ods3 import ods as ods3
+from pyexcel.ext.ods3 import ods
 from base import PyexcelWriterBase, PyexcelHatWriterBase
 
 
@@ -11,11 +11,11 @@ class TestNativeODSWriter:
             "Sheet3": [[u'X', u'Y', u'Z'], [1, 4, 7], [2, 5, 8], [3, 6, 9]]
         }
         self.testfile = "odswriter.ods"
-        writer = ods3.ODSWriter()
+        writer = ods.ODSWriter()
         writer.open(self.testfile)
         writer.write(self.content)
         writer.close()
-        reader = ods3.ODSBook()
+        reader = ods.ODSBook()
         reader.open(self.testfile)
         content = reader.read_all()
         for key in content.keys():

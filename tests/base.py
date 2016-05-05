@@ -1,8 +1,7 @@
+import os
 import pyexcel
 import datetime
-import os
 from nose.tools import raises
-from unittest import TestCase
 
 
 def create_sample_file1(file):
