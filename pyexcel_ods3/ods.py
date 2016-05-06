@@ -266,6 +266,7 @@ class ODSWriter(BookWriter):
     def open(self, file_name, **keywords):
         BookWriter.open(self, file_name, **keywords)
         self.native_book = ezodf.newdoc(doctype="ods", filename=self.file_alike_object)
+
         skip_backup_flag = self.keywords.get('skip_backup', True)
         if skip_backup_flag:
             self.native_book.backup = False
@@ -289,7 +290,8 @@ _ods_registry = {
     "reader": ODSBook,
     "writer": ODSWriter,
     "stream_type": "binary",
-    "mime_type": "application/vnd.oasis.opendocument.spreadsheet"
+    "mime_type": "application/vnd.oasis.opendocument.spreadsheet",
+    "library": "ezodf"
 }
 
 exports = (_ods_registry, )
