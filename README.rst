@@ -13,7 +13,7 @@ pyexcel-ods3 - Let you focus on data, instead of ods format
 Known constraints
 ==================
 
-Fonts, colors and charts are not supported. 
+Fonts, colors and charts are not supported.
 
 Installation
 ================================================================================
@@ -256,7 +256,6 @@ On Linux/Unix systems, please launch your tests like this::
 On Windows systems, please issue this command::
 
     > test.bat
-
 
 Installation Note
 ================================================================================

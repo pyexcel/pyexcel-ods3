@@ -25,7 +25,8 @@ INSTALL_REQUIRES = [
     'ezodf>=0.3.2',
 ]
 
-EXTRAS_REQUIRE = {}
+EXTRAS_REQUIRE = {
+}
 
 CLASSIFIERS = [
     'Topic :: Office/Business',
