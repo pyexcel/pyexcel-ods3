@@ -160,7 +160,6 @@ class ODSSheet(SheetReader):
         return ret
 
 
-
 class ODSBook(BookReader):
 
     def __init__(self):

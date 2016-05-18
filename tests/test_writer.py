@@ -1,5 +1,5 @@
 import os
-from pyexcel.ext.ods3 import ods
+from pyexcel_ods3 import ods
 from base import PyexcelWriterBase, PyexcelHatWriterBase
 
 
