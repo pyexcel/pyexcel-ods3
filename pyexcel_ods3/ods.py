@@ -10,16 +10,17 @@
 import sys
 import math
 import datetime
-import ezodf
 
-from pyexcel_io.book import BookReader, BookWriter
-from pyexcel_io.sheet import SheetReader, SheetWriter
-
-PY2 = sys.version_info[0] == 2
-if PY2 and sys.version_info[1] < 7:
+PY27_BELOW = sys.version_info[0] == 2 and sys.version_info[1] < 7
+if PY27_BELOW:
     from ordereddict import OrderedDict
 else:
     from collections import OrderedDict
+
+import ezodf
+from pyexcel_io.book import BookReader, BookWriter
+from pyexcel_io.sheet import SheetReader, SheetWriter
+
 
 
 def is_integer_ok_for_xl_float(value):
@@ -66,7 +67,6 @@ def time_value(value):
         return datetime.time(hour, minute, second)
     else:
         return datetime.timedelta(hours=hour, minutes=minute, seconds=second)
-
 
 
 def boolean_value(value):
@@ -164,7 +164,6 @@ class ODSBook(BookReader):
 
     def __init__(self):
         BookReader.__init__(self)
-        self.native_book = None
 
     def open(self, file_name, **keywords):
         BookReader.open(self, file_name, **keywords)
@@ -179,7 +178,7 @@ class ODSBook(BookReader):
         if len(rets) == 0:
             raise ValueError("%s cannot be found" % sheet_name)
         elif len(rets) == 1:
-            return self._read_sheet(rets[0])
+            return self.read_sheet(rets[0])
         else:
             raise ValueError(
                 "More than 1 sheet named as %s are found" % sheet_name)
@@ -189,7 +188,7 @@ class ODSBook(BookReader):
         sheets = self.native_book.sheets
         length = len(sheets)
         if sheet_index < length:
-            return self._read_sheet(sheets[sheet_index])
+            return self.read_sheet(sheets[sheet_index])
         else:
             raise IndexError("Index %d of out bound %d." % (sheet_index,
                                                             length))
@@ -201,10 +200,9 @@ class ODSBook(BookReader):
             result[ods_sheet.name] = ods_sheet.to_array()
         return result
 
-    def _read_sheet(self, native_sheet):
+    def read_sheet(self, native_sheet):
         sheet = ODSSheet(native_sheet, **self.keywords)
         return {native_sheet.name: sheet.to_array()}
-
 
     def _load_from_file(self):
         self.native_book = ezodf.opendoc(self.file_name)
