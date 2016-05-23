@@ -22,20 +22,19 @@ from pyexcel_io.book import BookReader, BookWriter
 from pyexcel_io.sheet import SheetReader, SheetWriter
 
 
-
 def is_integer_ok_for_xl_float(value):
-    if value == math.floor(value):
-        return True
-    else:
-        return False
+    """check if a float had zero value in digits"""
+    return value == math.floor(value)
 
 
 def float_value(value):
+    """convert a value to float"""
     ret = float(value)
     return ret
 
 
 def date_value(value):
+    """convert to data value accroding ods specification"""
     ret = "invalid"
     try:
         # catch strptime exceptions only
@@ -52,7 +51,7 @@ def date_value(value):
             ret = datetime.datetime.strptime(
                 value[0:26],
                 "%Y-%m-%dT%H:%M:%S.%f")
-    except:
+    except ValueError:
         pass
     if ret == "invalid":
         raise Exception("Bad date value %s" % value)
@@ -60,6 +59,7 @@ def date_value(value):
 
 
 def time_value(value):
+    """convert to time value accroding the specification"""
     hour = int(value[2:4])
     minute = int(value[5:7])
     second = int(value[8:10])
@@ -70,6 +70,7 @@ def time_value(value):
 
 
 def boolean_value(value):
+    """get bolean value"""
     return value
 
 
@@ -119,6 +120,7 @@ if sys.version_info[0] < 3:
 
 
 class ODSSheet(SheetReader):
+    """ODS sheet representation"""
     def __init__(self, sheet, auto_detect_int=True, **keywords):
         SheetReader.__init__(self, sheet, **keywords)
         self.auto_detect_int = auto_detect_int
@@ -161,19 +163,20 @@ class ODSSheet(SheetReader):
 
 
 class ODSBook(BookReader):
-
-    def __init__(self):
-        BookReader.__init__(self)
+    """read a ods book out"""
 
     def open(self, file_name, **keywords):
+        """load ods from file"""
         BookReader.open(self, file_name, **keywords)
         self._load_from_file()
 
     def open_stream(self, file_stream, **keywords):
+        """load ods from file stream"""
         BookReader.open_stream(self, file_stream, **keywords)
         self._load_from_memory()
 
     def read_sheet_by_name(self, sheet_name):
+        """read a named sheet"""
         rets = [sheet for sheet in self.native_book.sheets if sheet.name == sheet_name]
         if len(rets) == 0:
             raise ValueError("%s cannot be found" % sheet_name)
@@ -182,9 +185,9 @@ class ODSBook(BookReader):
         else:
             raise ValueError(
                 "More than 1 sheet named as %s are found" % sheet_name)
-        pass
 
     def read_sheet_by_index(self, sheet_index):
+        """read a sheet at an index"""
         sheets = self.native_book.sheets
         length = len(sheets)
         if sheet_index < length:
@@ -194,10 +197,11 @@ class ODSBook(BookReader):
                                                             length))
 
     def read_all(self):
+        """read all available sheets"""
         result = OrderedDict()
         for sheet in self.native_book.sheets:
-            ods_sheet = ODSSheet(sheet, **self.keywords)
-            result[ods_sheet.name] = ods_sheet.to_array()
+            data_dict = self.read_sheet(sheet)
+            result.update(data_dict)
         return result
 
     def read_sheet(self, native_sheet):
@@ -261,6 +265,7 @@ class ODSWriter(BookWriter):
         self.native_book = None
 
     def open(self, file_name, **keywords):
+        """open a file for writing ods"""
         BookWriter.open(self, file_name, **keywords)
         self.native_book = ezodf.newdoc(doctype="ods", filename=self.file_alike_object)
 
@@ -288,7 +293,7 @@ _ods_registry = {
     "writer": ODSWriter,
     "stream_type": "binary",
     "mime_type": "application/vnd.oasis.opendocument.spreadsheet",
-    "library": "ezodf"
+    "library": "pyexcel-ods3"
 }
 
 exports = (_ods_registry, )
