@@ -64,10 +64,10 @@ def time_value(value):
     minute = int(value[5:7])
     second = int(value[8:10])
     if hour < 24:
-        return datetime.time(hour, minute, second)
+        ret = datetime.time(hour, minute, second)
     else:
-        return datetime.timedelta(hours=hour, minutes=minute, seconds=second)
-
+        ret = datetime.timedelta(hours=hour, minutes=minute, seconds=second)
+    return ret
 
 def boolean_value(value):
     """get bolean value"""
