@@ -11,15 +11,15 @@ import sys
 import math
 import datetime
 
+import ezodf
+from pyexcel_io.book import BookReader, BookWriter
+from pyexcel_io.sheet import SheetReader, SheetWriter
+
 PY27_BELOW = sys.version_info[0] == 2 and sys.version_info[1] < 7
 if PY27_BELOW:
     from ordereddict import OrderedDict
 else:
     from collections import OrderedDict
-
-import ezodf
-from pyexcel_io.book import BookReader, BookWriter
-from pyexcel_io.sheet import SheetReader, SheetWriter
 
 
 def is_integer_ok_for_xl_float(value):
@@ -68,6 +68,7 @@ def time_value(value):
     else:
         ret = datetime.timedelta(hours=hour, minutes=minute, seconds=second)
     return ret
+
 
 def boolean_value(value):
     """get bolean value"""
@@ -177,7 +178,8 @@ class ODSBook(BookReader):
 
     def read_sheet_by_name(self, sheet_name):
         """read a named sheet"""
-        rets = [sheet for sheet in self.native_book.sheets if sheet.name == sheet_name]
+        rets = [sheet for sheet in self.native_book.sheets
+                if sheet.name == sheet_name]
         if len(rets) == 0:
             raise ValueError("%s cannot be found" % sheet_name)
         elif len(rets) == 1:
@@ -267,7 +269,8 @@ class ODSWriter(BookWriter):
     def open(self, file_name, **keywords):
         """open a file for writing ods"""
         BookWriter.open(self, file_name, **keywords)
-        self.native_book = ezodf.newdoc(doctype="ods", filename=self.file_alike_object)
+        self.native_book = ezodf.newdoc(doctype="ods",
+                                        filename=self.file_alike_object)
 
         skip_backup_flag = self.keywords.get('skip_backup', True)
         if skip_backup_flag:

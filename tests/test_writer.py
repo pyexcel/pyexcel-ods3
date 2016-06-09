@@ -29,8 +29,8 @@ class TestNativeODSWriter:
 
 class TestODSnCSVWriter(PyexcelWriterBase):
     def setUp(self):
-        self.testfile="test.ods"
-        self.testfile2="test.csv"
+        self.testfile = "test.ods"
+        self.testfile2 = "test.csv"
 
     def tearDown(self):
         if os.path.exists(self.testfile):
@@ -41,10 +41,8 @@ class TestODSnCSVWriter(PyexcelWriterBase):
 
 class TestODSHatWriter(PyexcelHatWriterBase):
     def setUp(self):
-        self.testfile="test.ods"
+        self.testfile = "test.ods"
 
     def tearDown(self):
         if os.path.exists(self.testfile):
             os.unlink(self.testfile)
-
-

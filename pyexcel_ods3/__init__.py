@@ -7,6 +7,7 @@
     :copyright: (c) 2015-2016 by Onni Software Ltd & its contributors
     :license: New BSD License
 """
+# flake8: noqa
 # this line has to be place above all else
 # because of dynamic import
 _FILE_TYPE = 'ods'

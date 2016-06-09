@@ -21,22 +21,26 @@ def test_date_util_parse():
     value = "2015-08-17T19:20:59.999999999999999"
     d = date_value(value)
     assert d.strftime("%Y-%m-%dT%H:%M:%S") == "2015-08-17T19:20:59"
-    
+
+
 @raises(Exception)
 def test_invalid_date():
     from pyexcel_ods3.ods import date_value
     value = "2015-08-"
     date_value(value)
 
+
 @raises(Exception)
 def test_fake_date_time_10():
     from pyexcel_ods3.ods import date_value
     date_value("1234567890")
 
+
 @raises(Exception)
 def test_fake_date_time_19():
     from pyexcel_ods3.ods import date_value
     date_value("1234567890123456789")
+
 
 @raises(Exception)
 def test_fake_date_time_20():
@@ -47,9 +51,9 @@ def test_fake_date_time_20():
 def test_issue_10():
     test_file_name = "test_issue_10.ods"
     from pyexcel_ods3 import save_data
-    content = {"test":[[1, 2]]}
+    content = {"test": [[1, 2]]}
     save_data(test_file_name, content)
     save_data(test_file_name, content)
     assert os.path.exists(test_file_name)
-    assert os.path.exists(test_file_name + ".bak") == False
+    assert os.path.exists(test_file_name + ".bak") is False
     os.unlink(test_file_name)

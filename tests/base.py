@@ -5,7 +5,7 @@ from nose.tools import raises
 
 
 def create_sample_file1(file):
-    data=['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 1.1, 1]
+    data = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 1.1, 1]
     table = []
     table.append(data[:4])
     table.append(data[4:8])
@@ -18,17 +18,17 @@ class PyexcelHatWriterBase:
     Abstract functional test for hat writers
     """
     content = {
-        "X": [1,2,3,4,5],
-        "Y": [6,7,8,9,10],
-        "Z": [11,12,13,14,15],
+        "X": [1, 2, 3, 4, 5],
+        "Y": [6, 7, 8, 9, 10],
+        "Z": [11, 12, 13, 14, 15]
     }
-    
+
     def test_series_table(self):
         pyexcel.save_as(adict=self.content, dest_file_name=self.testfile)
         r = pyexcel.get_sheet(file_name=self.testfile, name_columns_by_row=0)
         actual = pyexcel.utils.to_dict(r)
         assert actual == self.content
-    
+
 
 class PyexcelWriterBase:
     """
@@ -38,15 +38,15 @@ class PyexcelWriterBase:
     it is used for testing
     """
     content = [
-        [1,2,3,4,5],
-        [1,2,3,4,5],
-        [1,2,3,4,5],
-        [1,2,3,4,5]
+        [1, 2, 3, 4, 5],
+        [1, 2, 3, 4, 5],
+        [1, 2, 3, 4, 5],
+        [1, 2, 3, 4, 5]
     ]
 
     def _create_a_file(self, file):
-        pyexcel.save_as(dest_file_name=file,array=self.content)
-    
+        pyexcel.save_as(dest_file_name=file, array=self.content)
+
     def test_write_array(self):
         self._create_a_file(self.testfile)
         r = pyexcel.get_sheet(file_name=self.testfile)
@@ -66,8 +66,8 @@ class PyexcelMultipleSheetBase:
             os.unlink(self.testfile)
 
     def test_sheet_names(self):
-        r = pyexcel.BookReader( self.testfile)
-        expected = [ "Sheet1", "Sheet2", "Sheet3"]
+        r = pyexcel.BookReader(self.testfile)
+        expected = ["Sheet1", "Sheet2", "Sheet3"]
         sheet_names = r.sheet_names()
         for name in sheet_names:
             assert name in expected
@@ -101,12 +101,12 @@ class PyexcelMultipleSheetBase:
 
     def test_random_access_operator(self):
         r = pyexcel.BookReader(self.testfile)
-        value = r["Sheet1"][0,1]
+        value = r["Sheet1"][0, 1]
         assert value == 1
-        value = r["Sheet3"][0,1]
+        value = r["Sheet3"][0, 1]
         assert value == 'Y'
         r["Sheet3"].name_columns_by_row(0)
-        assert r["Sheet3"][0,1] == 4
+        assert r["Sheet3"][0, 1] == 4
 
 
 class ODSCellTypes:
@@ -124,7 +124,9 @@ class ODSCellTypes:
         assert self.data["Sheet1"][1][1].strftime(time_format) == "12:12:11"
         assert self.data["Sheet1"][2][1].strftime(time_format) == "12:00:00"
         assert self.data["Sheet1"][3][1] == 0
-        assert self.data["Sheet1"][4][1] == datetime.timedelta(hours=27, minutes=17, seconds=54)
+        assert self.data["Sheet1"][4][1] == datetime.timedelta(hours=27,
+                                                               minutes=17,
+                                                               seconds=54)
         assert self.data["Sheet1"][5][1] == "Other"
         # boolean
         assert self.data["Sheet1"][0][2] == "Boolean"
@@ -132,7 +134,7 @@ class ODSCellTypes:
         assert self.data["Sheet1"][2][2] is False
         # Float
         assert self.data["Sheet1"][0][3] == "Float"
-        assert self.data["Sheet1"][1][3], 11.11
+        assert self.data["Sheet1"][1][3] == 11.11
         # Currency
         assert self.data["Sheet1"][0][4] == "Currency"
         assert self.data["Sheet1"][1][4] == 1

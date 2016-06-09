@@ -7,7 +7,7 @@ import pyexcel as pe
 
 class TestAutoDetectInt(TestCase):
     def setUp(self):
-        self.content = [[1,2,3.1]]
+        self.content = [[1, 2, 3.1]]
         self.test_file = "test_auto_detect_init.ods"
         pe.save_as(array=self.content, dest_file_name=self.test_file)
 
