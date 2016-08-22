@@ -7,7 +7,7 @@ except ImportError:
 
 NAME = 'pyexcel-ods3'
 AUTHOR = 'C.W.'
-VERSION = '0.2.0'
+VERSION = '0.2.1'
 EMAIL = 'wangc_2011 (at) hotmail.com'
 LICENSE = 'New BSD'
 PACKAGES = find_packages(exclude=['ez_setup', 'examples', 'tests'])
@@ -23,7 +23,7 @@ KEYWORDS = [
 ]
 
 INSTALL_REQUIRES = [
-    'pyexcel-io>=0.1.0',
+    'pyexcel-io>=0.2.2',
     'lxml',
     'ezodf>=0.3.2',
 ]

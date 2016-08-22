@@ -134,9 +134,18 @@ class ODSSheet(SheetReader):
         """reads a sheet in the sheet dictionary, storing each sheet
         as an array (rows) of arrays (columns)"""
         for row in range(self.native_sheet.nrows()):
+            if self.skip_row(row, self.start_row, self.row_limit):
+                continue
+
             row_data = []
             tmp_row = []
-            for cell in self.native_sheet.row(row):
+            for column, cell in enumerate(self.native_sheet.row(row)):
+                skip_column = self.skip_column(column,
+                                               self.start_column,
+                                               self.column_limit)
+                if skip_column:
+                    continue
+
                 cell_value = self._read_cell(cell)
                 tmp_row.append(cell_value)
                 if cell_value is not None and cell_value != '':
