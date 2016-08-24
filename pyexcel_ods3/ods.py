@@ -130,31 +130,20 @@ class ODSSheet(SheetReader):
     def name(self):
         return self.native_sheet.name
 
-    def to_array(self):
-        """reads a sheet in the sheet dictionary, storing each sheet
-        as an array (rows) of arrays (columns)"""
-        for row in range(self.native_sheet.nrows()):
-            if self.skip_row(row, self.start_row, self.row_limit):
-                continue
+    def number_of_rows(self):
+        """
+        Number of rows in the xls sheet
+        """
+        return self.native_sheet.nrows()
 
-            row_data = []
-            tmp_row = []
-            for column, cell in enumerate(self.native_sheet.row(row)):
-                skip_column = self.skip_column(column,
-                                               self.start_column,
-                                               self.column_limit)
-                if skip_column:
-                    continue
+    def number_of_columns(self):
+        """
+        Number of columns in the xls sheet
+        """
+        return self.native_sheet.ncols()
 
-                cell_value = self._read_cell(cell)
-                tmp_row.append(cell_value)
-                if cell_value is not None and cell_value != '':
-                    row_data += tmp_row
-                    tmp_row = []
-            if len(row_data) > 0:
-                yield row_data
-
-    def _read_cell(self, cell):
+    def _cell_value(self, row, column):
+        cell = self.native_sheet.get_cell((row, column))
         cell_type = cell.value_type
         ret = None
         if cell_type in ODS_FORMAT_CONVERSION:

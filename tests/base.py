@@ -1,7 +1,7 @@
 import os
 import pyexcel
 import datetime
-from nose.tools import raises
+from nose.tools import raises, eq_
 
 
 def create_sample_file1(file):
@@ -27,7 +27,7 @@ class PyexcelHatWriterBase:
         pyexcel.save_as(adict=self.content, dest_file_name=self.testfile)
         r = pyexcel.get_sheet(file_name=self.testfile, name_columns_by_row=0)
         actual = pyexcel.utils.to_dict(r)
-        assert actual == self.content
+        eq_(actual, self.content)
 
 
 class PyexcelWriterBase:
