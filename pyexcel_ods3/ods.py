@@ -9,115 +9,18 @@
 """
 import sys
 import math
-import datetime
 
 import ezodf
 from pyexcel_io.book import BookReader, BookWriter
 from pyexcel_io.sheet import SheetReader, SheetWriter
+
+import pyexcel_ods3.converter as converter
 
 PY27_BELOW = sys.version_info[0] == 2 and sys.version_info[1] < 7
 if PY27_BELOW:
     from ordereddict import OrderedDict
 else:
     from collections import OrderedDict
-
-
-def is_integer_ok_for_xl_float(value):
-    """check if a float had zero value in digits"""
-    return value == math.floor(value)
-
-
-def float_value(value):
-    """convert a value to float"""
-    ret = float(value)
-    return ret
-
-
-def date_value(value):
-    """convert to data value accroding ods specification"""
-    ret = "invalid"
-    try:
-        # catch strptime exceptions only
-        if len(value) == 10:
-            ret = datetime.datetime.strptime(
-                value,
-                "%Y-%m-%d")
-            ret = ret.date()
-        elif len(value) == 19:
-            ret = datetime.datetime.strptime(
-                value,
-                "%Y-%m-%dT%H:%M:%S")
-        elif len(value) > 19:
-            ret = datetime.datetime.strptime(
-                value[0:26],
-                "%Y-%m-%dT%H:%M:%S.%f")
-    except ValueError:
-        pass
-    if ret == "invalid":
-        raise Exception("Bad date value %s" % value)
-    return ret
-
-
-def time_value(value):
-    """convert to time value accroding the specification"""
-    hour = int(value[2:4])
-    minute = int(value[5:7])
-    second = int(value[8:10])
-    if hour < 24:
-        ret = datetime.time(hour, minute, second)
-    else:
-        ret = datetime.timedelta(hours=hour, minutes=minute, seconds=second)
-    return ret
-
-
-def boolean_value(value):
-    """get bolean value"""
-    return value
-
-
-ODS_FORMAT_CONVERSION = {
-    "float": float,
-    "date": datetime.date,
-    "time": datetime.time,
-    "boolean": bool,
-    "percentage": float,
-    "currency": float
-}
-
-
-ODS_WRITE_FORMAT_COVERSION = {
-    float: "float",
-    int: "float",
-    str: "string",
-    datetime.date: "date",
-    datetime.time: "time",
-    datetime.timedelta: "timedelta",
-    bool: "boolean"
-}
-
-
-VALUE_CONVERTERS = {
-    "float": float_value,
-    "date": date_value,
-    "time": time_value,
-    "boolean": boolean_value,
-    "percentage": float_value,
-    "currency": float_value
-}
-
-
-VALUE_TOKEN = {
-    "float": "value",
-    "date": "date-value",
-    "time": "time-value",
-    "boolean": "boolean-value",
-    "percentage": "value",
-    "currency": "value"
-}
-
-
-if sys.version_info[0] < 3:
-    ODS_WRITE_FORMAT_COVERSION[unicode] = "string"
 
 
 class ODSSheet(SheetReader):
@@ -146,9 +49,9 @@ class ODSSheet(SheetReader):
         cell = self.native_sheet.get_cell((row, column))
         cell_type = cell.value_type
         ret = None
-        if cell_type in ODS_FORMAT_CONVERSION:
+        if cell_type in converter.ODS_FORMAT_CONVERSION:
             value = cell.value
-            n_value = VALUE_CONVERTERS[cell_type](value)
+            n_value = converter.VALUE_CONVERTERS[cell_type](value)
             if cell_type == 'float' and self.auto_detect_int:
                 if is_integer_ok_for_xl_float(n_value):
                     n_value = int(n_value)
@@ -232,7 +135,7 @@ class ODSSheetWriter(SheetWriter):
         """
         count = 0
         for cell in array:
-            value_type = ODS_WRITE_FORMAT_COVERSION[type(cell)]
+            value_type = converter.ODS_WRITE_FORMAT_COVERSION[type(cell)]
             if value_type == "time":
                 cell = cell.strftime("PT%HH%MM%SS")
             elif value_type == "timedelta":
@@ -286,6 +189,11 @@ class ODSWriter(BookWriter):
 
         """
         self.native_book.save()
+
+
+def is_integer_ok_for_xl_float(value):
+    """check if a float had zero value in digits"""
+    return value == math.floor(value)
 
 
 _ods_registry = {
