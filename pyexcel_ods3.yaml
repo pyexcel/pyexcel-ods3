@@ -8,5 +8,6 @@ dependencies:
   - pyexcel-io>=0.2.2
   - lxml
   - ezodf>=0.3.2
+  - weakrefset;python_version<"2.7"
 description: |
   A wrapper library to read, manipulate and write data in ods format

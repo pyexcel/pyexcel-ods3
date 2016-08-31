@@ -4,6 +4,9 @@ except ImportError:
     from ez_setup import use_setuptools
     use_setuptools()
     from setuptools import setup, find_packages
+import sys
+PY2 = sys.version_info[0] == 2
+PY26 = PY2 and sys.version_info[1] < 7
 
 NAME = 'pyexcel-ods3'
 AUTHOR = 'C.W.'
@@ -27,6 +30,9 @@ INSTALL_REQUIRES = [
     'lxml',
     'ezodf>=0.3.2',
 ]
+
+if PY26:
+    INSTALL_REQUIRES.append('weakrefset')
 
 EXTRAS_REQUIRE = {
 }
