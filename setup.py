@@ -10,10 +10,9 @@ PY26 = PY2 and sys.version_info[1] < 7
 
 NAME = 'pyexcel-ods3'
 AUTHOR = 'C.W.'
-VERSION = '0.2.1'
+VERSION = '0.2.2'
 EMAIL = 'wangc_2011 (at) hotmail.com'
 LICENSE = 'New BSD'
-PACKAGES = find_packages(exclude=['ez_setup', 'examples', 'tests'])
 DESCRIPTION = (
     'A wrapper library to read, manipulate and write data in ods format' +
     ''
@@ -24,18 +23,6 @@ KEYWORDS = [
     'pyexcel',
     'ods'
 ]
-
-INSTALL_REQUIRES = [
-    'pyexcel-io>=0.2.2',
-    'lxml',
-    'ezodf>=0.3.2',
-]
-
-if PY26:
-    INSTALL_REQUIRES.append('weakrefset')
-
-EXTRAS_REQUIRE = {
-}
 
 CLASSIFIERS = [
     'Topic :: Office/Business',
@@ -52,19 +39,55 @@ CLASSIFIERS = [
     'Programming Language :: Python :: 3.5'
 ]
 
+INSTALL_REQUIRES = [
+    'pyexcel-io>=0.2.2',
+    'lxml',
+    'ezodf>=0.3.2',
+]
+
+if PY26:
+    INSTALL_REQUIRES.append('weakrefset')
+
+PACKAGES = find_packages(exclude=['ez_setup', 'examples', 'tests'])
+EXTRAS_REQUIRE = {
+}
+
 
 def read_files(*files):
     """Read files into setup"""
     text = ""
     for single_file in files:
-        text = text + read(single_file) + "\n"
+        content = read(single_file)
+        text = text + content + "\n"
     return text
 
 
 def read(afile):
     """Read a file into setup"""
     with open(afile, 'r') as opened_file:
-        return opened_file.read()
+        content = filter_out_test_code(opened_file)
+        content = "".join(list(content))
+        return content
+
+
+def filter_out_test_code(file_handle):
+    found_test_code = False
+    for line in file_handle.readlines():
+        if line.startswith('.. testcode:'):
+            found_test_code = True
+            continue
+        if found_test_code is True:
+            if line.startswith('  '):
+                continue
+            else:
+                empty_line = line.strip()
+                if len(empty_line) == 0:
+                    continue
+                else:
+                    found_test_code = False
+                    yield line
+        else:
+            yield line
 
 
 if __name__ == '__main__':
@@ -74,14 +97,14 @@ if __name__ == '__main__':
         version=VERSION,
         author_email=EMAIL,
         description=DESCRIPTION,
-        install_requires=INSTALL_REQUIRES,
+        long_description=read_files('README.rst', 'CHANGELOG.rst'),
+        license=LICENSE,
         keywords=KEYWORDS,
         extras_require=EXTRAS_REQUIRE,
+        tests_require=['nose'],
+        install_requires=INSTALL_REQUIRES,
         packages=PACKAGES,
         include_package_data=True,
-        long_description=read_files('README.rst', 'CHANGELOG.rst'),
         zip_safe=False,
-        tests_require=['nose'],
-        license=LICENSE,
         classifiers=CLASSIFIERS
     )
