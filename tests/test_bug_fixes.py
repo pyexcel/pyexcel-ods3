@@ -59,15 +59,17 @@ def test_issue_10():
     os.unlink(test_file_name)
 
 
-row_max=2
-col_max=2
+row_max = 2
+col_max = 2
+
+
 def data_gen():
     for row in xrange(row_max // 2):
         tmp = []
         for col in xrange(col_max):
             tmp.append("Row: %d Col: %d" % (row, col))
         for col in xrange(col_max):
-            tmp.append((row+col))
+            tmp.append((row + col))
         yield tmp
 
 
