@@ -9,6 +9,7 @@
 """
 import sys
 import math
+import types
 
 import ezodf
 from pyexcel_io.book import BookReader, BookWriter
@@ -149,6 +150,18 @@ class ODSSheetWriter(SheetWriter):
                 value_type=value_type)
             count += 1
         self.current_row += 1
+
+    def write_array(self, table):
+        to_write_data = table
+        if isinstance(to_write_data, types.GeneratorType):
+            to_write_data = list(table)
+        rows = len(to_write_data)
+        if rows < 1:
+            return
+        columns = max([len(row) for row in to_write_data])
+        self.set_size((rows, columns))
+        for row in to_write_data:
+            self.write_row(row)
 
     def close(self):
         """

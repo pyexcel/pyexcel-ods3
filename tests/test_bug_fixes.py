@@ -57,3 +57,22 @@ def test_issue_10():
     assert os.path.exists(test_file_name)
     assert os.path.exists(test_file_name + ".bak") is False
     os.unlink(test_file_name)
+
+
+row_max=2
+col_max=2
+def data_gen():
+    for row in xrange(row_max // 2):
+        tmp = []
+        for col in xrange(col_max):
+            tmp.append("Row: %d Col: %d" % (row, col))
+        for col in xrange(col_max):
+            tmp.append((row+col))
+        yield tmp
+
+
+def test_issue_11():
+    test_file = "test_file.ods"
+    from pyexcel_ods3 import save_data
+    save_data(test_file, {"generator": data_gen()})
+    os.unlink(test_file)
