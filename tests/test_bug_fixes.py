@@ -64,11 +64,11 @@ col_max = 2
 
 
 def data_gen():
-    for row in xrange(row_max // 2):
+    for row in range(row_max // 2):
         tmp = []
-        for col in xrange(col_max):
+        for col in range(col_max):
             tmp.append("Row: %d Col: %d" % (row, col))
-        for col in xrange(col_max):
+        for col in range(col_max):
             tmp.append((row + col))
         yield tmp
 
