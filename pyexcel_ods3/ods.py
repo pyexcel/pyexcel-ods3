@@ -32,22 +32,22 @@ class ODSSheet(SheetReader):
 
     @property
     def name(self):
-        return self.native_sheet.name
+        return self._native_sheet.name
 
     def number_of_rows(self):
         """
         Number of rows in the xls sheet
         """
-        return self.native_sheet.nrows()
+        return self._native_sheet.nrows()
 
     def number_of_columns(self):
         """
         Number of columns in the xls sheet
         """
-        return self.native_sheet.ncols()
+        return self._native_sheet.ncols()
 
     def _cell_value(self, row, column):
-        cell = self.native_sheet.get_cell((row, column))
+        cell = self._native_sheet.get_cell((row, column))
         cell_type = cell.value_type
         ret = None
         if cell_type in converter.ODS_FORMAT_CONVERSION:
@@ -80,7 +80,7 @@ class ODSBook(BookReader):
 
     def read_sheet_by_name(self, sheet_name):
         """read a named sheet"""
-        rets = [sheet for sheet in self.native_book.sheets
+        rets = [sheet for sheet in self._native_book.sheets
                 if sheet.name == sheet_name]
         if len(rets) == 0:
             raise ValueError("%s cannot be found" % sheet_name)
@@ -92,7 +92,7 @@ class ODSBook(BookReader):
 
     def read_sheet_by_index(self, sheet_index):
         """read a sheet at an index"""
-        sheets = self.native_book.sheets
+        sheets = self._native_book.sheets
         length = len(sheets)
         if sheet_index < length:
             return self.read_sheet(sheets[sheet_index])
@@ -103,20 +103,20 @@ class ODSBook(BookReader):
     def read_all(self):
         """read all available sheets"""
         result = OrderedDict()
-        for sheet in self.native_book.sheets:
+        for sheet in self._native_book.sheets:
             data_dict = self.read_sheet(sheet)
             result.update(data_dict)
         return result
 
     def read_sheet(self, native_sheet):
-        sheet = ODSSheet(native_sheet, **self.keywords)
+        sheet = ODSSheet(native_sheet, **self._keywords)
         return {native_sheet.name: sheet.to_array()}
 
     def _load_from_file(self):
-        self.native_book = ezodf.opendoc(self.file_name)
+        self._native_book = ezodf.opendoc(self._file_name)
 
     def _load_from_memory(self):
-        self.native_book = ezodf.opendoc(self.file_stream)
+        self._native_book = ezodf.opendoc(self._file_stream)
 
 
 class ODSSheetWriter(SheetWriter):
@@ -124,11 +124,11 @@ class ODSSheetWriter(SheetWriter):
     ODS sheet writer
     """
     def set_sheet_name(self, name):
-        self.native_sheet = ezodf.Sheet(name)
+        self._native_sheet = ezodf.Sheet(name)
         self.current_row = 0
 
     def set_size(self, size):
-        self.native_sheet.reset(size=size)
+        self._native_sheet.reset(size=size)
 
     def write_row(self, array):
         """
@@ -145,7 +145,7 @@ class ODSSheetWriter(SheetWriter):
                 seconds = cell.seconds % 60
                 cell = "PT%02dH%02dM%02dS" % (hours, minutes, seconds)
                 value_type = "time"
-            self.native_sheet[self.current_row, count].set_value(
+            self._native_sheet[self.current_row, count].set_value(
                 cell,
                 value_type=value_type)
             count += 1
@@ -168,7 +168,7 @@ class ODSSheetWriter(SheetWriter):
         This call writes file
 
         """
-        self.native_book.sheets += self.native_sheet
+        self._native_book.sheets += self._native_sheet
 
 
 class ODSWriter(BookWriter):
@@ -178,30 +178,30 @@ class ODSWriter(BookWriter):
     """
     def __init__(self):
         BookWriter.__init__(self)
-        self.native_book = None
+        self._native_book = None
 
     def open(self, file_name, **keywords):
         """open a file for writing ods"""
         BookWriter.open(self, file_name, **keywords)
-        self.native_book = ezodf.newdoc(doctype="ods",
-                                        filename=self.file_alike_object)
+        self._native_book = ezodf.newdoc(
+            doctype="ods", filename=self._file_alike_object)
 
-        skip_backup_flag = self.keywords.get('skip_backup', True)
+        skip_backup_flag = self._keywords.get('skip_backup', True)
         if skip_backup_flag:
-            self.native_book.backup = False
+            self._native_book.backup = False
 
     def create_sheet(self, name):
         """
         write a row into the file
         """
-        return ODSSheetWriter(self.native_book, None, name)
+        return ODSSheetWriter(self._native_book, None, name)
 
     def close(self):
         """
         This call writes file
 
         """
-        self.native_book.save()
+        self._native_book.save()
 
 
 def is_integer_ok_for_xl_float(value):
