@@ -46,7 +46,7 @@ class ODSSheet(SheetReader):
         """
         return self._native_sheet.ncols()
 
-    def _cell_value(self, row, column):
+    def cell_value(self, row, column):
         cell = self._native_sheet.get_cell((row, column))
         cell_type = cell.value_type
         ret = None
