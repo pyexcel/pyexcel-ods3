@@ -20,7 +20,8 @@ class TestODSWriter(ODSCellTypes):
         r = ods3.ODSBook()
         r.open(os.path.join("tests",
                             "fixtures",
-                            "ods_formats.ods"))
+                            "ods_formats.ods"),
+               skip_empty_rows=True)
         self.data1 = r.read_all()
         self.testfile = "odswriter.ods"
         w = ods3.ODSWriter()
