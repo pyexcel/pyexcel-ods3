@@ -123,6 +123,11 @@ Continue from previous example:
 Pagination feature
 ********************************************************************************
 
+Special notice 30/01/2017: due to the constraints of the underlying 3rd party
+library, it will read the whole file before returning the paginated data. So
+at the end of day, the only benefit is less data returned from the reading
+function. No major performance improvement will be seen.
+
 Let's assume the following file is a huge ods file:
 
 .. code-block:: python
