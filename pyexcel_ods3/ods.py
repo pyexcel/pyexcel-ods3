@@ -50,7 +50,13 @@ class ODSSheet(SheetReader):
         cell = self._native_sheet.get_cell((row, column))
         cell_type = cell.value_type
         ret = None
-        if cell_type in converter.ODS_FORMAT_CONVERSION:
+        if cell_type == 'currency':
+            cell_value = cell.value
+            if is_integer_ok_for_xl_float(cell_value):
+                cell_value = int(cell_value)
+
+            ret = str(cell_value) + ' ' + cell.currency
+        elif cell_type in converter.ODS_FORMAT_CONVERSION:
             value = cell.value
             n_value = converter.VALUE_CONVERTERS[cell_type](value)
             if cell_type == 'float' and self.auto_detect_int:

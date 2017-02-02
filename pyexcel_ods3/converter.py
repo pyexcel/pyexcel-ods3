@@ -55,8 +55,7 @@ ODS_FORMAT_CONVERSION = {
     "date": datetime.date,
     "time": datetime.time,
     "boolean": bool,
-    "percentage": float,
-    "currency": float
+    "percentage": float
 }
 
 
