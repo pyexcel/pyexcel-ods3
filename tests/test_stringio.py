@@ -1,30 +1,31 @@
 import os
-from unittest import TestCase
 import pyexcel
+from nose.tools import eq_
 from base import create_sample_file1
 
 
-class TestStringIO(TestCase):
+class TestStringIO:
 
     def test_ods_stringio(self):
-        odsfile = "cute.ods"
-        create_sample_file1(odsfile)
-        with open(odsfile, "rb") as f:
+        testfile = "cute.ods"
+        create_sample_file1(testfile)
+        with open(testfile, "rb") as f:
             content = f.read()
             r = pyexcel.get_sheet(file_type="ods", file_content=content)
             result = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 1.1, 1]
             actual = list(r.enumerate())
-            self.assertEqual(result, actual)
-        if os.path.exists(odsfile):
-            os.unlink(odsfile)
+            eq_(result, actual)
+        if os.path.exists(testfile):
+            os.unlink(testfile)
 
-    def test_xls_output_stringio(self):
+    def test_ods_output_stringio(self):
         data = [
             [1, 2, 3],
             [4, 5, 6]
         ]
-        io = pyexcel.save_as(dest_file_type='ods', array=data)
+        io = pyexcel.save_as(dest_file_type="ods",
+                             array=data)
         r = pyexcel.get_sheet(file_type="ods", file_content=io.getvalue())
         result = [1, 2, 3, 4, 5, 6]
         actual = list(r.enumerate())
-        self.assertEqual(result, actual)
+        eq_(result, actual)
