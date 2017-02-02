@@ -8,7 +8,12 @@ pyexcel-ods3 - Let you focus on data, instead of ods format
 .. image:: https://codecov.io/github/pyexcel/pyexcel-ods3/coverage.png
     :target: https://codecov.io/github/pyexcel/pyexcel-ods3
 
-**pyexcel-ods3** is a tiny wrapper library to read, manipulate and write data in ods format using python version 2.6(since v0.0.8), 2.7, 3.3 and 3.4. You are likely to use `pyexcel <https://github.com/pyexcel/pyexcel>`__ together with this library. `pyexcel-ods <https://github.com/pyexcel/pyexcel-ods>`__ is a sister library, having no dependency on lxml. However it has no support for python 3.
+**pyexcel-ods3** is a tiny wrapper library to read, manipulate and write data in ods
+format. You are likely to use `pyexcel <https://github.com/pyexcel/pyexcel>`__ together
+with this library. `pyexcel-ods <https://github.com/pyexcel/pyexcel-ods>`__ is a sister
+library that depends on GPL licensed odfpy.
+`pyexcel-odsr <https://github.com/pyexcel/pyexcel-odsr>`_ is the other sister library
+that has no external dependency but do ods reading only
 
 Known constraints
 ==================
@@ -39,9 +44,6 @@ Usage
 As a standalone library
 --------------------------------------------------------------------------------
 
-Write to an ods file
-********************************************************************************
-
 .. testcode::
    :hide:
 
@@ -58,6 +60,11 @@ Write to an ods file
     ...     from collections import OrderedDict
 
 
+Write to an ods file
+********************************************************************************
+
+
+
 Here's the sample code to write a dictionary to an ods file:
 
 .. code-block:: python
@@ -67,6 +74,7 @@ Here's the sample code to write a dictionary to an ods file:
     >>> data.update({"Sheet 1": [[1, 2, 3], [4, 5, 6]]})
     >>> data.update({"Sheet 2": [["row 1", "row 2", "row 3"]]})
     >>> save_data("your_file.ods", data)
+
 
 Read from an ods file
 ********************************************************************************
@@ -100,6 +108,7 @@ Here's the sample code to write a dictionary to an ods file:
     >>> # object for downloading
 
 
+
 .. testcode::
    :hide: 
 
@@ -127,6 +136,9 @@ Special notice 30/01/2017: due to the constraints of the underlying 3rd party
 library, it will read the whole file before returning the paginated data. So
 at the end of day, the only benefit is less data returned from the reading
 function. No major performance improvement will be seen.
+
+With that said, please install `pyexcel-odsr <https://github.com/pyexcel/pyexcel-odsr>`_
+and it gives better performance in pagination.
 
 Let's assume the following file is a huge ods file:
 
@@ -184,16 +196,6 @@ No longer, explicit import is needed since pyexcel version 0.2.2. Instead,
 this library is auto-loaded. So if you want to read data in ods format,
 installing it is enough.
 
-Any version under pyexcel 0.2.2, you have to keep doing the following:
-
-Import it in your file to enable this plugin:
-
-.. code-block:: python
-
-    from pyexcel.ext import ods3
-
-Please note only pyexcel version 0.0.4+ support this.
-
 
 Reading from an ods file
 ********************************************************************************
@@ -203,7 +205,6 @@ Here is the sample code:
 .. code-block:: python
 
     >>> import pyexcel as pe
-    >>> # from pyexcel.ext import ods3
     >>> sheet = pe.get_book(file_name="your_file.ods")
     >>> sheet
     Sheet 1:
@@ -273,6 +274,7 @@ You need to pass a StringIO instance to Writer:
     >>> # then do something with io
     >>> # In reality, you might give it to your http response
     >>> # object for downloading
+
 
 License
 ================================================================================
