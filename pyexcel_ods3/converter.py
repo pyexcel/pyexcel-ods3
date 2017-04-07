@@ -35,9 +35,11 @@ def date_value(value):
 
 def time_value(value):
     """convert to time value accroding the specification"""
-    hour = int(value[2:4])
-    minute = int(value[5:7])
-    second = int(value[8:10])
+    import re
+    results = re.match('PT(\d+)H(\d+)M(\d+)S', value)
+    hour = int(results.group(1))
+    minute = int(results.group(2))
+    second = int(results.group(3))
     if hour < 24:
         ret = datetime.time(hour, minute, second)
     else:

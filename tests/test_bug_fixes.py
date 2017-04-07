@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- encoding: utf-8 -*-
 import os
-from nose.tools import raises
+from nose.tools import raises, eq_
 
 
 def test_date_util_parse():
@@ -78,3 +78,11 @@ def test_issue_11():
     from pyexcel_ods3 import save_data
     save_data(test_file, {"generator": data_gen()})
     os.unlink(test_file)
+
+
+def test_issue_8():
+    from pyexcel_ods3 import get_data
+    test_file = "12_day_as_time.ods"
+    data = get_data(os.path.join("tests", "fixtures", test_file),
+                    skip_empty_rows=True)
+    eq_(data['Sheet1'][0][0].days, 12)
