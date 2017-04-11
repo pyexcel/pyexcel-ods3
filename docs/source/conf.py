@@ -20,8 +20,8 @@ master_doc = 'index'
 
 project = u'pyexcel-ods3'
 copyright = u'2015-2017 Onni Software Ltd.'
-version = '0.3.0'
-release = '0.3.1'
+version = '0.3.1'
+release = '0.4.0'
 exclude_patterns = []
 pygments_style = 'sphinx'
 html_theme = 'default'
