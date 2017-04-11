@@ -12,6 +12,7 @@
 # because of dynamic import
 __FILE_TYPE__ = 'ods'
 __META__ = {
+    'plugin_type': 'pyexcel io plugin',
     'submodule': __FILE_TYPE__,
     'file_types': [__FILE_TYPE__],
     'stream_type': 'binary'
