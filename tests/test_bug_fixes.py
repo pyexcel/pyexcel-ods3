@@ -86,3 +86,9 @@ def test_issue_8():
     data = get_data(os.path.join("tests", "fixtures", test_file),
                     skip_empty_rows=True)
     eq_(data['Sheet1'][0][0].days, 12)
+
+
+def test_issue_8_1():
+    from pyexcel_ods3.converter import time_value
+    result = time_value('PT1111')
+    eq_(result, None)

@@ -37,13 +37,17 @@ def time_value(value):
     """convert to time value accroding the specification"""
     import re
     results = re.match('PT(\d+)H(\d+)M(\d+)S', value)
-    hour = int(results.group(1))
-    minute = int(results.group(2))
-    second = int(results.group(3))
-    if hour < 24:
-        ret = datetime.time(hour, minute, second)
+    if results:
+        hour = int(results.group(1))
+        minute = int(results.group(2))
+        second = int(results.group(3))
+        if hour < 24:
+            ret = datetime.time(hour, minute, second)
+        else:
+            ret = datetime.timedelta(
+                hours=hour, minutes=minute, seconds=second)
     else:
-        ret = datetime.timedelta(hours=hour, minutes=minute, seconds=second)
+        ret = None
     return ret
 
 

@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+DESCRIPTION = (
+    'A wrapper library to read, manipulate and write data in ods format' +
+    ''
+)
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.doctest',
@@ -25,15 +29,19 @@ html_static_path = ['_static']
 htmlhelp_basename = 'pyexcel-ods3doc'
 latex_elements = {}
 latex_documents = [
-    ('index', 'pyexcel-ods3.tex', u'pyexcel-ods3 Documentation',
+    ('index', 'pyexcel-ods3.tex',
+     'pyexcel-ods3 Documentation',
      'Onni Software Ltd.', 'manual'),
 ]
 man_pages = [
-    ('index', 'pyexcel-ods3', u'pyexcel-ods3 Documentation',
+    ('index', 'pyexcel-ods3',
+     'pyexcel-ods3 Documentation',
      [u'Onni Software Ltd.'], 1)
 ]
 texinfo_documents = [
-    ('index', 'pyexcel-ods3', u'pyexcel-ods3 Documentation',
-     'Onni Software Ltd.', 'pyexcel-ods3', 'One line description of project.',
+    ('index', 'pyexcel-ods3',
+     'pyexcel-ods3 Documentation',
+     'Onni Software Ltd.', 'pyexcel-ods3',
+     DESCRIPTION,
      'Miscellaneous'),
 ]
