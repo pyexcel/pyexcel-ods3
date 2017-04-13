@@ -2,11 +2,17 @@
 pyexcel-ods3 - Let you focus on data, instead of ods format
 ================================================================================
 
-.. image:: https://api.travis-ci.org/pyexcel/pyexcel-ods3.png
-    :target: http://travis-ci.org/pyexcel/pyexcel-ods3
+.. image:: https://raw.githubusercontent.com/pyexcel/pyexcel.github.io/master/images/patreon.png
+   :target: https://www.patreon.com/pyexcel
+
+.. image:: https://api.travis-ci.org/pyexcel/pyexcel-ods3.svg?branch=master
+   :target: http://travis-ci.org/pyexcel/pyexcel-ods3
 
 .. image:: https://codecov.io/github/pyexcel/pyexcel-ods3/coverage.png
-    :target: https://codecov.io/github/pyexcel/pyexcel-ods3
+   :target: https://codecov.io/github/pyexcel/pyexcel-ods3
+
+.. image:: https://readthedocs.org/projects/pyexcel-ods3/badge/?version=latest
+   :target: http://pyexcel-ods3.readthedocs.org/en/latest/
 
 **pyexcel-ods3** is a tiny wrapper library to read, manipulate and write data in ods
 format. You are likely to use `pyexcel <https://github.com/pyexcel/pyexcel>`__ together
@@ -345,3 +351,9 @@ The installation of `lxml` will be tricky on Windows platform. It is recommended
    >>> import os
    >>> os.unlink("your_file.ods")
    >>> os.unlink("another_file.ods")
+
+Support the project
+================================================================================
+
+If your company has embedded pyexcel and its components into a revenue generating
+product, please `support me on patreon <https://www.patreon.com/pyexcel>`_.
