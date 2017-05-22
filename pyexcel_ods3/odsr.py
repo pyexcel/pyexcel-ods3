@@ -72,10 +72,6 @@ class ODSSheet(SheetReader):
 
 class ODSBook(BookReader):
     """read a ods book out"""
-    file_types = ['ods']
-    stream_type = 'binary'
-    library = 'pyexcel-ods3'
-
     def open(self, file_name, **keywords):
         """load ods from file"""
         BookReader.open(self, file_name, **keywords)
