@@ -85,7 +85,7 @@ def test_issue_11():
 def test_issue_8():
     from pyexcel_ods3 import get_data
     test_file = "12_day_as_time.ods"
-    data = get_data(os.path.join("tests", "fixtures", test_file),
+    data = get_data(get_fixtures(test_file),
                     skip_empty_rows=True)
     eq_(data['Sheet1'][0][0].days, 12)
 
