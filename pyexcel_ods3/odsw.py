@@ -2,7 +2,7 @@
     pyexcel_ods3.odsw
     ~~~~~~~~~~~~~~~~~~~
 
-    ods reader
+    ods writer using ezodf
 
     :copyright: (c)  2015-2017 by Onni Software Ltd. & its contributors
     :license: New BSD License

@@ -2,10 +2,10 @@ overrides: "pyexcel.yaml"
 name: "pyexcel-ods3"
 nick_name: ods3
 version: 0.4.0
-release: 0.3.2
+release: 0.4.0
 file_type: ods
 dependencies:
-  - pyexcel-io>=0.3.0
+  - pyexcel-io>=0.4.0
   - lxml
   - ezodf>=0.3.2
   - weakrefset;python_version<"2.7"

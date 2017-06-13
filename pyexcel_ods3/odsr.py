@@ -7,20 +7,15 @@
     :copyright: (c)  2015-2017 by Onni Software Ltd. & its contributors
     :license: New BSD License
 """
-import sys
 import math
 
 import ezodf
+
 from pyexcel_io.sheet import SheetReader
 from pyexcel_io.book import BookReader
+from pyexcel_io._compact import OrderedDict
 
 import pyexcel_ods3.converter as converter
-
-PY27_BELOW = sys.version_info[0] == 2 and sys.version_info[1] < 7
-if PY27_BELOW:
-    from ordereddict import OrderedDict
-else:
-    from collections import OrderedDict
 
 
 class ODSSheet(SheetReader):
