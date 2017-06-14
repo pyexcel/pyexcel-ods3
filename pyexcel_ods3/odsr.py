@@ -111,6 +111,9 @@ class ODSBook(BookReader):
         sheet = ODSSheet(native_sheet, **self._keywords)
         return {native_sheet.name: sheet.to_array()}
 
+    def close(self):
+        self._native_book = None
+
     def _load_from_file(self):
         self._native_book = ezodf.opendoc(self._file_name)
 

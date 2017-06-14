@@ -119,7 +119,7 @@ def test_issue_83_ods_file_handle():
     assert delta == 0
 
     # free the fish
-    pe.free_resource()
+    pe.free_resources()
     open_files_l4 = proc.open_files()
     # this confirms that no more open file handle
     eq_(open_files_l1, open_files_l4)

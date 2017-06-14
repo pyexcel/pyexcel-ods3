@@ -100,3 +100,4 @@ class ODSWriter(BookWriter):
 
         """
         self._native_book.save()
+        self._native_book = None
