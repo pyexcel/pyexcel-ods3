@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # -*- encoding: utf-8 -*-
 import os
+import psutil
+import pyexcel as pe
 from nose.tools import raises, eq_
 
 
@@ -83,7 +85,7 @@ def test_issue_11():
 def test_issue_8():
     from pyexcel_ods3 import get_data
     test_file = "12_day_as_time.ods"
-    data = get_data(os.path.join("tests", "fixtures", test_file),
+    data = get_data(get_fixtures(test_file),
                     skip_empty_rows=True)
     eq_(data['Sheet1'][0][0].days, 12)
 
@@ -92,3 +94,36 @@ def test_issue_8_1():
     from pyexcel_ods3.converter import time_value
     result = time_value('PT1111')
     eq_(result, None)
+
+
+def test_issue_83_ods_file_handle():
+    # this proves that odfpy
+    # does not leave a file handle open at all
+    proc = psutil.Process()
+    test_file = get_fixtures("12_day_as_time.ods")
+    open_files_l1 = proc.open_files()
+
+    # start with a csv file
+    data = pe.iget_array(file_name=test_file, library='pyexcel-ods3')
+    open_files_l2 = proc.open_files()
+    delta = len(open_files_l2) - len(open_files_l1)
+    # cannot catch open file handle
+    assert delta == 0
+
+    # now the file handle get opened when we run through
+    # the generator
+    list(data)
+    open_files_l3 = proc.open_files()
+    delta = len(open_files_l3) - len(open_files_l1)
+    # cannot catch open file handle
+    assert delta == 0
+
+    # free the fish
+    pe.free_resources()
+    open_files_l4 = proc.open_files()
+    # this confirms that no more open file handle
+    eq_(open_files_l1, open_files_l4)
+
+
+def get_fixtures(filename):
+    return os.path.join("tests", "fixtures", filename)

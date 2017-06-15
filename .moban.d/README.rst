@@ -1,5 +1,9 @@
 {%extends 'README.rst.jj2' %}
 
+
+{%block documentation_link%}
+{%endblock%}
+
 {%block description%}
 **pyexcel-ods3** is a tiny wrapper library to read, manipulate and write data in ods
 format. You are likely to use `pyexcel <https://github.com/pyexcel/pyexcel>`__ together

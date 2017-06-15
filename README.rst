@@ -11,8 +11,6 @@ pyexcel-ods3 - Let you focus on data, instead of ods format
 .. image:: https://codecov.io/github/pyexcel/pyexcel-ods3/coverage.png
    :target: https://codecov.io/github/pyexcel/pyexcel-ods3
 
-.. image:: https://readthedocs.org/projects/pyexcel-ods3/badge/?version=latest
-   :target: http://pyexcel-ods3.readthedocs.org/en/latest/
 
 **pyexcel-ods3** is a tiny wrapper library to read, manipulate and write data in ods
 format. You are likely to use `pyexcel <https://github.com/pyexcel/pyexcel>`__ together
@@ -40,9 +38,24 @@ or clone it and install it:
 
 .. code-block:: bash
 
-    $ git clone http://github.com/pyexcel/pyexcel-ods3.git
+    $ git clone https://github.com/pyexcel/pyexcel-ods3.git
     $ cd pyexcel-ods3
     $ python setup.py install
+
+Support the project
+================================================================================
+
+If your company has embedded pyexcel and its components into a revenue generating
+product, please `support me on patreon <https://www.patreon.com/bePatron?u=5537627>`_ to
+maintain the project and develop it further.
+
+If you are an individual, you are welcome to support me too on patreon and for however long
+you feel like to. As a patreon, you will receive
+`early access to pyexcel related contents <https://www.patreon.com/pyexcel/posts>`_.
+
+With your financial support, I will be able to invest
+a little bit more time in coding, documentation and writing interesting posts.
+
 
 Usage
 ================================================================================
@@ -351,9 +364,3 @@ The installation of `lxml` will be tricky on Windows platform. It is recommended
    >>> import os
    >>> os.unlink("your_file.ods")
    >>> os.unlink("another_file.ods")
-
-Support the project
-================================================================================
-
-If your company has embedded pyexcel and its components into a revenue generating
-product, please `support me on patreon <https://www.patreon.com/pyexcel>`_.
