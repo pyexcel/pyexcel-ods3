@@ -11,7 +11,7 @@ extensions = [
 ]
 
 intersphinx_mapping = {
-    'pyexcel': ('http://pyexcel.readthedocs.org/en/latest/', None),
+    'pyexcel': ('http://pyexcel.readthedocs.io/en/latest/', None),
 }
 spelling_word_list_filename = 'spelling_wordlist.txt'
 templates_path = ['_templates']
@@ -21,7 +21,7 @@ master_doc = 'index'
 project = u'pyexcel-ods3'
 copyright = u'2015-2017 Onni Software Ltd.'
 version = '0.4.0'
-release = '0.4.0'
+release = '0.4.1'
 exclude_patterns = []
 pygments_style = 'sphinx'
 html_theme = 'default'
