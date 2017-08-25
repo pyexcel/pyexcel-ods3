@@ -7,15 +7,12 @@
     :copyright: (c)  2015-2017 by Onni Software Ltd. & its contributors
     :license: New BSD License
 """
-import math
-
 import ezodf
 
 from pyexcel_io.sheet import SheetReader
 from pyexcel_io.book import BookReader
 from pyexcel_io._compact import OrderedDict
-
-import pyexcel_ods3.converter as converter
+import pyexcel_io.service as service
 
 
 class ODSSheet(SheetReader):
@@ -46,15 +43,15 @@ class ODSSheet(SheetReader):
         ret = None
         if cell_type == 'currency':
             cell_value = cell.value
-            if is_integer_ok_for_xl_float(cell_value):
+            if service.has_no_digits_in_float(cell_value):
                 cell_value = int(cell_value)
 
             ret = str(cell_value) + ' ' + cell.currency
-        elif cell_type in converter.ODS_FORMAT_CONVERSION:
+        elif cell_type in service.ODS_FORMAT_CONVERSION:
             value = cell.value
-            n_value = converter.VALUE_CONVERTERS[cell_type](value)
+            n_value = service.VALUE_CONVERTERS[cell_type](value)
             if cell_type == 'float' and self.auto_detect_int:
-                if is_integer_ok_for_xl_float(n_value):
+                if service.has_no_digits_in_float(n_value):
                     n_value = int(n_value)
             ret = n_value
         else:
@@ -119,8 +116,3 @@ class ODSBook(BookReader):
 
     def _load_from_memory(self):
         self._native_book = ezodf.opendoc(self._file_stream)
-
-
-def is_integer_ok_for_xl_float(value):
-    """check if a float had zero value in digits"""
-    return value == math.floor(value)
