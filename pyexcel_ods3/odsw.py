@@ -14,7 +14,7 @@ import ezodf
 from pyexcel_io.sheet import SheetWriter
 from pyexcel_io.book import BookWriter
 
-import pyexcel_ods3.converter as converter
+import pyexcel_io.service as service
 
 
 class ODSSheetWriter(SheetWriter):
@@ -34,7 +34,7 @@ class ODSSheetWriter(SheetWriter):
         """
         count = 0
         for cell in array:
-            value_type = converter.ODS_WRITE_FORMAT_COVERSION[type(cell)]
+            value_type = service.ODS_WRITE_FORMAT_COVERSION[type(cell)]
             if value_type == "time":
                 cell = cell.strftime("PT%HH%MM%SS")
             elif value_type == "timedelta":
