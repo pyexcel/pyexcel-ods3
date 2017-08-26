@@ -6,25 +6,6 @@ import pyexcel as pe
 from nose.tools import raises, eq_
 
 
-def test_date_util_parse():
-    from pyexcel_ods3.converter import date_value
-    value = "2015-08-17T19:20:00"
-    d = date_value(value)
-    assert d.strftime("%Y-%m-%dT%H:%M:%S") == "2015-08-17T19:20:00"
-    value = "2015-08-17"
-    d = date_value(value)
-    assert d.strftime("%Y-%m-%d") == "2015-08-17"
-    value = "2015-08-17T19:20:59.999999"
-    d = date_value(value)
-    assert d.strftime("%Y-%m-%dT%H:%M:%S") == "2015-08-17T19:20:59"
-    value = "2015-08-17T19:20:59.99999"
-    d = date_value(value)
-    assert d.strftime("%Y-%m-%dT%H:%M:%S") == "2015-08-17T19:20:59"
-    value = "2015-08-17T19:20:59.999999999999999"
-    d = date_value(value)
-    assert d.strftime("%Y-%m-%dT%H:%M:%S") == "2015-08-17T19:20:59"
-
-
 @raises(Exception)
 def test_invalid_date():
     from pyexcel_ods3.ods import date_value
@@ -88,12 +69,6 @@ def test_issue_8():
     data = get_data(get_fixtures(test_file),
                     skip_empty_rows=True)
     eq_(data['Sheet1'][0][0].days, 12)
-
-
-def test_issue_8_1():
-    from pyexcel_ods3.converter import time_value
-    result = time_value('PT1111')
-    eq_(result, None)
 
 
 def test_issue_83_ods_file_handle():
