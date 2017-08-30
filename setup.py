@@ -10,7 +10,7 @@ PY26 = PY2 and sys.version_info[1] < 7
 
 NAME = 'pyexcel-ods3'
 AUTHOR = 'C.W.'
-VERSION = '0.4.1'
+VERSION = '0.5.0'
 EMAIL = 'wangc_2011@hotmail.com'
 LICENSE = 'New BSD'
 DESCRIPTION = (
@@ -18,8 +18,8 @@ DESCRIPTION = (
     ''
 )
 URL = 'https://github.com/pyexcel/pyexcel-ods3'
-DOWNLOAD_URL = '%s/archive/0.4.1.tar.gz' % URL
-FILES = ['README.rst',  'CHANGELOG.rst']
+DOWNLOAD_URL = '%s/archive/0.5.0.tar.gz' % URL
+FILES = ['README.rst', 'CHANGELOG.rst']
 KEYWORDS = [
     'ods'
     'python'
@@ -40,7 +40,7 @@ CLASSIFIERS = [
 ]
 
 INSTALL_REQUIRES = [
-    'pyexcel-io>=0.4.0',
+    'pyexcel-io>=0.5.0',
     'lxml',
     'pyexcel-ezodf>=0.3.3',
 ]
