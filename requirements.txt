@@ -1,4 +1,4 @@
-pyexcel-io>=0.5.0
+pyexcel-io>=0.5.3
 lxml
 pyexcel-ezodf>=0.3.3
 weakrefset;python_version<"2.7"
