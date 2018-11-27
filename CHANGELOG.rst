@@ -1,6 +1,18 @@
 Change log
 ================================================================================
 
+0.5.3 - 27.11.2018
+--------------------------------------------------------------------------------
+
+added
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+#. `#57 <https://github.com/pyexcel/pyexcel-io/issues/57>`_, long type will not
+   be written in ods. please use string type. And if the integer is equal or
+   greater than 10 to the power of 16, it will not be written either in ods. In
+   both situation, IntegerPrecisionLossError will be raised.
+
+
 0.5.2 - 23.10.2017
 --------------------------------------------------------------------------------
 

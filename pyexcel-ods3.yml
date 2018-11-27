@@ -3,7 +3,7 @@ name: "pyexcel-ods3"
 nick_name: ods3
 version: 0.5.3
 current_version: 0.5.3
-release: 0.5.2
+release: 0.5.3
 file_type: ods
 dependencies:
   - pyexcel-io>=0.5.10
