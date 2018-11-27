@@ -13,7 +13,7 @@ PY26 = PY2 and sys.version_info[1] < 7
 
 NAME = 'pyexcel-ods3'
 AUTHOR = 'C.W.'
-VERSION = '0.5.2'
+VERSION = '0.5.3'
 EMAIL = 'wangc_2011@hotmail.com'
 LICENSE = 'New BSD'
 DESCRIPTION = (
@@ -40,7 +40,7 @@ CLASSIFIERS = [
 ]
 
 INSTALL_REQUIRES = [
-    'pyexcel-io>=0.5.3',
+    'pyexcel-io>=0.5.10',
     'lxml',
     'pyexcel-ezodf>=0.3.3',
 ]
