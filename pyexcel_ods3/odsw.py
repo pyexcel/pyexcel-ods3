@@ -13,6 +13,8 @@ import ezodf
 
 from pyexcel_io.sheet import SheetWriter
 from pyexcel_io.book import BookWriter
+from pyexcel_io.constants import MAX_INTEGER
+from pyexcel_io.exceptions import IntegerAccuracyLossError
 
 import pyexcel_io.service as service
 
@@ -43,6 +45,9 @@ class ODSSheetWriter(SheetWriter):
                 seconds = cell.seconds % 60
                 cell = "PT%02dH%02dM%02dS" % (hours, minutes, seconds)
                 value_type = "time"
+            elif value_type == 'float':
+                if cell > MAX_INTEGER:
+                    raise IntegerAccuracyLossError("%s is too big" % cell)
             self._native_sheet[self.current_row, count].set_value(
                 cell,
                 value_type=value_type)

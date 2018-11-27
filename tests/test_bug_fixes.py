@@ -5,6 +5,7 @@ import psutil
 import pyexcel as pe
 from nose.tools import raises, eq_
 from nose import SkipTest
+from pyexcel_io.exceptions import IntegerAccuracyLossError
 
 IN_TRAVIS = 'TRAVIS' in os.environ
 
@@ -106,7 +107,28 @@ def test_issue_83_ods_file_handle():
 def test_issue_23():
     if not IN_TRAVIS:
         raise SkipTest()
-    pe.get_book(url="https://github.com/pyexcel/pyexcel-ods3/raw/master/tests/fixtures/multilineods.ods");  # flake8: noqa
+    url = (
+        "https://github.com/pyexcel/pyexcel-ods3/" +
+        "raw/master/tests/fixtures/multilineods.ods")
+    pe.get_book(url=url)
+
+
+def test_issue_30():
+    test_file = "issue_30.ods"
+    sheet = pe.Sheet()
+    sheet[0, 0] = 999999999999999
+    sheet.save_as(test_file)
+    sheet2 = pe.get_sheet(file_name=test_file)
+    eq_(sheet[0, 0], sheet2[0, 0])
+    os.unlink(test_file)
+
+
+@raises(IntegerAccuracyLossError)
+def test_issue_30_precision_loss():
+    test_file = "issue_30_2.ods"
+    sheet = pe.Sheet()
+    sheet[0, 0] = 9999999999999999
+    sheet.save_as(test_file)
 
 
 def get_fixtures(filename):
