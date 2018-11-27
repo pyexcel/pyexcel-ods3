@@ -10,19 +10,18 @@
 import types
 
 import ezodf
-
-from pyexcel_io.sheet import SheetWriter
+import pyexcel_io.service as service
 from pyexcel_io.book import BookWriter
+from pyexcel_io.sheet import SheetWriter
 from pyexcel_io.constants import MAX_INTEGER
 from pyexcel_io.exceptions import IntegerAccuracyLossError
-
-import pyexcel_io.service as service
 
 
 class ODSSheetWriter(SheetWriter):
     """
     ODS sheet writer
     """
+
     def set_sheet_name(self, name):
         self._native_sheet = ezodf.Sheet(name)
         self.current_row = 0
@@ -45,12 +44,12 @@ class ODSSheetWriter(SheetWriter):
                 seconds = cell.seconds % 60
                 cell = "PT%02dH%02dM%02dS" % (hours, minutes, seconds)
                 value_type = "time"
-            elif value_type == 'float':
+            elif value_type == "float":
                 if cell > MAX_INTEGER:
                     raise IntegerAccuracyLossError("%s is too big" % cell)
             self._native_sheet[self.current_row, count].set_value(
-                cell,
-                value_type=value_type)
+                cell, value_type=value_type
+            )
             count += 1
         self.current_row += 1
 
@@ -79,6 +78,7 @@ class ODSWriter(BookWriter):
     open document spreadsheet writer
 
     """
+
     def __init__(self):
         BookWriter.__init__(self)
         self._native_book = None
@@ -87,9 +87,10 @@ class ODSWriter(BookWriter):
         """open a file for writing ods"""
         BookWriter.open(self, file_name, **keywords)
         self._native_book = ezodf.newdoc(
-            doctype="ods", filename=self._file_alike_object)
+            doctype="ods", filename=self._file_alike_object
+        )
 
-        skip_backup_flag = self._keywords.get('skip_backup', True)
+        skip_backup_flag = self._keywords.get("skip_backup", True)
         if skip_backup_flag:
             self._native_book.backup = False
 

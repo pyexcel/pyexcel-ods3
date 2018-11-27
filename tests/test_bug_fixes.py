@@ -1,18 +1,20 @@
 #!/usr/bin/python
 # -*- encoding: utf-8 -*-
 import os
+
 import psutil
 import pyexcel as pe
-from nose.tools import raises, eq_
 from nose import SkipTest
+from nose.tools import eq_, raises
 from pyexcel_io.exceptions import IntegerAccuracyLossError
 
-IN_TRAVIS = 'TRAVIS' in os.environ
+IN_TRAVIS = "TRAVIS" in os.environ
 
 
 @raises(Exception)
 def test_invalid_date():
     from pyexcel_ods3.ods import date_value
+
     value = "2015-08-"
     date_value(value)
 
@@ -20,24 +22,28 @@ def test_invalid_date():
 @raises(Exception)
 def test_fake_date_time_10():
     from pyexcel_ods3.ods import date_value
+
     date_value("1234567890")
 
 
 @raises(Exception)
 def test_fake_date_time_19():
     from pyexcel_ods3.ods import date_value
+
     date_value("1234567890123456789")
 
 
 @raises(Exception)
 def test_fake_date_time_20():
     from pyexcel_ods3.ods import date_value
+
     date_value("12345678901234567890")
 
 
 def test_issue_10():
     test_file_name = "test_issue_10.ods"
     from pyexcel_ods3 import save_data
+
     content = {"test": [[1, 2]]}
     save_data(test_file_name, content)
     save_data(test_file_name, content)
@@ -63,16 +69,17 @@ def data_gen():
 def test_issue_11():
     test_file = "test_file.ods"
     from pyexcel_ods3 import save_data
+
     save_data(test_file, {"generator": data_gen()})
     os.unlink(test_file)
 
 
 def test_issue_8():
     from pyexcel_ods3 import get_data
+
     test_file = "12_day_as_time.ods"
-    data = get_data(get_fixtures(test_file),
-                    skip_empty_rows=True)
-    eq_(data['Sheet1'][0][0].days, 12)
+    data = get_data(get_fixtures(test_file), skip_empty_rows=True)
+    eq_(data["Sheet1"][0][0].days, 12)
 
 
 def test_issue_83_ods_file_handle():
@@ -83,7 +90,7 @@ def test_issue_83_ods_file_handle():
     open_files_l1 = proc.open_files()
 
     # start with a csv file
-    data = pe.iget_array(file_name=test_file, library='pyexcel-ods3')
+    data = pe.iget_array(file_name=test_file, library="pyexcel-ods3")
     open_files_l2 = proc.open_files()
     delta = len(open_files_l2) - len(open_files_l1)
     # cannot catch open file handle
@@ -108,8 +115,9 @@ def test_issue_23():
     if not IN_TRAVIS:
         raise SkipTest()
     url = (
-        "https://github.com/pyexcel/pyexcel-ods3/" +
-        "raw/master/tests/fixtures/multilineods.ods")
+        "https://github.com/pyexcel/pyexcel-ods3/"
+        + "raw/master/tests/fixtures/multilineods.ods"
+    )
     pe.get_book(url=url)
 
 

@@ -8,15 +8,15 @@
     :license: New BSD License
 """
 import ezodf
-
-from pyexcel_io.sheet import SheetReader
-from pyexcel_io.book import BookReader
-from pyexcel_io._compact import OrderedDict
 import pyexcel_io.service as service
+from pyexcel_io.book import BookReader
+from pyexcel_io.sheet import SheetReader
+from pyexcel_io._compact import OrderedDict
 
 
 class ODSSheet(SheetReader):
     """ODS sheet representation"""
+
     def __init__(self, sheet, auto_detect_int=True, **keywords):
         SheetReader.__init__(self, sheet, **keywords)
         self.auto_detect_int = auto_detect_int
@@ -41,16 +41,16 @@ class ODSSheet(SheetReader):
         cell = self._native_sheet.get_cell((row, column))
         cell_type = cell.value_type
         ret = None
-        if cell_type == 'currency':
+        if cell_type == "currency":
             cell_value = cell.value
             if service.has_no_digits_in_float(cell_value):
                 cell_value = int(cell_value)
 
-            ret = str(cell_value) + ' ' + cell.currency
+            ret = str(cell_value) + " " + cell.currency
         elif cell_type in service.ODS_FORMAT_CONVERSION:
             value = cell.value
             n_value = service.VALUE_CONVERTERS[cell_type](value)
-            if cell_type == 'float' and self.auto_detect_int:
+            if cell_type == "float" and self.auto_detect_int:
                 if service.has_no_digits_in_float(n_value):
                     n_value = int(n_value)
             ret = n_value
@@ -64,6 +64,7 @@ class ODSSheet(SheetReader):
 
 class ODSBook(BookReader):
     """read a ods book out"""
+
     def open(self, file_name, **keywords):
         """load ods from file"""
         BookReader.open(self, file_name, **keywords)
@@ -76,15 +77,19 @@ class ODSBook(BookReader):
 
     def read_sheet_by_name(self, sheet_name):
         """read a named sheet"""
-        rets = [sheet for sheet in self._native_book.sheets
-                if sheet.name == sheet_name]
+        rets = [
+            sheet
+            for sheet in self._native_book.sheets
+            if sheet.name == sheet_name
+        ]
         if len(rets) == 0:
             raise ValueError("%s cannot be found" % sheet_name)
         elif len(rets) == 1:
             return self.read_sheet(rets[0])
         else:
             raise ValueError(
-                "More than 1 sheet named as %s are found" % sheet_name)
+                "More than 1 sheet named as %s are found" % sheet_name
+            )
 
     def read_sheet_by_index(self, sheet_index):
         """read a sheet at an index"""
@@ -93,8 +98,9 @@ class ODSBook(BookReader):
         if sheet_index < length:
             return self.read_sheet(sheets[sheet_index])
         else:
-            raise IndexError("Index %d of out bound %d." % (
-                sheet_index, length))
+            raise IndexError(
+                "Index %d of out bound %d." % (sheet_index, length)
+            )
 
     def read_all(self):
         """read all available sheets"""

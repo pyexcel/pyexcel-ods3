@@ -11,17 +11,21 @@
 # this line has to be place above all else
 # because of dynamic import
 from pyexcel_io.plugins import IOPluginInfoChain
-from pyexcel_io.io import get_data as read_data, isstream, store_data as write_data
+from pyexcel_io.io import (
+    get_data as read_data,
+    isstream,
+    store_data as write_data,
+)
 
-__FILE_TYPE__ = 'ods'
+__FILE_TYPE__ = "ods"
 IOPluginInfoChain(__name__).add_a_reader(
-    relative_plugin_class_path='odsr.ODSBook',
+    relative_plugin_class_path="odsr.ODSBook",
     file_types=[__FILE_TYPE__],
-    stream_type='binary'
+    stream_type="binary",
 ).add_a_writer(
-    relative_plugin_class_path='odsw.ODSWriter',
+    relative_plugin_class_path="odsw.ODSWriter",
     file_types=[__FILE_TYPE__],
-    stream_type='binary'
+    stream_type="binary",
 )
 
 
