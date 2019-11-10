@@ -2,6 +2,7 @@ import os  # noqa
 import datetime  # noqa
 
 import pyexcel
+
 from nose.tools import eq_, raises  # noqa
 
 

@@ -1,8 +1,8 @@
 import os
 
+import pyexcel
 from base import create_sample_file1
 
-import pyexcel
 from nose.tools import eq_
 
 

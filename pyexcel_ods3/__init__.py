@@ -7,15 +7,15 @@
     :copyright: (c) 2015-2017 by Onni Software Ltd & its contributors
     :license: New BSD License
 """
+
 # flake8: noqa
+from pyexcel_io.io import get_data as read_data
+from pyexcel_io.io import isstream
+from pyexcel_io.io import store_data as write_data
+
 # this line has to be place above all else
 # because of dynamic import
 from pyexcel_io.plugins import IOPluginInfoChain
-from pyexcel_io.io import (
-    get_data as read_data,
-    isstream,
-    store_data as write_data,
-)
 
 __FILE_TYPE__ = "ods"
 IOPluginInfoChain(__name__).add_a_reader(
