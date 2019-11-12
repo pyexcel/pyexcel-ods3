@@ -1,8 +1,8 @@
+name: pyexcel-ods3
+organisation: pyexcel
 releases:
 - changes:
   - action: added
-    details: []
-  - action: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     details:
     - '`pyexcel#pyexcel-io#57`, long type will not  be written in ods. please use
       string type. And if the integer is equal or  greater than 10 to the power of
