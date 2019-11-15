@@ -6,11 +6,8 @@ Change log
 
 **added**
 
-
-**^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^**
-
-#. `pyexcel#57 <https://github.com//pyexcel/issues/57>`_, long type will not be
-   written in ods. please use string type. And if the integer is equal or
+#. `pyexcel#57 <https://github.com/pyexcel/pyexcel/issues/57>`_, long type will
+   not be written in ods. please use string type. And if the integer is equal or
    greater than 10 to the power of 16, it will not be written either in ods. In
    both situation, IntegerPrecisionLossError will be raised.
 
@@ -19,8 +16,8 @@ Change log
 
 **updated**
 
-#. pyexcel `pyexcel#105 <https://github.com//pyexcel/issues/105>`_, remove gease
-   from setup_requires, introduced by 0.5.1.
+#. pyexcel `pyexcel#105 <https://github.com/pyexcel/pyexcel/issues/105>`_,
+   remove gease from setup_requires, introduced by 0.5.1.
 #. remove python2.6 test support
 #. update its dependecy on pyexcel-io to 0.5.3
 
@@ -29,8 +26,9 @@ Change log
 
 **added**
 
-#. `pyexcel#103 <https://github.com//pyexcel/issues/103>`_, include LICENSE file
-   in MANIFEST.in, meaning LICENSE file will appear in the released tar ball.
+#. `pyexcel#103 <https://github.com/pyexcel/pyexcel/issues/103>`_, include
+   LICENSE file in MANIFEST.in, meaning LICENSE file will appear in the released
+   tar ball.
 
 0.5.0 - 30.08.2017
 --------------------------------------------------------------------------------
@@ -58,7 +56,8 @@ Change log
 
 **Updated**
 
-#. `pyexcel#14 <https://github.com//pyexcel/issues/14>`_, close file handle
+#. `pyexcel#14 <https://github.com/pyexcel/pyexcel/issues/14>`_, close file
+   handle
 #. pyexcel-io plugin interface now updated to use `lml
    <https://github.com/chfw/lml>`_.
 
@@ -67,8 +66,8 @@ Change log
 
 **Updated**
 
-#. issue `pyexcel#8 <https://github.com//pyexcel/issues/8>`_, PT288H00M00S is
-   valid duration
+#. issue `pyexcel#8 <https://github.com/pyexcel/pyexcel/issues/8>`_,
+   PT288H00M00S is valid duration
 
 0.3.1 - 02.02.2017
 --------------------------------------------------------------------------------
@@ -89,8 +88,8 @@ Change log
 
 **Updated**
 
-#. `pyexcel#11 <https://github.com//pyexcel/issues/11>`_, be able to consume a
-   generator of two dimensional arrays.
+#. `pyexcel#11 <https://github.com/pyexcel/pyexcel/issues/11>`_, be able to
+   consume a generator of two dimensional arrays.
 
 0.2.1 - 31.08.2016
 --------------------------------------------------------------------------------
