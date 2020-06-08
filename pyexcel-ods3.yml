@@ -5,6 +5,7 @@ version: 0.5.3
 current_version: 0.5.3
 release: 0.5.3
 file_type: ods
+is_on_conda: true
 dependencies:
   - pyexcel-io>=0.5.10
   - lxml
