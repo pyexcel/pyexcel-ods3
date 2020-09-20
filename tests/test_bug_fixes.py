@@ -2,9 +2,9 @@
 # -*- encoding: utf-8 -*-
 import os
 
+import psutil
 import pyexcel as pe
 
-import psutil
 from nose import SkipTest
 from nose.tools import eq_, raises
 from pyexcel_io.exceptions import IntegerAccuracyLossError
