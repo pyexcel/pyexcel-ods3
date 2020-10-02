@@ -4,11 +4,9 @@ language: python
 notifications:
   email: false
 python:
-  - 3.7-dev
+  - 3.8
+  - 3.7
   - 3.6
-  - 3.5
-  - 3.4
-  - 2.7
 
 stages:
   - lint
@@ -43,8 +41,6 @@ jobs:
 stage: test
 
 before_install:
-  - if [[ $TRAVIS_PYTHON_VERSION == "2.6" ]]; then pip install ordereddict; fi
-  - if [[ $TRAVIS_PYTHON_VERSION == "2.6" ]]; then pip install weakrefset; fi
   - if [[ -f min_requirements.txt && "$MINREQ" -eq 1 ]]; then
       mv min_requirements.txt requirements.txt ;
     fi

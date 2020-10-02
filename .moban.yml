@@ -8,3 +8,4 @@ targets:
   - .travis.yml: custom_travis.yml.jj2
   - MANIFEST.in: MANIFEST.in.jj2
   - "tests/requirements.txt": "tests/requirements.txt"
+  - .gitignore: commons-gitignore.jj2

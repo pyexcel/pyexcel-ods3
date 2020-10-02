@@ -32,7 +32,7 @@ except (ValueError, UnicodeError, locale.Error):
 
 NAME = "pyexcel-ods3"
 AUTHOR = "chfw"
-VERSION = "0.5.3"
+VERSION = "0.6.0"
 EMAIL = "info@pyexcel.org"
 LICENSE = "New BSD"
 DESCRIPTION = (

@@ -1,10 +1,11 @@
 
+
 4 contributors
 ================================================================================
 
 In alphabetical order:
 
-* `Benedikt Waldvogel <https://api.github.com/users/bwaldvogel>`_
-* `Mateusz Konieczny <https://api.github.com/users/matkoniecz>`_
-* `Michael K. <https://api.github.com/users/michael-k>`_
-* `Stephen J. Fuhry <https://api.github.com/users/fuhrysteve>`_
+* `Benedikt Waldvogel <https://github.com/bwaldvogel>`_
+* `Mateusz Konieczny <https://github.com/matkoniecz>`_
+* `Michael K. <https://github.com/michael-k>`_
+* `Stephen J. Fuhry <https://github.com/fuhrysteve>`_
