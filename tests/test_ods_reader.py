@@ -23,8 +23,7 @@ class TestODSWriter(ODSCellTypes):
         )
         self.data1 = r.read_all()
         self.testfile = "odswriter.ods"
-        w = ODSWriter()
-        w.open(self.testfile)
+        w = ODSWriter(self.testfile, 'ods')
         w.write(self.data1)
         w.close()
         r2 = ODSBook(self.testfile, 'ods')

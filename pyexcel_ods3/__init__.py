@@ -18,20 +18,20 @@ from pyexcel_io.io import store_data as write_data
 from pyexcel_io.plugins import IOPluginInfoChain, IOPluginInfoChainV2
 
 __FILE_TYPE__ = "ods"
-IOPluginInfoChain(__name__).add_a_writer(
-    relative_plugin_class_path="odsw.ODSWriter",
-    file_types=[__FILE_TYPE__],
-    stream_type="binary",
-)
 IOPluginInfoChainV2(__name__).add_a_reader(
     relative_plugin_class_path="odsr.ODSBook",
     locations=["file", "memory"],
-    file_types=[__FILE_TYPE__, 'fods'],
+    file_types=[__FILE_TYPE__],
     stream_type="binary",
 ).add_a_reader(
     relative_plugin_class_path="odsr.ODSBookInContent",
     locations=["content"],
-    file_types=[__FILE_TYPE__, 'fods'],
+    file_types=[__FILE_TYPE__],
+    stream_type="binary",
+).add_a_writer(
+    relative_plugin_class_path="odsw.ODSWriter",
+    locations=["file", "memory"],
+    file_types=[__FILE_TYPE__],
     stream_type="binary",
 )
 

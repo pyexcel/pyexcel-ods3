@@ -13,8 +13,7 @@ class TestNativeODSWriter:
             "Sheet3": [[u"X", u"Y", u"Z"], [1, 4, 7], [2, 5, 8], [3, 6, 9]],
         }
         self.testfile = "writer.ods"
-        writer = Writer()
-        writer.open(self.testfile)
+        writer = Writer(self.testfile, 'ods')
         writer.write(self.content)
         writer.close()
         reader = Reader(self.testfile, 'ods')

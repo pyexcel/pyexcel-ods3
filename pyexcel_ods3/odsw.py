@@ -11,22 +11,22 @@ import types
 
 import ezodf
 import pyexcel_io.service as service
-from pyexcel_io.book import BookWriter
-from pyexcel_io.sheet import SheetWriter
 from pyexcel_io.constants import MAX_INTEGER
 from pyexcel_io.exceptions import IntegerAccuracyLossError
+from pyexcel_io.plugin_api.abstract_writer import IWriter
+from pyexcel_io.plugin_api.abstract_sheet import ISheetWriter
 
 
-class ODSSheetWriter(SheetWriter):
+class ODSSheetWriter(ISheetWriter):
     """
     ODS sheet writer
     """
-
-    def set_sheet_name(self, name):
-        self._native_sheet = ezodf.Sheet(name)
+    def __init__(self, ods_book, ods_sheet, sheet_name, **keywords):
+        self._native_book = ods_book
+        self._native_sheet = ezodf.Sheet(sheet_name)
         self.current_row = 0
 
-    def set_size(self, size):
+    def _set_size(self, size):
         self._native_sheet.reset(size=size)
 
     def write_row(self, array):
@@ -61,7 +61,7 @@ class ODSSheetWriter(SheetWriter):
         if rows < 1:
             return
         columns = max([len(row) for row in to_write_data])
-        self.set_size((rows, columns))
+        self._set_size((rows, columns))
         for row in to_write_data:
             self.write_row(row)
 
@@ -73,25 +73,19 @@ class ODSSheetWriter(SheetWriter):
         self._native_book.sheets += self._native_sheet
 
 
-class ODSWriter(BookWriter):
+class ODSWriter(IWriter):
     """
     open document spreadsheet writer
 
     """
 
-    def __init__(self):
-        BookWriter.__init__(self)
-        self._native_book = None
-
-    def open(self, file_name, **keywords):
+    def __init__(self, file_alike_object, file_type, skip_backup=True, **keywords):
         """open a file for writing ods"""
-        BookWriter.open(self, file_name, **keywords)
         self._native_book = ezodf.newdoc(
-            doctype="ods", filename=self._file_alike_object
+            doctype=file_type, filename=file_alike_object
         )
 
-        skip_backup_flag = self._keywords.get("skip_backup", True)
-        if skip_backup_flag:
+        if skip_backup:
             self._native_book.backup = False
 
     def create_sheet(self, name):
