@@ -13,14 +13,15 @@ import ezodf
 import pyexcel_io.service as service
 from pyexcel_io.constants import MAX_INTEGER
 from pyexcel_io.exceptions import IntegerAccuracyLossError
-from pyexcel_io.plugin_api.abstract_writer import IWriter
 from pyexcel_io.plugin_api.abstract_sheet import ISheetWriter
+from pyexcel_io.plugin_api.abstract_writer import IWriter
 
 
 class ODSSheetWriter(ISheetWriter):
     """
     ODS sheet writer
     """
+
     def __init__(self, ods_book, ods_sheet, sheet_name, **keywords):
         self._native_book = ods_book
         self._native_sheet = ezodf.Sheet(sheet_name)
@@ -79,7 +80,9 @@ class ODSWriter(IWriter):
 
     """
 
-    def __init__(self, file_alike_object, file_type, skip_backup=True, **keywords):
+    def __init__(
+        self, file_alike_object, file_type, skip_backup=True, **keywords
+    ):
         """open a file for writing ods"""
         self._native_book = ezodf.newdoc(
             doctype=file_type, filename=file_alike_object
