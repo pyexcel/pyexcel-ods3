@@ -10,7 +10,6 @@
 import types
 
 import ezodf
-
 import pyexcel_io.service as service
 from pyexcel_io.book import BookWriter
 from pyexcel_io.sheet import SheetWriter
