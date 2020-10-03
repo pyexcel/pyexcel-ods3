@@ -4,10 +4,10 @@ import os
 
 import psutil
 import pyexcel as pe
+from pyexcel_io.exceptions import IntegerAccuracyLossError
 
 from nose import SkipTest
 from nose.tools import eq_, raises
-from pyexcel_io.exceptions import IntegerAccuracyLossError
 
 IN_TRAVIS = "TRAVIS" in os.environ
 
