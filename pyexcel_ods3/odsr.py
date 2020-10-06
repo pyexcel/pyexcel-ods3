@@ -11,17 +11,15 @@ from io import BytesIO
 
 import ezodf
 import pyexcel_io.service as service
-from pyexcel_io.plugin_api.abstract_sheet import ISheet
-from pyexcel_io.plugin_api.abstract_reader import IReader
+from pyexcel_io.plugin_api import ISheet, IReader, NamedContent
 
 
 class ODSSheet(ISheet):
     """ODS sheet representation"""
 
-    def __init__(self, sheet, auto_detect_int=True, **keywords):
+    def __init__(self, sheet, auto_detect_int=True):
         self.auto_detect_int = auto_detect_int
         self._native_sheet = sheet
-        self._keywords = keywords
 
     @property
     def name(self):
@@ -70,11 +68,12 @@ class ODSBook(IReader):
         self._native_book = ezodf.opendoc(file_alike_object)
         self._keywords = keywords
         self.content_array = [
-            NameObject(sheet.name, sheet) for sheet in self._native_book.sheets
+            NameContent(sheet.name, sheet)
+            for sheet in self._native_book.sheets
         ]
 
     def read_sheet(self, native_sheet_index):
-        native_sheet = self.content_array[native_sheet_index].sheet
+        native_sheet = self.content_array[native_sheet_index].payload
         sheet = ODSSheet(native_sheet, **self._keywords)
         return sheet
 
@@ -90,9 +89,3 @@ class ODSBookInContent(ODSBook):
     def __init__(self, file_content, file_type, **keywords):
         io = BytesIO(file_content)
         super().__init__(io, file_type, **keywords)
-
-
-class NameObject(object):
-    def __init__(self, name, sheet):
-        self.name = name
-        self.sheet = sheet

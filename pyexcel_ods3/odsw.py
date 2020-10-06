@@ -4,7 +4,7 @@
 
     ods writer using ezodf
 
-    :copyright: (c)  2015-2017 by Onni Software Ltd. & its contributors
+    :copyright: (c)  2015-2020 by Onni Software Ltd. & its contributors
     :license: New BSD License
 """
 import types
@@ -13,8 +13,7 @@ import ezodf
 import pyexcel_io.service as service
 from pyexcel_io.constants import MAX_INTEGER
 from pyexcel_io.exceptions import IntegerAccuracyLossError
-from pyexcel_io.plugin_api.abstract_sheet import ISheetWriter
-from pyexcel_io.plugin_api.abstract_writer import IWriter
+from pyexcel_io.plugin_api import IWriter, ISheetWriter
 
 
 class ODSSheetWriter(ISheetWriter):
