@@ -4,7 +4,7 @@
 
     ods writer using ezodf
 
-    :copyright: (c)  2015-2017 by Onni Software Ltd. & its contributors
+    :copyright: (c)  2015-2020 by Onni Software Ltd. & its contributors
     :license: New BSD License
 """
 import types
@@ -13,8 +13,7 @@ import ezodf
 import pyexcel_io.service as service
 from pyexcel_io.constants import MAX_INTEGER
 from pyexcel_io.exceptions import IntegerAccuracyLossError
-from pyexcel_io.plugin_api.abstract_sheet import ISheetWriter
-from pyexcel_io.plugin_api.abstract_writer import IWriter
+from pyexcel_io.plugin_api import IWriter, ISheetWriter
 
 
 class ODSSheetWriter(ISheetWriter):
@@ -23,12 +22,12 @@ class ODSSheetWriter(ISheetWriter):
     """
 
     def __init__(self, ods_book, ods_sheet, sheet_name, **keywords):
-        self._native_book = ods_book
-        self._native_sheet = ezodf.Sheet(sheet_name)
+        self.ods_book = ods_book
+        self.ods_sheet = ezodf.Sheet(sheet_name)
         self.current_row = 0
 
     def _set_size(self, size):
-        self._native_sheet.reset(size=size)
+        self.ods_sheet.reset(size=size)
 
     def write_row(self, array):
         """
@@ -48,7 +47,7 @@ class ODSSheetWriter(ISheetWriter):
             elif value_type == "float":
                 if cell > MAX_INTEGER:
                     raise IntegerAccuracyLossError("%s is too big" % cell)
-            self._native_sheet[self.current_row, count].set_value(
+            self.ods_sheet[self.current_row, count].set_value(
                 cell, value_type=value_type
             )
             count += 1
@@ -71,7 +70,7 @@ class ODSSheetWriter(ISheetWriter):
         This call writes file
 
         """
-        self._native_book.sheets += self._native_sheet
+        self.ods_book.sheets += self.ods_sheet
 
 
 class ODSWriter(IWriter):
@@ -84,23 +83,23 @@ class ODSWriter(IWriter):
         self, file_alike_object, file_type, skip_backup=True, **keywords
     ):
         """open a file for writing ods"""
-        self._native_book = ezodf.newdoc(
+        self.ods_book = ezodf.newdoc(
             doctype=file_type, filename=file_alike_object
         )
 
         if skip_backup:
-            self._native_book.backup = False
+            self.ods_book.backup = False
 
     def create_sheet(self, name):
         """
         write a row into the file
         """
-        return ODSSheetWriter(self._native_book, None, name)
+        return ODSSheetWriter(self.ods_book, None, name)
 
     def close(self):
         """
         This call writes file
 
         """
-        self._native_book.save()
-        self._native_book = None
+        self.ods_book.save()
+        self.ods_book = None

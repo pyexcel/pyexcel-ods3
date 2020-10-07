@@ -11,37 +11,35 @@ from io import BytesIO
 
 import ezodf
 import pyexcel_io.service as service
-from pyexcel_io.plugin_api.abstract_sheet import ISheet
-from pyexcel_io.plugin_api.abstract_reader import IReader
+from pyexcel_io.plugin_api import ISheet, IReader, NamedContent
 
 
 class ODSSheet(ISheet):
     """ODS sheet representation"""
 
-    def __init__(self, sheet, auto_detect_int=True, **keywords):
+    def __init__(self, sheet, auto_detect_int=True):
         self.auto_detect_int = auto_detect_int
-        self._native_sheet = sheet
-        self._keywords = keywords
+        self.ods_sheet = sheet
 
     @property
     def name(self):
-        return self._native_sheet.name
+        return self.ods_sheet.name
 
     def row_iterator(self):
         """
         Number of rows in the xls sheet
         """
-        return range(self._native_sheet.nrows())
+        return range(self.ods_sheet.nrows())
 
     def column_iterator(self, row):
         """
         Number of columns in the xls sheet
         """
-        for column in range(self._native_sheet.ncols()):
+        for column in range(self.ods_sheet.ncols()):
             yield self.cell_value(row, column)
 
     def cell_value(self, row, column):
-        cell = self._native_sheet.get_cell((row, column))
+        cell = self.ods_sheet.get_cell((row, column))
         cell_type = cell.value_type
         ret = None
         if cell_type == "currency":
@@ -67,19 +65,19 @@ class ODSSheet(ISheet):
 
 class ODSBook(IReader):
     def __init__(self, file_alike_object, file_type, **keywords):
-        self._native_book = ezodf.opendoc(file_alike_object)
+        self.ods_book = ezodf.opendoc(file_alike_object)
         self._keywords = keywords
         self.content_array = [
-            NameObject(sheet.name, sheet) for sheet in self._native_book.sheets
+            NamedContent(sheet.name, sheet) for sheet in self.ods_book.sheets
         ]
 
     def read_sheet(self, native_sheet_index):
-        native_sheet = self.content_array[native_sheet_index].sheet
+        native_sheet = self.content_array[native_sheet_index].payload
         sheet = ODSSheet(native_sheet, **self._keywords)
         return sheet
 
     def close(self):
-        self._native_book = None
+        self.ods_book = None
 
 
 class ODSBookInContent(ODSBook):
@@ -90,9 +88,3 @@ class ODSBookInContent(ODSBook):
     def __init__(self, file_content, file_type, **keywords):
         io = BytesIO(file_content)
         super().__init__(io, file_type, **keywords)
-
-
-class NameObject(object):
-    def __init__(self, name, sheet):
-        self.name = name
-        self.sheet = sheet
