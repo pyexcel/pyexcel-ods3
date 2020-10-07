@@ -16,3 +16,4 @@ test_dependencies:
   - pyexcel-xls
 description: |
   A wrapper library to read, manipulate and write data in ods format
+moban_command: false
