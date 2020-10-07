@@ -20,6 +20,7 @@ class TestODSWriter(ODSCellTypes):
         r = Reader("ods")
         r.open(
             os.path.join("tests", "fixtures", "ods_formats.ods"),
+            "ods",
             skip_empty_rows=True,
         )
         self.data1 = r.read_all()
@@ -30,6 +31,7 @@ class TestODSWriter(ODSCellTypes):
         w.close()
         r.open(self.testfile)
         self.data = r.read_all()
+
         for key in self.data.keys():
             self.data[key] = list(self.data[key])
         r.close()

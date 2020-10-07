@@ -13,7 +13,12 @@ import ezodf
 import pyexcel_io.service as service
 from pyexcel_io.constants import MAX_INTEGER
 from pyexcel_io.exceptions import IntegerAccuracyLossError
+<<<<<<< HEAD
 from pyexcel_io.plugin_api import IWriter, ISheetWriter
+=======
+from pyexcel_io.plugin_api.abstract_sheet import ISheetWriter
+from pyexcel_io.plugin_api.abstract_writer import IWriter
+>>>>>>> dev
 
 
 class ODSSheetWriter(ISheetWriter):
@@ -22,12 +27,21 @@ class ODSSheetWriter(ISheetWriter):
     """
 
     def __init__(self, ods_book, ods_sheet, sheet_name, **keywords):
+<<<<<<< HEAD
         self.ods_book = ods_book
         self.ods_sheet = ezodf.Sheet(sheet_name)
         self.current_row = 0
 
     def _set_size(self, size):
         self.ods_sheet.reset(size=size)
+=======
+        self._native_book = ods_book
+        self._native_sheet = ezodf.Sheet(sheet_name)
+        self.current_row = 0
+
+    def _set_size(self, size):
+        self._native_sheet.reset(size=size)
+>>>>>>> dev
 
     def write_row(self, array):
         """
@@ -83,12 +97,20 @@ class ODSWriter(IWriter):
         self, file_alike_object, file_type, skip_backup=True, **keywords
     ):
         """open a file for writing ods"""
+<<<<<<< HEAD
         self.ods_book = ezodf.newdoc(
+=======
+        self._native_book = ezodf.newdoc(
+>>>>>>> dev
             doctype=file_type, filename=file_alike_object
         )
 
         if skip_backup:
+<<<<<<< HEAD
             self.ods_book.backup = False
+=======
+            self._native_book.backup = False
+>>>>>>> dev
 
     def create_sheet(self, name):
         """
