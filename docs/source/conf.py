@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 DESCRIPTION = (
-    'A wrapper library to read, manipulate and write data in ods format
-' +
+    'A wrapper library to read, manipulate and write data in ods format' +
     ''
 )
 # Configuration file for the Sphinx documentation builder.

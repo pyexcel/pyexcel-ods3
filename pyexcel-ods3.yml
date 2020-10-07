@@ -15,5 +15,5 @@ test_dependencies:
   - psutil
   - pyexcel-xls
 moban_command: false
-description: |
+description: |-
   A wrapper library to read, manipulate and write data in ods format

@@ -36,7 +36,7 @@ VERSION = "0.6.0"
 EMAIL = "info@pyexcel.org"
 LICENSE = "New BSD"
 DESCRIPTION = (
-    "A wrapper library to read, manipulate and write data in ods format "
+    "A wrapper library to read, manipulate and write data in ods format"
 )
 URL = "https://github.com/pyexcel/pyexcel-ods3"
 DOWNLOAD_URL = "%s/archive/0.5.3.tar.gz" % URL
