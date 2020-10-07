@@ -80,7 +80,6 @@ class ODSBook(IReader):
         self.ods_book = None
 
 
-
 class ODSBookInContent(ODSBook):
     """
     Open xlsx as read only mode
