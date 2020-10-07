@@ -68,7 +68,7 @@ class ODSBook(IReader):
         self._native_book = ezodf.opendoc(file_alike_object)
         self._keywords = keywords
         self.content_array = [
-            NameContent(sheet.name, sheet)
+            NamedContent(sheet.name, sheet)
             for sheet in self._native_book.sheets
         ]
 
