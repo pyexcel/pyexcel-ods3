@@ -39,7 +39,7 @@ DESCRIPTION = (
     "A wrapper library to read, manipulate and write data in ods format"
 )
 URL = "https://github.com/pyexcel/pyexcel-ods3"
-DOWNLOAD_URL = "%s/archive/0.5.3.tar.gz" % URL
+DOWNLOAD_URL = "%s/archive/0.6.0.tar.gz" % URL
 FILES = ["README.rst", "CHANGELOG.rst"]
 KEYWORDS = [
     "python",
@@ -63,7 +63,7 @@ CLASSIFIERS = [
 
 
 INSTALL_REQUIRES = [
-    "pyexcel-io>=0.5.10",
+    "pyexcel-io>=0.6.2",
     "lxml",
     "pyexcel-ezodf>=0.3.3",
 ]
@@ -74,8 +74,8 @@ EXTRAS_REQUIRE = {
 }
 # You do not need to read beyond this line
 PUBLISH_COMMAND = "{0} setup.py sdist bdist_wheel upload -r pypi".format(sys.executable)
-GS_COMMAND = ("gs pyexcel-ods3 v0.5.3 " +
-              "Find 0.5.3 in changelog for more details")
+GS_COMMAND = ("gs pyexcel-ods3 v0.6.0 " +
+              "Find 0.6.0 in changelog for more details")
 NO_GS_MESSAGE = ("Automatic github release is disabled. " +
                  "Please install gease to enable it.")
 UPLOAD_FAILED_MSG = (

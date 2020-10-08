@@ -22,12 +22,12 @@ DESCRIPTION = (
 # -- Project information -----------------------------------------------------
 
 project = 'pyexcel-ods3'
-copyright = '2015-2019 Onni Software Ltd.'
+copyright = '2015-2020 Onni Software Ltd.'
 author = 'chfw'
 # The short X.Y version
 version = '0.6.0'
 # The full version, including alpha/beta/rc tags
-release = '0.5.3'
+release = '0.6.0'
 
 # -- General configuration ---------------------------------------------------
 
