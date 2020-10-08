@@ -4,41 +4,12 @@ import os
 
 import psutil
 import pyexcel as pe
+from pyexcel_io.exceptions import IntegerAccuracyLossError
 
 from nose import SkipTest
 from nose.tools import eq_, raises
-from pyexcel_io.exceptions import IntegerAccuracyLossError
 
 IN_TRAVIS = "TRAVIS" in os.environ
-
-
-@raises(Exception)
-def test_invalid_date():
-    from pyexcel_ods3.ods import date_value
-
-    value = "2015-08-"
-    date_value(value)
-
-
-@raises(Exception)
-def test_fake_date_time_10():
-    from pyexcel_ods3.ods import date_value
-
-    date_value("1234567890")
-
-
-@raises(Exception)
-def test_fake_date_time_19():
-    from pyexcel_ods3.ods import date_value
-
-    date_value("1234567890123456789")
-
-
-@raises(Exception)
-def test_fake_date_time_20():
-    from pyexcel_ods3.ods import date_value
-
-    date_value("12345678901234567890")
 
 
 def test_issue_10():

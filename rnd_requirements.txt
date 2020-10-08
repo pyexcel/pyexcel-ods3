@@ -1,2 +1,0 @@
-https://github.com/pyexcel/pyexcel-ezodf/archive/master.zip
-https://github.com/pyexcel/pyexcel-io/archive/v0.5.10.zip

@@ -4,6 +4,12 @@ releases:
 - changes:
   - action: added
     details:
+    - 'new style reader and writer plugins. works with pyexcel-io v0.6.2'
+  date: 8.10.2020
+  version: 0.6.0
+- changes:
+  - action: added
+    details:
     - '`pyexcel#pyexcel-io#57`, long type will not  be written in ods. please use
       string type. And if the integer is equal or  greater than 10 to the power of
       16, it will not be written either in ods. In  both situation, IntegerPrecisionLossError

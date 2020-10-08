@@ -3,16 +3,17 @@ name: "pyexcel-ods3"
 nick_name: ods3
 version: 0.6.0
 current_version: 0.6.0
-release: 0.5.3
+release: 0.6.0
 file_type: ods
 is_on_conda: true
 dependencies:
-  - pyexcel-io>=0.5.10
+  - pyexcel-io>=0.6.2
   - lxml
   - pyexcel-ezodf>=0.3.3
 test_dependencies:
   - pyexcel
   - psutil
   - pyexcel-xls
-description: |
+moban_command: false
+description: |-
   A wrapper library to read, manipulate and write data in ods format
