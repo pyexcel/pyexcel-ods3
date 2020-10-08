@@ -136,6 +136,6 @@ class ODSCellTypes:
         # Text
         eq_(self.data["Sheet1"][1][9], "abc")
 
-        @raises(IndexError)
-        def test_no_excessive_trailing_columns(self):
-            eq_(self.data["Sheet1"][2][6], "")
+    @raises(IndexError)
+    def test_no_excessive_trailing_columns(self):
+        eq_(self.data["Sheet1"][2][6], "")

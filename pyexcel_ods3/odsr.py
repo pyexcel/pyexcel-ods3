@@ -21,10 +21,6 @@ class ODSSheet(ISheet):
         self.auto_detect_int = auto_detect_int
         self.ods_sheet = sheet
 
-    @property
-    def name(self):
-        return self.ods_sheet.name
-
     def row_iterator(self):
         """
         Number of rows in the xls sheet
