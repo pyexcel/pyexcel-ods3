@@ -17,3 +17,5 @@ test_dependencies:
 moban_command: false
 description: |-
   A wrapper library to read, manipulate and write data in ods format
+python_requires: ">=3.6"
+min_python_version: "3.6"
