@@ -134,8 +134,8 @@ Here's the sample code:
     >>> from pyexcel_ods3 import get_data
     >>> data = get_data("your_file.ods")
     >>> import json
-    >>> print(json.dumps(data))
-    {"Sheet 1": [[1, 2, 3], [4, 5, 6]], "Sheet 2": [["row 1", "row 2", "row 3"]]}
+    >>> json.dumps(data, default=str)
+    {"Sheet 1": [[1, 2, 3], [4, 5, 6]], "Sheet 2": [["row 1", "row 2", "1931-05-35 13:45"]]}
 
 
 Write an ods to memory
@@ -173,8 +173,8 @@ Continue from previous example:
     >>> # In reality, you might deal with ods file upload
     >>> # where you will read from requests.FILES['YOUR_ODS_FILE']
     >>> data = get_data(io)
-    >>> print(json.dumps(data))
-    {"Sheet 1": [[1, 2, 3], [4, 5, 6]], "Sheet 2": [[7, 8, 9], [10, 11, 12]]}
+    >>> json.dumps(data, default=str)
+    '{"Sheet 1": [[1, 2, 3], [4, 5, 6]], "Sheet 2": [[7, 8, 9], [10, 11, 12], "Sheet 3": [[7, "1995-11-04 20:14:01"], [8, "1980-12-08 11:37:52"]]}'
 
 
 Pagination feature
@@ -210,7 +210,7 @@ And let's pretend to read partial data:
 .. code-block:: python
 
    >>> partial_data = get_data("huge_file.ods", start_row=2, row_limit=3)
-   >>> print(json.dumps(partial_data))
+   >>> json.dumps(partial_data, default=str)
    {"huge": [[3, 23, 33], [4, 24, 34], [5, 25, 35]]}
 
 And you could as well do the same for columns:
@@ -218,8 +218,8 @@ And you could as well do the same for columns:
 .. code-block:: python
 
    >>> partial_data = get_data("huge_file.ods", start_column=1, column_limit=2)
-   >>> print(json.dumps(partial_data))
-   {"huge": [[21, 31], [22, 32], [23, 33], [24, 34], [25, 35], [26, 36]]}
+   >>> json.dumps(partial_data, default=str)
+   '{"huge": [[21, 31], [22, 32], [23, 33], [24, 34], [25, 35], [26, 36]]}'
 
 Obvious, you could do both at the same time:
 
@@ -228,7 +228,7 @@ Obvious, you could do both at the same time:
    >>> partial_data = get_data("huge_file.ods",
    ...     start_row=2, row_limit=3,
    ...     start_column=1, column_limit=2)
-   >>> print(json.dumps(partial_data))
+   >>> json.dumps(partial_data, default=str)
    {"huge": [[23, 33], [24, 34], [25, 35]]}
 
 .. testcode::
