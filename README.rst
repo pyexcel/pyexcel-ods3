@@ -8,8 +8,8 @@ pyexcel-ods3 - Let you focus on data, instead of ods format
 .. image:: https://raw.githubusercontent.com/pyexcel/pyexcel-mobans/master/images/awesome-badge.svg
    :target: https://awesome-python.com/#specific-formats-processing
 
-.. image:: https://travis-ci.org/pyexcel/pyexcel-ods3.svg?branch=master
-   :target: http://travis-ci.org/pyexcel/pyexcel-ods3
+.. image:: https://github.com/pyexcel/pyexcel-ods3/workflows/run_tests/badge.svg
+   :target: http://github.com/pyexcel/pyexcel-ods3/actions
 
 .. image:: https://codecov.io/gh/pyexcel/pyexcel-ods3/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/pyexcel/pyexcel-ods3
@@ -21,7 +21,7 @@ pyexcel-ods3 - Let you focus on data, instead of ods format
    :target: https://anaconda.org/conda-forge/pyexcel-ods3
 
 .. image:: https://pepy.tech/badge/pyexcel-ods3/month
-   :target: https://pepy.tech/project/pyexcel-ods3/month
+   :target: https://pepy.tech/project/pyexcel-ods3
 
 .. image:: https://anaconda.org/conda-forge/pyexcel-ods3/badges/downloads.svg
    :target: https://anaconda.org/conda-forge/pyexcel-ods3
