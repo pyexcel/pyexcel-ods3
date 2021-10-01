@@ -45,8 +45,12 @@ class ODSSheetWriter(ISheetWriter):
                 cell = "PT%02dH%02dM%02dS" % (hours, minutes, seconds)
                 value_type = "time"
             if value_type == 'datetime':
-                cell = "%04d-%02d-%02dT%02d:%02d:%02d" % (cell.year, cell.month, cell.day,
-                                                          cell.hour, cell.minute, cell.second)
+                cell = "%04d-%02d-%02dT%02d:%02d:%02d" % (cell.year,
+                                                          cell.month,
+                                                          cell.day,
+                                                          cell.hour,
+                                                          cell.minute,
+                                                          cell.second)
                 value_type = "date"
             elif value_type == "float":
                 if cell > MAX_INTEGER:
