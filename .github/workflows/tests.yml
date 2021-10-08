@@ -9,6 +9,9 @@ jobs:
         matrix:
             python-version: [3.6, 3.7, 3.8, 3.9]
             os: [macOs-latest, ubuntu-latest, windows-latest]
+            exclude:
+              - os: macOs-latest
+                python-version: 3.6
 
     runs-on:  ${{ matrix.os }}
     name: run tests
@@ -20,8 +23,8 @@ jobs:
             python-version:  ${{ matrix.python-version }}
       - name: install
         run: |
-          pip install -r requirements.txt
-          pip install -r tests/requirements.txt
+          pip --use-deprecated=legacy-resolver install -r requirements.txt
+          pip --use-deprecated=legacy-resolver install -r tests/requirements.txt
       - name: test
         run: |
           pip freeze
