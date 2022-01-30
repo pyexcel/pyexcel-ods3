@@ -40,7 +40,7 @@ DESCRIPTION = (
 )
 URL = "https://github.com/pyexcel/pyexcel-ods3"
 DOWNLOAD_URL = "%s/archive/0.6.1.tar.gz" % URL
-FILES = ["README.rst", "CHANGELOG.rst"]
+FILES = ["README.rst", "CONTRIBUTORS.rst", "CHANGELOG.rst"]
 KEYWORDS = [
     "python",
     'ods'
@@ -58,6 +58,8 @@ CLASSIFIERS = [
     "Programming Language :: Python :: 3.6",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
+
+    'License :: OSI Approved :: BSD License',
 
 ]
 
