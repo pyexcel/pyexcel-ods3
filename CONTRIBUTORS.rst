@@ -1,6 +1,6 @@
 
 
-4 contributors
+5 contributors
 ================================================================================
 
 In alphabetical order:
@@ -9,3 +9,4 @@ In alphabetical order:
 * `Mateusz Konieczny <https://github.com/matkoniecz>`_
 * `Michael K. <https://github.com/michael-k>`_
 * `Stephen J. Fuhry <https://github.com/fuhrysteve>`_
+* `Vincent Raspal <https://github.com/vinraspa>`_

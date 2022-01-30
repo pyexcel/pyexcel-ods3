@@ -4,6 +4,12 @@ releases:
 - changes:
   - action: added
     details:
+    - '`#28`: support datetime'
+  date: 1.2.2022
+  version: 0.6.1
+- changes:
+  - action: added
+    details:
     - 'new style reader and writer plugins. works with pyexcel-io v0.6.2'
   date: 8.10.2020
   version: 0.6.0

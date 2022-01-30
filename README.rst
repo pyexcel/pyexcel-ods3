@@ -5,11 +5,11 @@ pyexcel-ods3 - Let you focus on data, instead of ods format
 .. image:: https://raw.githubusercontent.com/pyexcel/pyexcel.github.io/master/images/patreon.png
    :target: https://www.patreon.com/chfw
 
-.. image:: https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg
+.. image:: https://raw.githubusercontent.com/pyexcel/pyexcel-mobans/master/images/awesome-badge.svg
    :target: https://awesome-python.com/#specific-formats-processing
 
-.. image:: https://travis-ci.org/pyexcel/pyexcel-ods3.svg?branch=master
-   :target: http://travis-ci.org/pyexcel/pyexcel-ods3
+.. image:: https://github.com/pyexcel/pyexcel-ods3/workflows/run_tests/badge.svg
+   :target: http://github.com/pyexcel/pyexcel-ods3/actions
 
 .. image:: https://codecov.io/gh/pyexcel/pyexcel-ods3/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/pyexcel/pyexcel-ods3
@@ -21,7 +21,7 @@ pyexcel-ods3 - Let you focus on data, instead of ods format
    :target: https://anaconda.org/conda-forge/pyexcel-ods3
 
 .. image:: https://pepy.tech/badge/pyexcel-ods3/month
-   :target: https://pepy.tech/project/pyexcel-ods3/month
+   :target: https://pepy.tech/project/pyexcel-ods3
 
 .. image:: https://anaconda.org/conda-forge/pyexcel-ods3/badges/downloads.svg
    :target: https://anaconda.org/conda-forge/pyexcel-ods3
@@ -64,6 +64,8 @@ Known constraints
 ==================
 
 Fonts, colors and charts are not supported.
+
+Nor to read password protected xls, xlsx and ods files.
 
 Installation
 ================================================================================
@@ -346,7 +348,7 @@ Then install relevant development requirements:
 #. pip install -r tests/requirements.txt
 
 Once you have finished your changes, please provide test case(s), relevant documentation
-and update CHANGELOG.rst.
+and update changelog.yml
 
 .. note::
 
@@ -365,7 +367,7 @@ On Linux/Unix systems, please launch your tests like this::
 
     $ make
 
-On Windows systems, please issue this command::
+On Windows, please issue this command::
 
     > test.bat
 
@@ -377,7 +379,7 @@ Please run::
 
     $ make format
 
-so as to beautify your code otherwise travis-ci may fail your unit test.
+so as to beautify your code otherwise your build may fail your unit test.
 
 
 Installation Note
