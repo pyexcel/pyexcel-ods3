@@ -4,6 +4,8 @@ from base import PyexcelWriterBase, PyexcelHatWriterBase
 from pyexcel_ods3 import get_data
 from pyexcel_ods3.odsw import ODSWriter as Writer
 
+from nose.tools import eq_
+
 
 class TestNativeODSWriter:
     def test_write_book(self):
@@ -45,3 +47,20 @@ class TestodsHatWriter(PyexcelHatWriterBase):
     def tearDown(self):
         if os.path.exists(self.testfile):
             os.unlink(self.testfile)
+
+
+def test_pr_28():
+    from datetime import datetime
+
+    test_file = "pr28.ods"
+    test = {"shee1": [[datetime(2022, 1, 30, 15, 45, 45)]]}
+    writer = Writer(test_file, "ods")
+    writer.write(test)
+    writer.close()
+
+    content = get_data(test_file)
+    for key in content.keys():
+        content[key] = list(content[key])
+    eq_(content, {"shee1": [[datetime(2022, 1, 30, 15, 45, 45)]]})
+
+    os.unlink(test_file)

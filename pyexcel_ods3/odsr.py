@@ -4,7 +4,7 @@
 
     ods reader
 
-    :copyright: (c)  2015-2020 by Onni Software Ltd. & its contributors
+    :copyright: (c)  2015-2022 by Onni Software Ltd. & its contributors
     :license: New BSD License
 """
 from io import BytesIO
