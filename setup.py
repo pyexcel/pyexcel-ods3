@@ -32,14 +32,14 @@ except (ValueError, UnicodeError, locale.Error):
 
 NAME = "pyexcel-ods3"
 AUTHOR = "C.W."
-VERSION = "0.6.0"
+VERSION = "0.6.1"
 EMAIL = "info@pyexcel.org"
 LICENSE = "New BSD"
 DESCRIPTION = (
     "A wrapper library to read, manipulate and write data in ods format"
 )
 URL = "https://github.com/pyexcel/pyexcel-ods3"
-DOWNLOAD_URL = "%s/archive/0.6.0.tar.gz" % URL
+DOWNLOAD_URL = "%s/archive/0.6.1.tar.gz" % URL
 FILES = ["README.rst", "CHANGELOG.rst"]
 KEYWORDS = [
     "python",
@@ -77,8 +77,8 @@ EXTRAS_REQUIRE = {
 PUBLISH_COMMAND = "{0} setup.py sdist bdist_wheel upload -r pypi".format(sys.executable)
 HERE = os.path.abspath(os.path.dirname(__file__))
 
-GS_COMMAND = ("gease pyexcel-ods3 v0.6.0 " +
-              "Find 0.6.0 in changelog for more details")
+GS_COMMAND = ("gease pyexcel-ods3 v0.6.1 " +
+              "Find 0.6.1 in changelog for more details")
 NO_GS_MESSAGE = ("Automatic github release is disabled. " +
                  "Please install gease to enable it.")
 UPLOAD_FAILED_MSG = (
