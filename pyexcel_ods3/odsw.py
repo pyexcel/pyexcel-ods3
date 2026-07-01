@@ -103,7 +103,7 @@ class ODSWriter(IWriter):
 
     def create_sheet(self, name):
         """
-        write a row into the file
+        create a sheet writer
         """
         return ODSSheetWriter(self.ods_book, None, name)
 

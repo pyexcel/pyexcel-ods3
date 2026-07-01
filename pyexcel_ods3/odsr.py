@@ -24,13 +24,13 @@ class ODSSheet(ISheet):
 
     def row_iterator(self):
         """
-        Number of rows in the xls sheet
+        Iterate over rows in the ods sheet
         """
         return range(self.ods_sheet.nrows())
 
     def column_iterator(self, row):
         """
-        Number of columns in the xls sheet
+        Iterate over columns in the ods sheet
         """
         for column in range(self.ods_sheet.ncols()):
             yield self.cell_value(row, column)
@@ -82,7 +82,7 @@ class ODSBook(IReader):
 
 class ODSBookInContent(ODSBook):
     """
-    Open xlsx as read only mode
+    Open ods as read only mode
     """
 
     def __init__(self, file_content, file_type, **keywords):
