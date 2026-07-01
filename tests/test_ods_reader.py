@@ -6,7 +6,7 @@ from pyexcel_ods3.odsw import ODSWriter
 
 
 class TestODSReader(ODSCellTypes):
-    def setUp(self):
+    def setup_method(self):
         r = Reader("ods")
         r.open(os.path.join("tests", "fixtures", "ods_formats.ods"))
         self.data = r.read_all()
@@ -16,7 +16,7 @@ class TestODSReader(ODSCellTypes):
 
 
 class TestODSWriter(ODSCellTypes):
-    def setUp(self):
+    def setup_method(self):
         r = Reader("ods")
         r.open(
             os.path.join("tests", "fixtures", "ods_formats.ods"),
@@ -35,6 +35,6 @@ class TestODSWriter(ODSCellTypes):
             self.data[key] = list(self.data[key])
         r.close()
 
-    def tearDown(self):
+    def teardown_method(self):
         if os.path.exists(self.testfile):
             os.unlink(self.testfile)
