@@ -1,12 +1,13 @@
 """
-    pyexcel_ods3.odsr
-    ~~~~~~~~~~~~~~~~~~~
+pyexcel_ods3.odsr
+~~~~~~~~~~~~~~~~~~~
 
-    ods reader
+ods reader
 
-    :copyright: (c)  2015-2022 by Onni Software Ltd. & its contributors
-    :license: New BSD License
+:copyright: (c)  2015-2022 by Onni Software Ltd. & its contributors
+:license: New BSD License
 """
+
 from io import BytesIO
 
 import ezodf

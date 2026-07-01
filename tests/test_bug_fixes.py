@@ -1,9 +1,10 @@
 import os
 
 import psutil
-import pytest
 import pyexcel as pe
 from pyexcel_io.exceptions import IntegerAccuracyLossError
+
+import pytest
 
 IN_TRAVIS = "TRAVIS" in os.environ
 

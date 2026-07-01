@@ -1,12 +1,13 @@
 """
-    pyexcel_ods3.odsw
-    ~~~~~~~~~~~~~~~~~~~
+pyexcel_ods3.odsw
+~~~~~~~~~~~~~~~~~~~
 
-    ods writer using ezodf
+ods writer using ezodf
 
-    :copyright: (c)  2015-2022 by Onni Software Ltd. & its contributors
-    :license: New BSD License
+:copyright: (c)  2015-2022 by Onni Software Ltd. & its contributors
+:license: New BSD License
 """
+
 import types
 
 import ezodf

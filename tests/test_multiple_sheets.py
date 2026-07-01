@@ -2,8 +2,9 @@ import os
 from collections import OrderedDict
 
 import pyexcel
-import pytest
 from base import PyexcelMultipleSheetBase
+
+import pytest
 
 
 class TestOdsNxlsMultipleSheets(PyexcelMultipleSheetBase):
@@ -235,6 +236,6 @@ def _produce_ordered_dict():
     data_dict.update({"Sheet1": [[1, 1, 1, 1], [2, 2, 2, 2], [3, 3, 3, 3]]})
     data_dict.update({"Sheet2": [[4, 4, 4, 4], [5, 5, 5, 5], [6, 6, 6, 6]]})
     data_dict.update(
-        {"Sheet3": [[u"X", u"Y", u"Z"], [1, 4, 7], [2, 5, 8], [3, 6, 9]]}
+        {"Sheet3": [["X", "Y", "Z"], [1, 4, 7], [2, 5, 8], [3, 6, 9]]}
     )
     return data_dict
