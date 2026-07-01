@@ -1,4 +1,3 @@
-nose
 codecov
 coverage
 flake8
@@ -8,6 +7,7 @@ collective.checkdocs
 pygments
 moban
 moban_jinja2_github
+pytest
 pyexcel
 psutil
 pyexcel-xls

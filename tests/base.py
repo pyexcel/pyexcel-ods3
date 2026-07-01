@@ -3,7 +3,7 @@ import datetime  # noqa
 
 import pyexcel
 
-from nose.tools import eq_, raises  # noqa
+import pytest
 
 
 def create_sample_file1(file):
@@ -29,7 +29,7 @@ class PyexcelHatWriterBase:
     def test_series_table(self):
         pyexcel.save_as(adict=self.content, dest_file_name=self.testfile)
         r = pyexcel.get_sheet(file_name=self.testfile, name_columns_by_row=0)
-        eq_(r.dict, self.content)
+        assert r.dict == self.content
 
 
 class PyexcelWriterBase:
@@ -83,7 +83,7 @@ class PyexcelMultipleSheetBase:
         expected = [[4, 4, 4, 4], [5, 5, 5, 5], [6, 6, 6, 6]]
         assert data == expected
         data = list(b["Sheet3"].rows())
-        expected = [[u"X", u"Y", u"Z"], [1, 4, 7], [2, 5, 8], [3, 6, 9]]
+        expected = [["X", "Y", "Z"], [1, 4, 7], [2, 5, 8], [3, 6, 9]]
         assert data == expected
         sheet3 = b["Sheet3"]
         sheet3.name_columns_by_row(0)
@@ -96,46 +96,45 @@ class ODSCellTypes:
     def test_formats(self):
         # date formats
         date_format = "%d/%m/%Y"
-        eq_(self.data["Sheet1"][0][0], "Date")
-        eq_(self.data["Sheet1"][1][0].strftime(date_format), "11/11/2014")
-        eq_(self.data["Sheet1"][2][0].strftime(date_format), "01/01/2001")
-        eq_(self.data["Sheet1"][3][0], "")
+        assert self.data["Sheet1"][0][0] == "Date"
+        assert self.data["Sheet1"][1][0].strftime(date_format) == "11/11/2014"
+        assert self.data["Sheet1"][2][0].strftime(date_format) == "01/01/2001"
+        assert self.data["Sheet1"][3][0] == ""
         # time formats
         time_format = "%S:%M:%H"
-        eq_(self.data["Sheet1"][0][1], "Time")
-        eq_(self.data["Sheet1"][1][1].strftime(time_format), "12:12:11")
-        eq_(self.data["Sheet1"][2][1].strftime(time_format), "12:00:00")
-        eq_(self.data["Sheet1"][3][1], 0)
-        eq_(
-            self.data["Sheet1"][4][1],
-            datetime.timedelta(hours=27, minutes=17, seconds=54),
+        assert self.data["Sheet1"][0][1] == "Time"
+        assert self.data["Sheet1"][1][1].strftime(time_format) == "12:12:11"
+        assert self.data["Sheet1"][2][1].strftime(time_format) == "12:00:00"
+        assert self.data["Sheet1"][3][1] == 0
+        assert self.data["Sheet1"][4][1] == datetime.timedelta(
+            hours=27, minutes=17, seconds=54
         )
-        eq_(self.data["Sheet1"][5][1], "Other")
+        assert self.data["Sheet1"][5][1] == "Other"
         # boolean
-        eq_(self.data["Sheet1"][0][2], "Boolean")
-        eq_(self.data["Sheet1"][1][2], True)
-        eq_(self.data["Sheet1"][2][2], False)
+        assert self.data["Sheet1"][0][2] == "Boolean"
+        assert self.data["Sheet1"][1][2] is True
+        assert self.data["Sheet1"][2][2] is False
         # Float
-        eq_(self.data["Sheet1"][0][3], "Float")
-        eq_(self.data["Sheet1"][1][3], 11.11)
+        assert self.data["Sheet1"][0][3] == "Float"
+        assert self.data["Sheet1"][1][3] == 11.11
         # Currency
-        eq_(self.data["Sheet1"][0][4], "Currency")
-        eq_(self.data["Sheet1"][1][4], "1 GBP")
-        eq_(self.data["Sheet1"][2][4], "-10000 GBP")
+        assert self.data["Sheet1"][0][4] == "Currency"
+        assert self.data["Sheet1"][1][4] == "1 GBP"
+        assert self.data["Sheet1"][2][4] == "-10000 GBP"
         # Percentage
-        eq_(self.data["Sheet1"][0][5], "Percentage")
-        eq_(self.data["Sheet1"][1][5], 2)
+        assert self.data["Sheet1"][0][5] == "Percentage"
+        assert self.data["Sheet1"][1][5] == 2
         # int
-        eq_(self.data["Sheet1"][0][6], "Int")
-        eq_(self.data["Sheet1"][1][6], 3)
-        eq_(self.data["Sheet1"][4][6], 11)
+        assert self.data["Sheet1"][0][6] == "Int"
+        assert self.data["Sheet1"][1][6] == 3
+        assert self.data["Sheet1"][4][6] == 11
         # Scientifed not supported
-        eq_(self.data["Sheet1"][1][7], 100000)
+        assert self.data["Sheet1"][1][7] == 100000
         # Fraction
-        eq_(self.data["Sheet1"][1][8], 1.25)
+        assert self.data["Sheet1"][1][8] == 1.25
         # Text
-        eq_(self.data["Sheet1"][1][9], "abc")
+        assert self.data["Sheet1"][1][9] == "abc"
 
-    @raises(IndexError)
     def test_no_excessive_trailing_columns(self):
-        eq_(self.data["Sheet1"][2][6], "")
+        with pytest.raises(IndexError):
+            _ = self.data["Sheet1"][2][6]

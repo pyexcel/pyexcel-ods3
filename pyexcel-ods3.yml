@@ -11,9 +11,11 @@ dependencies:
   - lxml
   - pyexcel-ezodf>=0.3.3
 test_dependencies:
+  - pytest
   - pyexcel
   - psutil
   - pyexcel-xls
+use_pytest: true
 moban_command: false
 description: |-
   A wrapper library to read, manipulate and write data in ods format

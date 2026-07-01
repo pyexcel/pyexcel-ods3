@@ -4,8 +4,7 @@ import psutil
 import pyexcel as pe
 from pyexcel_io.exceptions import IntegerAccuracyLossError
 
-from nose import SkipTest
-from nose.tools import eq_, raises
+import pytest
 
 IN_TRAVIS = "TRAVIS" in os.environ
 
@@ -49,7 +48,7 @@ def test_issue_8():
 
     test_file = "12_day_as_time.ods"
     data = get_data(get_fixtures(test_file), skip_empty_rows=True)
-    eq_(data["Sheet1"][0][0].days, 12)
+    assert data["Sheet1"][0][0].days == 12
 
 
 def test_issue_83_ods_file_handle():
@@ -78,12 +77,12 @@ def test_issue_83_ods_file_handle():
     pe.free_resources()
     open_files_l4 = proc.open_files()
     # this confirms that no more open file handle
-    eq_(open_files_l1, open_files_l4)
+    assert open_files_l1 == open_files_l4
 
 
 def test_issue_23():
     if not IN_TRAVIS:
-        raise SkipTest()
+        pytest.skip()
     url = (
         "https://github.com/pyexcel/pyexcel-ods3/"
         + "raw/master/tests/fixtures/multilineods.ods"
@@ -97,16 +96,16 @@ def test_issue_30():
     sheet[0, 0] = 999999999999999
     sheet.save_as(test_file)
     sheet2 = pe.get_sheet(file_name=test_file)
-    eq_(sheet[0, 0], sheet2[0, 0])
+    assert sheet[0, 0] == sheet2[0, 0]
     os.unlink(test_file)
 
 
-@raises(IntegerAccuracyLossError)
 def test_issue_30_precision_loss():
     test_file = "issue_30_2.ods"
     sheet = pe.Sheet()
     sheet[0, 0] = 9999999999999999
-    sheet.save_as(test_file)
+    with pytest.raises(IntegerAccuracyLossError):
+        sheet.save_as(test_file)
 
 
 def test_issue_36():
@@ -114,9 +113,9 @@ def test_issue_36():
 
     test_file = "currency_without_currency.ods"
     data = get_data(get_fixtures(test_file))
-    eq_(data["Sheet1"][6][0], '1.75"')
-    eq_(data["Sheet1"][6][5], "95")
-    eq_(data["Sheet1"][6][6], 25)
+    assert data["Sheet1"][6][0] == '1.75"'
+    assert data["Sheet1"][6][5] == "95"
+    assert data["Sheet1"][6][6] == 25
 
 
 def get_fixtures(filename):
