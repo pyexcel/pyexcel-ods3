@@ -119,7 +119,7 @@ def test_issue_36():
 
 
 def test_issue_24_ghost_rows():
-    """Ghost rows caused by ODS styling 
+    """Ghost rows caused by ODS styling
     (number-rows-repeated) should be ignored."""
     from pyexcel_ods3 import get_data
 
@@ -128,7 +128,7 @@ def test_issue_24_ghost_rows():
 
 
 def test_issue_24_ghost_rows_and_cols():
-    """Ghost rows and columns caused by 
+    """Ghost rows and columns caused by
     whole-row/column ODS styling should be ignored."""
     from pyexcel_ods3 import get_data
 
