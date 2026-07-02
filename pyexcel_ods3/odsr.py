@@ -21,18 +21,51 @@ class ODSSheet(ISheet):
     def __init__(self, sheet, auto_detect_int=True):
         self.auto_detect_int = auto_detect_int
         self.ods_sheet = sheet
+        self._last_data_row = None  # lazily computed
+        self._last_data_col = None  # lazily computed
+
+    def _compute_data_bounds(self):
+        """
+        Scan all cells once to determine the last row and column that contain
+        actual data (i.e. cells with a non-None value).
+
+        ODS files produced by LibreOffice often contain rows whose
+        ``table:number-rows-repeated`` attribute carries a very large value
+        (e.g. 1 048 574) to apply formatting to the rest of the sheet.
+        ezodf collapses each such block into a single row/column entry that
+        still appears in ``nrows()`` / ``ncols()`` even though every cell is
+        empty (value == None).  We therefore find the true data extent so
+        that ghost rows and columns are silently ignored.
+
+        Cells whose value is ``None`` are artifacts of ODS formatting.
+        Cells whose value is ``""`` (empty string) are intentional user data
+        and are preserved.
+        """
+        nrows = self.ods_sheet.nrows()
+        ncols = self.ods_sheet.ncols()
+        last_data_row = -1
+        last_data_col = -1
+
+        for row in range(nrows):
+            for col in range(ncols):
+                if self.ods_sheet.get_cell((row, col)).value is not None:
+                    last_data_row = max(last_data_row, row)
+                    last_data_col = max(last_data_col, col)
+
+        self._last_data_row = last_data_row
+        self._last_data_col = last_data_col
 
     def row_iterator(self):
-        """
-        Iterate over rows in the ods sheet
-        """
-        return range(self.ods_sheet.nrows())
+        """Iterate over row indices, stopping after the last row with data."""
+        if self._last_data_row is None:
+            self._compute_data_bounds()
+        return range(self._last_data_row + 1)
 
     def column_iterator(self, row):
-        """
-        Iterate over columns in the ods sheet
-        """
-        for column in range(self.ods_sheet.ncols()):
+        """Yield cell values up to the last column that contains data in any row."""
+        if self._last_data_col is None:
+            self._compute_data_bounds()
+        for column in range(self._last_data_col + 1):
             yield self.cell_value(row, column)
 
     def cell_value(self, row, column):

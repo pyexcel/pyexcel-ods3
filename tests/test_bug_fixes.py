@@ -118,5 +118,27 @@ def test_issue_36():
     assert data["Sheet1"][6][6] == 25
 
 
+def test_issue_24_ghost_rows():
+    """Ghost rows caused by ODS styling (number-rows-repeated) should be ignored."""
+    from pyexcel_ods3 import get_data
+
+    data = get_data(get_fixtures("issue_24_ghost_rows.ods"))
+    assert data["Sheet1"] == [["A1", "B1"], ["A2", "B2"]]
+
+
+def test_issue_24_ghost_rows_and_cols():
+    """Ghost rows and columns caused by whole-row/column ODS styling should be ignored."""
+    from pyexcel_ods3 import get_data
+
+    data = get_data(get_fixtures("issue_24_ghost_rows_and_cols.ods"))
+    assert data["Sheet1"] == [["A1", "B1"], ["A2", "B2"]]
+
+    data_keep = get_data(
+        get_fixtures("issue_24_ghost_rows_and_cols.ods"),
+        keep_trailing_empty_cells=True,
+    )
+    assert data_keep["Sheet1"] == [["A1", "B1"], ["A2", "B2"]]
+
+
 def get_fixtures(filename):
     return os.path.join("tests", "fixtures", filename)
