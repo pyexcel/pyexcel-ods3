@@ -1,13 +1,6 @@
 
 
-6 contributors
-================================================================================
+No contributors yet
+=======================
 
-In alphabetical order:
-
-* `Benedikt Waldvogel <https://github.com/bwaldvogel>`_
-* `Mateusz Konieczny <https://github.com/matkoniecz>`_
-* `Michael K. <https://github.com/michael-k>`_
-* `Michael Leiseca <https://github.com/mleiseca>`_
-* `Stephen J. Fuhry <https://github.com/fuhrysteve>`_
-* `Vincent Raspal <https://github.com/vinraspa>`_
+* Your github link will be listed here after your PR is merged

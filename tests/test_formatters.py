@@ -12,24 +12,20 @@ class TestAutoDetectInt:
 
     def test_auto_detect_int(self):
         sheet = pe.get_sheet(file_name=self.test_file, library="pyexcel-ods3")
-        expected = dedent(
-            """
+        expected = dedent("""
         pyexcel_sheet1:
         +---+---+-----+
         | 1 | 2 | 3.1 |
-        +---+---+-----+"""
-        ).strip()
+        +---+---+-----+""").strip()
         assert str(sheet) == expected
 
     def test_get_book_auto_detect_int(self):
         book = pe.get_book(file_name=self.test_file, library="pyexcel-ods3")
-        expected = dedent(
-            """
+        expected = dedent("""
         pyexcel_sheet1:
         +---+---+-----+
         | 1 | 2 | 3.1 |
-        +---+---+-----+"""
-        ).strip()
+        +---+---+-----+""").strip()
         assert str(book) == expected
 
     def test_auto_detect_int_false(self):
@@ -38,13 +34,11 @@ class TestAutoDetectInt:
             auto_detect_int=False,
             library="pyexcel-ods3",
         )
-        expected = dedent(
-            """
+        expected = dedent("""
         pyexcel_sheet1:
         +-----+-----+-----+
         | 1.0 | 2.0 | 3.1 |
-        +-----+-----+-----+"""
-        ).strip()
+        +-----+-----+-----+""").strip()
         assert str(sheet) == expected
 
     def test_get_book_auto_detect_int_false(self):
@@ -53,13 +47,11 @@ class TestAutoDetectInt:
             auto_detect_int=False,
             library="pyexcel-ods3",
         )
-        expected = dedent(
-            """
+        expected = dedent("""
         pyexcel_sheet1:
         +-----+-----+-----+
         | 1.0 | 2.0 | 3.1 |
-        +-----+-----+-----+"""
-        ).strip()
+        +-----+-----+-----+""").strip()
         assert str(book) == expected
 
     def teardown_method(self):
