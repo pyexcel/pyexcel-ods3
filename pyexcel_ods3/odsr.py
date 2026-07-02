@@ -62,7 +62,8 @@ class ODSSheet(ISheet):
         return range(self._last_data_row + 1)
 
     def column_iterator(self, row):
-        """Yield cell values up to the last column that contains data in any row."""
+        """Yield cell values up to the last column 
+        that contains data in any row."""
         if self._last_data_col is None:
             self._compute_data_bounds()
         for column in range(self._last_data_col + 1):
