@@ -2,6 +2,14 @@ name: pyexcel-ods3
 organisation: pyexcel
 releases:
 - changes:
+  - action: updated
+    details:
+    - attach the sheet to the book before writing cells, so that saving a sheet
+      is linear instead of quadratic in the number of cells. Saving 100000 rows
+      x 4 columns drops from ~228s to ~5s.
+  date: unreleased
+  version: 0.6.3
+- changes:
   - action: added
     details:
     - '`#36`: fixing get_data for a currency cell with no currency defined'
