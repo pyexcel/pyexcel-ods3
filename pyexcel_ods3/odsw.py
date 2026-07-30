@@ -25,6 +25,11 @@ class ODSSheetWriter(ISheetWriter):
     def __init__(self, ods_book, ods_sheet, sheet_name, **keywords):
         self.ods_book = ods_book
         self.ods_sheet = ezodf.Sheet(sheet_name)
+        # Attach the sheet to the book while it is still empty. Appending
+        # a fully populated sheet would make lxml reconcile the namespace
+        # declarations of every cell at once, which scales quadratically
+        # with the number of cells.
+        self.ods_book.sheets += self.ods_sheet
         self.current_row = 0
 
     def _set_size(self, size):
@@ -81,7 +86,6 @@ class ODSSheetWriter(ISheetWriter):
         This call writes file
 
         """
-        self.ods_book.sheets += self.ods_sheet
 
 
 class ODSWriter(IWriter):
