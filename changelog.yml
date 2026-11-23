@@ -2,6 +2,12 @@ name: pyexcel-ods3
 organisation: pyexcel
 releases:
 - changes:
+  - action: fixed
+    details:
+    - '`#34`: write None as a blank cell and accept sheets of empty rows'
+  date: tbd
+  version: 0.6.3
+- changes:
   - action: added
     details:
     - '`#36`: fixing get_data for a currency cell with no currency defined'

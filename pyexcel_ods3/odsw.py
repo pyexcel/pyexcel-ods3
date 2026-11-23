@@ -34,8 +34,9 @@ class ODSSheetWriter(ISheetWriter):
         """
         write a row into the file
         """
-        count = 0
-        for cell in array:
+        for column, cell in enumerate(array):
+            if cell is None:
+                continue
             value_type = service.ODS_WRITE_FORMAT_COVERSION[type(cell)]
             if value_type == "time":
                 cell = cell.strftime("PT%HH%MM%SS")
@@ -58,10 +59,9 @@ class ODSSheetWriter(ISheetWriter):
             elif value_type == "float":
                 if cell > MAX_INTEGER:
                     raise IntegerAccuracyLossError("%s is too big" % cell)
-            self.ods_sheet[self.current_row, count].set_value(
+            self.ods_sheet[self.current_row, column].set_value(
                 cell, value_type=value_type
             )
-            count += 1
         self.current_row += 1
 
     def write_array(self, table):
@@ -71,8 +71,9 @@ class ODSSheetWriter(ISheetWriter):
         rows = len(to_write_data)
         if rows < 1:
             return
-        columns = max([len(row) for row in to_write_data])
-        self._set_size((rows, columns))
+        columns = max(len(row) for row in to_write_data)
+        # ezodf requires at least one column, even when every row is empty.
+        self._set_size((rows, max(1, columns)))
         for row in to_write_data:
             self.write_row(row)
 
