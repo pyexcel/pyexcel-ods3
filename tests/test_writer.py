@@ -1,8 +1,37 @@
 import os
+from io import BytesIO
 
+import ezodf
 from base import PyexcelWriterBase, PyexcelHatWriterBase
-from pyexcel_ods3 import get_data
+from pyexcel_ods3 import get_data, save_data
 from pyexcel_ods3.odsw import ODSWriter as Writer
+
+
+def test_write_blank_cells():
+    output = BytesIO()
+    save_data(output, {"Data": [[None, "", None, 0, False, "end", None]]})
+
+    sheet = ezodf.opendoc(BytesIO(output.getvalue())).sheets[0]
+    assert [(cell.value_type, cell.value) for cell in sheet.row(0)] == [
+        (None, None),
+        ("string", ""),
+        (None, None),
+        ("float", 0),
+        ("boolean", False),
+        ("string", "end"),
+        (None, None),
+    ]
+
+
+def test_write_empty_sheets():
+    output = BytesIO()
+    save_data(output, {"Empty": [], "Empty rows": [[], []], "Data": [[1]]})
+
+    assert get_data(BytesIO(output.getvalue())) == {
+        "Empty": [],
+        "Empty rows": [],
+        "Data": [[1]],
+    }
 
 
 class TestNativeODSWriter:
