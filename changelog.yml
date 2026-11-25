@@ -2,6 +2,12 @@ name: pyexcel-ods3
 organisation: pyexcel
 releases:
 - changes:
+  - action: updated
+    details:
+    - Accept single-pass table and row iterators when writing ODS sheets.
+  date: tbd
+  version: 0.6.3
+- changes:
   - action: added
     details:
     - '`#36`: fixing get_data for a currency cell with no currency defined'
