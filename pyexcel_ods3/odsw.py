@@ -8,7 +8,7 @@ ods writer using ezodf
 :license: New BSD License
 """
 
-import types
+from collections.abc import Sized
 
 import ezodf
 import pyexcel_io.service as service
@@ -65,9 +65,10 @@ class ODSSheetWriter(ISheetWriter):
         self.current_row += 1
 
     def write_array(self, table):
-        to_write_data = table
-        if isinstance(to_write_data, types.GeneratorType):
-            to_write_data = list(table)
+        # Size the sheet without exhausting rows that can only be read once.
+        to_write_data = [
+            row if isinstance(row, Sized) else list(row) for row in table
+        ]
         rows = len(to_write_data)
         if rows < 1:
             return
